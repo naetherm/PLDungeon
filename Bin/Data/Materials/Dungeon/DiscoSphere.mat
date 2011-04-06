@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<Material Version="1">
+    <Texture Name="EmissiveMap">Data\Textures\Dungeon\ILB_texPak01_floor001_emissive2.dds</Texture>
+    <Texture Name="ReflectionMap">Data\Textures\Dungeon\sharecg_GlassMosaicBlock_CubeMap.dds</Texture>
+    <Float3 Name="DiffuseColor">0.588000 0.588000 0.588000</Float3>
+    <Float Name="SpecularExponent">10.000000</Float>
+    <Float3 Name="SpecularColor">0.000000 0.000000 0.000000</Float3>
+</Material>

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<Material Version="1">
+    <Texture Name="DiffuseMap">Data\Textures\Dungeon\Grass01Irishlostboy_DiffuseMap.dds</Texture>
+    <Texture Name="SpecularMap">Data\Textures\Dungeon\Grass01Irishlostboy_SpecularMap.dds</Texture>
+    <Texture Name="NormalMap">Data\Textures\Dungeon\Grass01Irishlostboy_NormalMap_xGxR.dds</Texture>
+    <Float Name="TwoSided">1.0</Float>
+    <Float Name="SpecularExponent">10.000000</Float>
+    <Float3 Name="SpecularColor">0.000000 0.000000 0.000000</Float3>
+    <Float Name="IndexOfRefraction">1.500000</Float>
+</Material>

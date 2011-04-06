@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<Material Version="1">
+    <Float3 Name="DiffuseColor">0.588000 0.588000 0.588000</Float3>
+    <Float Name="SpecularExponent">10.000000</Float>
+    <Float3 Name="SpecularColor">0.000000 0.000000 0.000000</Float3>
+    <Float Name="IndexOfRefraction">1.500000</Float>
+</Material>

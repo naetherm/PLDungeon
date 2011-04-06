@@ -1,0 +1,49 @@
+<?xml version="1.0"?>
+<TextureAnimation Version="1">
+    <TextureFrames>
+        <Frame>Data/Textures/Caust/caust00.dds</Frame>
+        <Frame>Data/Textures/Caust/caust01.dds</Frame>
+        <Frame>Data/Textures/Caust/caust02.dds</Frame>
+        <Frame>Data/Textures/Caust/caust03.dds</Frame>
+        <Frame>Data/Textures/Caust/caust04.dds</Frame>
+        <Frame>Data/Textures/Caust/caust05.dds</Frame>
+        <Frame>Data/Textures/Caust/caust06.dds</Frame>
+        <Frame>Data/Textures/Caust/caust07.dds</Frame>
+        <Frame>Data/Textures/Caust/caust08.dds</Frame>
+        <Frame>Data/Textures/Caust/caust09.dds</Frame>
+        <Frame>Data/Textures/Caust/caust10.dds</Frame>
+        <Frame>Data/Textures/Caust/caust11.dds</Frame>
+        <Frame>Data/Textures/Caust/caust12.dds</Frame>
+        <Frame>Data/Textures/Caust/caust13.dds</Frame>
+        <Frame>Data/Textures/Caust/caust14.dds</Frame>
+        <Frame>Data/Textures/Caust/caust15.dds</Frame>
+        <Frame>Data/Textures/Caust/caust16.dds</Frame>
+        <Frame>Data/Textures/Caust/caust17.dds</Frame>
+        <Frame>Data/Textures/Caust/caust18.dds</Frame>
+        <Frame>Data/Textures/Caust/caust19.dds</Frame>
+        <Frame>Data/Textures/Caust/caust20.dds</Frame>
+        <Frame>Data/Textures/Caust/caust21.dds</Frame>
+        <Frame>Data/Textures/Caust/caust22.dds</Frame>
+        <Frame>Data/Textures/Caust/caust23.dds</Frame>
+        <Frame>Data/Textures/Caust/caust24.dds</Frame>
+        <Frame>Data/Textures/Caust/caust25.dds</Frame>
+        <Frame>Data/Textures/Caust/caust26.dds</Frame>
+        <Frame>Data/Textures/Caust/caust27.dds</Frame>
+        <Frame>Data/Textures/Caust/caust28.dds</Frame>
+        <Frame>Data/Textures/Caust/caust29.dds</Frame>
+        <Frame>Data/Textures/Caust/caust30.dds</Frame>
+        <Frame>Data/Textures/Caust/caust31.dds</Frame>
+    </TextureFrames>
+    <MatrixFrames>
+        <Frame Position="0.0 0.0 0.0" Scale="1.0 1.0 1.0" />
+        <Frame Position="0.2 0.2 0.0" Scale="1.1 0.9 1.0" />
+        <Frame Position="0.4 0.4 0.0" Scale="1.0 0.8 1.0" />
+        <Frame Position="0.6 0.6 0.0" Scale="1.2 1.0 1.0" />
+        <Frame Position="0.8 0.8 0.0" Scale="1.3 0.9 1.0" />
+        <Frame Position="1.0 1.0 0.0" Scale="1.0 1.0 1.0" />
+    </MatrixFrames>
+    <Animation Type="Texture" Name="Caust texture animation" Start="0" End="31" Speed="30" Loop="1" PingPong="0" />
+    <Animation Type="Matrix" Name="Caust matrix animation" Start="0" End="5" Speed="1" Loop="1" PingPong="0">
+        <Frame ID="5" Speed="0" />
+    </Animation>
+</TextureAnimation>

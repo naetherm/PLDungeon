@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<Material Version="1">
+    <Texture Name="DiffuseMap">Data\Textures\Dungeon\Texturebits_StoneGranite_DiffuseMap.dds</Texture>
+    <Texture Name="SpecularMap">Data\Textures\Dungeon\Texturebits_StoneGranite_SpecularMap.dds</Texture>
+    <Texture Name="NormalMap">Data\Textures\Dungeon\Texturebits_StoneGranite_NormalMap_xGxR.dds</Texture>
+    <Texture Name="ReflectionMap">Data\Textures\Dungeon\Doerholt_LakeRem_ReflectionMap.dds</Texture>
+    <Texture Name="HeightMap">Data\Textures\Dungeon\Texturebits_StoneGranite_HeightMap.dds</Texture>
+    <Float3 Name="DiffuseColor">0.650980 0.650980 0.650980</Float3>
+    <Float Name="SpecularExponent">39.999996</Float>
+    <Float3 Name="SpecularColor">0.920000 0.920000 0.920000</Float3>
+    <Float Name="IndexOfRefraction">1.630000</Float>
+</Material>

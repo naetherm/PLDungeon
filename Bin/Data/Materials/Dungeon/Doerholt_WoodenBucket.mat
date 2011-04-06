@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<Material Version="1">
+    <Texture Name="DiffuseMap">Data\Textures\Dungeon\Doerholt_WoodenBucket_DiffuseMap.dds</Texture>
+    <Texture Name="SpecularMap">Data\Textures\Dungeon\Doerholt_WoodenBucket_SpecularMap.dds</Texture>
+    <Texture Name="NormalMap">Data\Textures\Dungeon\Doerholt_WoodenBucket_NormalMap_xGxR.dds</Texture>
+    <Texture Name="ReflectionMap">Data\Textures\Dungeon\Doerholt_LakeRem_ReflectionMap.dds</Texture>
+    <Texture Name="ReflectivityMap">Data\Textures\Dungeon\Doerholt_WoodenBucket_ReflectivityMap.dds</Texture>
+    <Float Name="SpecularExponent">42.000000</Float>
+    <Float3 Name="SpecularColor">0.900000 0.900000 0.900000</Float3>
+</Material>

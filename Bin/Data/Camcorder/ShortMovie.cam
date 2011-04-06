@@ -1,0 +1,5 @@
+<?xml version="1.0" ?>
+<Camcorder Version="1" SceneContainer="Root.RootScene.Dungeon.Container.WineCellar" SceneNode="FreeCamera0">
+    <PositionKeys CoordinateSystem="Parent" FramesPerSecond="24">Data/Camcorder/ShortMovie_Position.chunk</PositionKeys>
+    <RotationKeys FramesPerSecond="24">Data/Camcorder/ShortMovie_Rotation.chunk</RotationKeys>
+</Camcorder>

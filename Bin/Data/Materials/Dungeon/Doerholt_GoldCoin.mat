@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<Material Version="1">
+    <Texture Name="DiffuseMap">Data\Textures\Dungeon\Doerholt_GoldCoin_DiffuseMap.dds</Texture>
+    <Texture Name="NormalMap">Data\Textures\Dungeon\Doerholt_GoldCoin_NormalMap_xGxR.dds</Texture>
+    <Texture Name="ReflectionMap">Data\Textures\Dungeon\Doerholt_LakeRem_ReflectionMap.dds</Texture>
+    <Float Name="SpecularExponent">39.000000</Float>
+    <Float3 Name="SpecularColor">0.910000 0.910000 0.910000</Float3>
+    <Float Name="IndexOfRefraction">1.500000</Float>
+</Material>

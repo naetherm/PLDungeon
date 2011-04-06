@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<TextureAnimation Version="1">
+    <TextureFrames>
+        <Frame>Data/Textures/Doerholt_Fire0.dds</Frame>
+        <Frame>Data/Textures/Doerholt_Fire1.dds</Frame>
+        <Frame>Data/Textures/Doerholt_Fire2.dds</Frame>
+        <Frame>Data/Textures/Doerholt_Fire3.dds</Frame>
+        <Frame>Data/Textures/Doerholt_Fire4.dds</Frame>
+        <Frame>Data/Textures/Doerholt_Fire5.dds</Frame>
+        <Frame>Data/Textures/Doerholt_Fire6.dds</Frame>
+        <Frame>Data/Textures/Doerholt_Fire7.dds</Frame>
+        <Frame>Data/Textures/Doerholt_Fire8.dds</Frame>
+        <Frame>Data/Textures/Doerholt_Fire9.dds</Frame>
+        <Frame>Data/Textures/Doerholt_Fire10.dds</Frame>
+        <Frame>Data/Textures/Doerholt_Fire11.dds</Frame>
+        <Frame>Data/Textures/Doerholt_Fire12.dds</Frame>
+        <Frame>Data/Textures/Doerholt_Fire13.dds</Frame>
+    </TextureFrames>
+    <Animation Type="Texture" Name="Fire texture animation" Start="0" End="13" Speed="25" Loop="1" />
+</TextureAnimation>

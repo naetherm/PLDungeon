@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<TextureAnimation Version="1">
+    <TextureFrames>
+        <Frame>Data/Textures/Ofenberg_CandleFlame0.dds</Frame>
+        <Frame>Data/Textures/Ofenberg_CandleFlame1.dds</Frame>
+        <Frame>Data/Textures/Ofenberg_CandleFlame2.dds</Frame>
+        <Frame>Data/Textures/Ofenberg_CandleFlame3.dds</Frame>
+        <Frame>Data/Textures/Ofenberg_CandleFlame4.dds</Frame>
+        <Frame>Data/Textures/Ofenberg_CandleFlame5.dds</Frame>
+        <Frame>Data/Textures/Ofenberg_CandleFlame6.dds</Frame>
+    </TextureFrames>
+    <Animation Type="Texture" Name="Candle fire texture animation" Start="0" End="6" Speed="25" Loop="1" PingPong="1" />
+</TextureAnimation>

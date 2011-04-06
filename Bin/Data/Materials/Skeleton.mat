@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<Material Version="1">
+    <Float3 Name="DiffuseColor">0.75 0.7 0.7</Float3>
+    <Float Name="TwoSided">1</Float>
+    <Float Name="SpecularExponent">60</Float>
+    <Float3 Name="SpecularColor">0.7 0.6 0.6</Float3>
+    <Texture Name="ReflectionMap">Data\Textures\Dungeon\Doerholt_LakeRem_ReflectionMap.dds</Texture>
+    <Float Name="IndexOfRefraction">0.5</Float>
+</Material>

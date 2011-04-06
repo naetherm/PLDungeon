@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<Material Version="1">
+    <Texture Name="DiffuseMap">Data\Textures\Dungeon\ILB_texPak01_decal002_diffuse.dds</Texture>
+    <Texture Name="SpecularMap">Data\Textures\Dungeon\ILB_texPak01_decal002_specular.dds</Texture>
+    <Texture Name="EmissiveMap">Data\Textures\Dungeon\ILB_texPak01_decal002_emissive.dds</Texture>
+    <Texture Name="NormalMap">Data\Textures\Dungeon\ILB_texPak01_decal002_normal_xGxR.dds</Texture>
+    <Texture Name="ReflectionMap">Data\Textures\Dungeon\Doerholt_LakeRem_ReflectionMap.dds</Texture>
+    <Float Name="SpecularExponent">35.000000</Float>
+    <Float3 Name="SpecularColor">0.890000 0.890000 0.890000</Float3>
+    <Float Name="IndexOfRefraction">1.500000</Float>
+</Material>

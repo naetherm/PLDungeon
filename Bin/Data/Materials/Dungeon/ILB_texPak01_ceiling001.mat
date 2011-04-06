@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<Material Version="1">
+    <Texture Name="DiffuseMap">Data\Textures\Dungeon\ILB_texPak01_ceiling001_diffuse.dds</Texture>
+    <Texture Name="SpecularMap">Data\Textures\Dungeon\ILB_texPak01_ceiling001_specular.dds</Texture>
+    <Texture Name="NormalMap">Data\Textures\Dungeon\ILB_texPak01_ceiling001_normal_xGxR.dds</Texture>
+    <Texture Name="HeightMap">Data\Textures\Dungeon\ILB_texPak01_ceiling001_height.dds</Texture>
+    <Float Name="SpecularExponent">21.000000</Float>
+    <Float3 Name="SpecularColor">0.660000 0.660000 0.660000</Float3>
+</Material>

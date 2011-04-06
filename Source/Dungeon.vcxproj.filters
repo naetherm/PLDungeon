@@ -1,0 +1,110 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{a816db37-d474-4b04-9ecc-c604acbbdf17}</UniqueIdentifier>
+      <Extensions>cpp;c;cxx;def;odl;idl;hpj;bat;asm</Extensions>
+    </Filter>
+    <Filter Include="Gui">
+      <UniqueIdentifier>{36aedf71-fd84-4ca5-ba3b-9379a6c12053}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="src\Application.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Camcorder.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Interaction.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Main.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\MakingOf.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\SNMPositionKeyframeRecord.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\SNMRotationKeyframeRecord.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Gui\IngameGui.cpp">
+      <Filter>Gui</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Gui\WindowBase.cpp">
+      <Filter>Gui</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Gui\WindowMenu.cpp">
+      <Filter>Gui</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Gui\WindowResolution.cpp">
+      <Filter>Gui</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Gui\WindowText.cpp">
+      <Filter>Gui</Filter>
+    </ClCompile>
+    <ClCompile Include="src\SNMLightRandomAnimation.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\SNMPositionRandomAnimation.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\DungeonConfigGroup.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="src\Application.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Camcorder.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Interaction.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\MakingOf.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\SNMPositionKeyframeRecord.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\SNMRotationKeyframeRecord.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Gui\IngameGui.h">
+      <Filter>Gui</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Gui\WindowBase.h">
+      <Filter>Gui</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Gui\WindowMenu.h">
+      <Filter>Gui</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Gui\WindowResolution.h">
+      <Filter>Gui</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Gui\WindowText.h">
+      <Filter>Gui</Filter>
+    </ClInclude>
+    <ClInclude Include="resource.h" />
+    <ClInclude Include="src\SNMLightRandomAnimation.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\SNMPositionRandomAnimation.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\DungeonConfigGroup.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="CMakeLists.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="Dungeon.rc" />
+  </ItemGroup>
+</Project>

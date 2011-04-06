@@ -1,0 +1,5 @@
+<?xml version="1.0"?>
+<Material Version="1">
+    <Texture Name="DiffuseMap">Data/Textures/Ofenberg_CandleFlame.tani</Texture>
+    <Effect>Data/Effects/Fire.plfx</Effect>
+</Material>

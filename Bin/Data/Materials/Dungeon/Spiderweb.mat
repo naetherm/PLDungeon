@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<Material Version="1">
+    <Texture Name="DiffuseMap">Data\Textures\Dungeon\Doerholt_Spiderweb_DiffuseMap.dds</Texture>
+    <Texture Name="ReflectionMap">Data\Textures\Dungeon\Doerholt_LakeRem_ReflectionMap.dds</Texture>
+    <Float Name="TwoSided">1.0</Float>
+    <Float3 Name="DiffuseColor">0.505882 0.505882 0.505882</Float3>
+    <Float Name="SpecularExponent">35.000000</Float>
+    <Float3 Name="SpecularColor">0.920000 0.920000 0.920000</Float3>
+    <Float Name="IndexOfRefraction">0.420000</Float>
+    <Float3 Name="fReflectionColor">0.660000 0.660000 0.660000</Float3>
+</Material>

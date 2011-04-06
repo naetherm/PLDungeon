@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<Material Version="1">
+    <Texture Name="SpecularMap">Data\Textures\Dungeon\Texturebits_ConcreteCement_SpecularMap.dds</Texture>
+    <Texture Name="NormalMap">Data\Textures\Dungeon\Ofenberg_PaperEmpty_NormalMap_xGxR.dds</Texture>
+    <Texture Name="ReflectionMap">Data\Textures\Dungeon\Doerholt_LakeRem_ReflectionMap.dds</Texture>
+    <Float3 Name="DiffuseColor">0.882353 0.835294 0.835294</Float3>
+    <Float Name="SpecularExponent">45.999996</Float>
+    <Float3 Name="SpecularColor">0.846000 0.846000 0.846000</Float3>
+    <Float Name="IndexOfRefraction">0.560000</Float>
+</Material>

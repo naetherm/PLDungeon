@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<Material Version="1">
+    <Texture Name="DiffuseMap">Data\Textures\Dungeon\Texturebits_MetalRusty_DiffuseMap.dds</Texture>
+    <Texture Name="SpecularMap">Data\Textures\Dungeon\Texturebits_MetalRusty_SpecularMap.dds</Texture>
+    <Texture Name="NormalMap">Data\Textures\Dungeon\Texturebits_MetalRusty_NormalMap_xGxR.dds</Texture>
+    <Texture Name="ReflectionMap">Data\Textures\Dungeon\Doerholt_LakeRem_ReflectionMap.dds</Texture>
+    <Texture Name="HeightMap">Data\Textures\Dungeon\Texturebits_MetalRusty_HeightMap.dds</Texture>
+    <Float Name="SpecularExponent">17.000000</Float>
+    <Float3 Name="SpecularColor">0.730000 0.730000 0.730000</Float3>
+    <Float Name="IndexOfRefraction">1.500000</Float>
+</Material>

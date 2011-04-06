@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<Material Version="1">
+    <Texture Name="EmissiveMap">Data\Textures\Dungeon\Ofenberg_PaperIgnore_EmissiveMap.dds</Texture>
+    <Texture Name="DiffuseMap">Data\Textures\Dungeon\Ofenberg_PaperEmpty_DiffuseMap.dds</Texture>
+    <Texture Name="SpecularMap">Data\Textures\Dungeon\Ofenberg_PaperEmpty_SpecularMap.dds</Texture>
+    <Texture Name="NormalMap">Data\Textures\Dungeon\Ofenberg_PaperEmpty_NormalMap_xGxR.dds</Texture>
+    <Float Name="TwoSided">1.0</Float>
+    <Float Name="SpecularExponent">28.000000</Float>
+    <Float3 Name="SpecularColor">0.880000 0.880000 0.880000</Float3>
+</Material>

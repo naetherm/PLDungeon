@@ -1,0 +1,38 @@
+<?xml Version="1.0"?>
+<XmlText Version="1">
+	<Section X="0" Y="0" Width="825" Height="570" BgColor="Black" Alpha="0.5">
+		<Section X="15" Y="15" Width="800" Height="540">
+				<Text Font="Data/Fonts/arial.ttf" Color="White" FontSize="5"><Text Font="Data/Fonts/arialbd.ttf" bgcolor="green" Color="white" FontSize="18">
+				== PixelLight dungeon demo 1.2 ==
+				</Text>
+				<Style Font="Data/Fonts/arialbd.ttf" Color="white" FontSize="16">
+				<br></br>
+				<List>
+					<ListElement>Look around:	Mouse, space mouse</ListElement>
+					<ListElement>Move around:	w/a/s/d, cursor keys or space mouse</ListElement>
+					<ListElement>Run:			Hold down shift</ListElement>
+					<ListElement>Sneak:			Hold down control</ListElement>
+					<ListElement>Jump:			Space</ListElement>
+					<ListElement>Pickup:		Hold down the third mouse button over an pickable object and move the mouse and/or mouse wheel</ListElement>
+					<ListElement>ESC:			Show/hide menu</ListElement>
+				</List> 
+				<br></br>		
+				Have fun and explore the dungeon
+				<br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br>== Attribution ==<br></br>
+				<List>
+					<ListElement>Imrod model by Dmitry Parkin: http://www.parkparkin.com</ListElement>
+					<ListElement>Thank's to Tim Bulck for the dancing skeleton</ListElement>
+					<ListElement>Textures from http://texturebits.blogspot.com/ and http://www.sharecg.com</ListElement>
+					<ListElement>Music from http://music.incompetech.com/</ListElement>
+					<ListElement>Sounds from http://www.freesound.org/</ListElement>
+				</List>
+				<br></br>				
+				</Style>
+			</Text>
+			<Text Font="Data/Fonts/arial.ttf" Color="White" FontSize="12">
+				Copyright 2011 by The PixelLight Team</Text>
+			<Text Font="Data/Fonts/arial.ttf" Color="White" FontSize="12">
+				Visit us at http://www.pixellight.org</Text>
+		</Section>
+	</Section>
+</XmlText>

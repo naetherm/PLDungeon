@@ -1,0 +1,170 @@
+#!/usr/bin/perl
+use File::Path;
+use Cwd;
+
+# Move into script-directory
+$dir=`dirname "$0"`;
+chomp($dir);
+chdir($dir);
+
+# Variables
+my $command;			# Maketool command
+my $baseDir = $dir;		# Base directory
+my $binDir;				# Bin directory
+my $buildDir;			# Build directory
+my $buildType;			# Build type ("Debug"/"Release")
+my $buildSystem;		# Build system
+my $buildArch;			# Build system architecture
+my $buildBitsize;		# Build system bitsize (32 or 64?)
+my $buildMobile;		# Build mobile version? ("1"/"0")
+my $buildToolchain;		# Toolchain (usually empty except for cross-compiling)
+my $buildNightly;		# Project nightly ("1"/"0")
+my $buildSuffix; 		# Project suffix
+my $buildSuffixSet; 	# Suffix set?
+my $buildSysLibs;		# Use system libraries ("1"/"0")?
+my $buildExternalURL;	# URL to externals repository ("" for default)
+my $buildExternalUser;	# Username for access to restricted externals
+my $buildExternalPass;	# Password for access to restricted externals
+my $buildMinimal;		# Build minimal projects ("1"/"0")?
+
+# Get system
+if ( ($^O eq "MSWin32") || ($^O eq "cygwin") ) {
+	# Windows
+	$buildSystem = "Windows";
+} elsif ($^O eq "linux") {
+	# Linux
+	$buildSystem = "Linux";
+} else {
+	# Unsupported OS
+	print("Unsupported OS detected: '$^O'. Sorry.");
+	exit;
+}
+
+# Get current directory
+$baseDir = &Cwd::cwd();
+
+sub Setup {
+	# Create build-directory
+	print("Creating build environment for '$buildType'\n");
+	if (! -d $buildDir) { mkdir($buildDir); }
+
+	# Print options
+	print("-- Directory    = '$buildDir'\n");
+	print("-- BuildType    = '$buildType'\n");
+	print("\n");
+
+	# Create output directory
+	print("Creating output directory '$binDir'\n");
+	if (! -d $binDir) { mkdir($binDir); }
+
+	# Call CMake
+	chdir($buildDir);
+	my $cmake = "cmake -G \"Unix Makefiles\" -DCMAKE_BUILD_TYPE=\"$buildType\" -DMAKETOOL_BINDIR=\"$binDir\"";
+	$cmake .= " ..";
+	print("Running CMake ...\n");
+	system($cmake);
+	chdir("..");
+	print("\n");
+}
+
+sub Build {
+	# Setup first
+	if (! -d $buildDir) { Setup(); }
+
+	# Run make
+	print("Building '$buildType'\n");
+	chdir($buildDir);
+	system("make");
+	chdir("..");
+	print("\n");
+}
+
+sub BuildDocs {
+	# Setup first
+	if (! -d $buildDir) { Setup(); }
+
+	# Run make Docs
+	print("Building Docs for '$buildType'\n");
+	chdir($buildDir);
+	system("make Docs");
+	chdir("..");
+	print("\n");
+}
+
+sub BuildPacks {
+	# Setup, build and build docs first
+	if (! -d $buildDir) { Setup(); }
+	Build();
+
+	# Run make Pack
+	print("Building Packs for '$buildType'\n");
+	chdir($buildDir);
+	system("make Pack");
+	chdir("..");
+	print("\n");
+}
+
+sub Clean {
+	# Delete build-directory
+	print("Cleaning build environment for '$buildType'\n");
+	if (-d $buildDir) {
+		rmtree($buildDir);
+	}
+
+	# Delete bin-directory
+	print("Cleaning bin directory '$binDir'\n");
+	if (-d $binDir) {
+		rmtree($binDir);
+	}
+}
+
+
+# Move into script directory
+
+# Initialize
+$command   = "";
+$buildType = "Debug";
+
+# Parse parameters
+$numArgs = @ARGV;
+for ($i=0; $i<$numArgs; $i++) {
+	if ($ARGV[$i] eq "--debug" || $ARGV[$i] eq "-d") {
+		$buildType = "Debug";
+	} elsif ($ARGV[$i] eq "--release" || $ARGV[$i] eq "-r") {
+		$buildType = "Release";
+	} elsif ($i == 0) {
+		$command = $ARGV[0];
+	} else {
+		print("Unknown parameter \'$ARGV[$i]\'\n")
+	}
+}
+
+# Set build directory
+$buildDir = "build-$buildType";
+if ($buildToolchain ne "") { $buildDir .= "-" . $buildToolchain; }
+
+# Set bin directory
+$binDir = "Bin-$buildSystem";
+if ($buildToolchain ne "") { $binDir .= "-" . $buildToolchain; }
+
+# Execute command
+if ($command eq "setup") {
+	# Setup build
+	Setup();
+} elsif ($command eq "build" || $command eq "make") {
+	# Build target
+	Build();
+} elsif ($command eq "doc" || $command eq "docs") {
+	# Build targets
+	BuildDocs();
+} elsif ($command eq "pack") {
+	# Build targets
+	BuildPacks();
+
+} elsif ($command eq "clean") {
+	# Clean targets
+	Clean();
+} else {
+	# Unknown command
+	print("unknown command\n");
+}

@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<Effect Version="1">
+    <General Blend="1" />
+    <Parameters>
+        <Texture Name="DiffuseMap">Data/Textures/Doerholt_Fire.tani</Texture>
+    </Parameters>
+    <Technique Name="Default">
+        <Pass Name="Pass0">
+            <RenderStates CullMode="None" ZWriteEnable="0" BlendEnable="1" DstBlendFunc="One" />
+            <FixedFunctionsRenderStates Lighting="0" />
+            <Layer>
+                <Texture>DiffuseMap</Texture>
+            </Layer>
+        </Pass>
+    </Technique>
+</Effect>

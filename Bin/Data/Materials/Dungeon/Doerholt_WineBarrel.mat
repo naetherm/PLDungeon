@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<Material Version="1">
+    <Texture Name="DiffuseMap">Data\Textures\Dungeon\Doerholt_WineBarrel_DiffuseMap.dds</Texture>
+    <Texture Name="SpecularMap">Data\Textures\Dungeon\Doerholt_WineBarrel_SpecularMap.dds</Texture>
+    <Texture Name="NormalMap">Data\Textures\Dungeon\Doerholt_WineBarrel_NormalMap_xGxR.dds</Texture>
+    <Float Name="SpecularExponent">22.999998</Float>
+    <Float3 Name="SpecularColor">0.670000 0.670000 0.670000</Float3>
+</Material>

@@ -1,0 +1,5 @@
+<?xml version="1.0"?>
+<Material Version="1">
+    <Texture Name="DiffuseMap">Data/Textures/LoadScreen/Bar2.dds</Texture>
+    <Effect>Data/Effects/LoadScreen/Bar.plfx</Effect>
+</Material>

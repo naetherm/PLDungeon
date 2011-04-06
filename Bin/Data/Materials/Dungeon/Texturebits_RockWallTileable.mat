@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<Material Version="1">
+    <Texture Name="DiffuseMap">Data\Textures\Dungeon\Texturebits_RockWallTileable_DiffuseMap.dds</Texture>
+    <Texture Name="SpecularMap">Data\Textures\Dungeon\Texturebits_RockWallTileable_SpecularMap.dds</Texture>
+    <Texture Name="NormalMap">Data\Textures\Dungeon\Texturebits_RockWallTileable_NormalMap_xGxR.dds</Texture>
+    <Texture Name="HeightMap">Data\Textures\Dungeon\Texturebits_RockWallTileable_HeightMap.dds</Texture>
+    <Float3 Name="DiffuseColor">0.513726 0.513726 0.513726</Float3>
+    <Float Name="SpecularExponent">10.000000</Float>
+    <Float3 Name="SpecularColor">0.710000 0.710000 0.710000</Float3>
+</Material>
