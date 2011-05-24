@@ -149,7 +149,7 @@ void WindowMenu::OnMouseButtonDown(uint32 nButton, const Vector2i &vPos)
 {
 	// Send command of currently selected menu item
 	if (nButton == 0 && m_nSelected > COMMAND_NONE)
-		EventCommand.Emit(m_nSelected);
+		EventCommand(m_nSelected);
 
 	// Blend out after 10 seconds
 	SetTimeout(10.0f);

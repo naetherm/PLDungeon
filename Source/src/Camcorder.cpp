@@ -368,7 +368,7 @@ void Camcorder::Update()
 		StopPlayback();
 
 		// Emit the playback finished event
-		EventPlaybackFinished.Emit();
+		EventPlaybackFinished();
 	}
 }
 

@@ -586,7 +586,7 @@ void MakingOf::Update()
 					StopPlayback();
 
 					// Emit the playback finished event
-					EventPlaybackFinished.Emit();
+					EventPlaybackFinished();
 					break;
 			}
 

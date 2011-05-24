@@ -220,7 +220,7 @@ void WindowResolution::OnMouseButtonDown(uint32 nButton, const Vector2i &vPos)
 				bFullscreen = static_cast<RenderWindow*>(pWidget)->IsFullscreen();
 
 			// Call ResolutionChanged-Event
-			EventResolutionChanged.Emit(pDisplayMode, (m_nSelectedButton == 2 ? !bFullscreen : bFullscreen));
+			EventResolutionChanged(pDisplayMode, (m_nSelectedButton == 2 ? !bFullscreen : bFullscreen));
 		}
 	}
 
