@@ -25,6 +25,7 @@
 //[-------------------------------------------------------]
 #include <PLGeneral/File/Url.h>
 #include <PLGeneral/System/System.h>
+#include <PLCore/Base/Class.h>
 #include <PLCore/Tools/Localization.h>
 #include <PLCore/Tools/LoadableManager.h>
 #include <PLGui/Gui/Gui.h>
@@ -430,6 +431,8 @@ void Application::OnCreateRootScene()
 	if (pSceneContext) {
 		// First, create the scene root container which holds the scene container with our 'concrete' scene within it
 		SceneContainer *pRootContainer = pSceneContext->GetRoot() ? static_cast<SceneContainer*>(pSceneContext->GetRoot()->Create("PLSound::SCSound", "RootScene", "SoundAPI=\"" + GetConfig().GetVar("DungeonConfig", "SoundAPI") + '"')) : nullptr;
+		if (!pRootContainer)
+			pRootContainer = pSceneContext->GetRoot() ? static_cast<SceneContainer*>(pSceneContext->GetRoot()->Create("PLScene::SceneContainer", "RootScene")) : nullptr;
 		if (pRootContainer) {
 			// Protect this important container!
 			pRootContainer->SetProtected(true);
