@@ -28,13 +28,15 @@
 //[-------------------------------------------------------]
 //[ Includes                                              ]
 //[-------------------------------------------------------]
-#include <PLCore/Base/Event/Event.h>
-#include <PLGeneral/String/String.h>
+#include <PLCore/Base/Object.h>
 
 
 //[-------------------------------------------------------]
 //[ Forward declarations                                  ]
 //[-------------------------------------------------------]
+namespace PLScript {
+	class Script;
+}
 class Interaction;
 
 
@@ -45,14 +47,39 @@ class Interaction;
 *  @brief
 *    Making of interaction component
 */
-class MakingOf {
+class MakingOf : public PLCore::Object {
 
 
 	//[-------------------------------------------------------]
-	//[ Events                                                ]
+	//[ RTTI interface                                        ]
+	//[-------------------------------------------------------]
+	pl_class(pl_rtti_export, MakingOf, "", PLCore::Object, "Making of interaction component")
+		pl_signal_0(SignalPlaybackFinished, "Playback has been finished", "")
+		pl_method_0(SetInitialSettings, void, "Sets the initial state settings", "")
+		pl_method_2(ShowText, void, PLGeneral::String, float, "Shows a text, text to show as first parameter and timeout (in seconds) as second parameter", "")
+	pl_class_end
+
+
+	//[-------------------------------------------------------]
+	//[ Public RTTI methods                                   ]
 	//[-------------------------------------------------------]
 	public:
-		PLCore::Event<>	EventPlaybackFinished;	/**< Playback has been finished */
+		/**
+		*  @brief
+		*    Sets the initial state settings
+		*/
+		void SetInitialSettings();
+
+		/**
+		*  @brief
+		*    Shows a text
+		*
+		*  @param[in] sText
+		*    Text to show
+		*  @param[in] fTimeout
+		*    Timeout (in seconds)
+		*/
+		void ShowText(PLGeneral::String sText, float fTimeout);
 
 
 	//[-------------------------------------------------------]
@@ -86,8 +113,11 @@ class MakingOf {
 		/**
 		*  @brief
 		*    Starts the playback
+		*
+		*  @param[in] sScriptFilename
+		*    Filename of the script to use
 		*/
-		void StartPlayback();
+		void StartPlayback(const PLGeneral::String &sScriptFilename = "Data/Scripts/MakingOf.lua");
 
 		/**
 		*  @brief
@@ -109,25 +139,12 @@ class MakingOf {
 
 
 	//[-------------------------------------------------------]
-	//[ Private functions                                     ]
-	//[-------------------------------------------------------]
-	private:
-		/**
-		*  @brief
-		*    Sets the initial state settings
-		*/
-		void SetInitialSettings();
-
-
-	//[-------------------------------------------------------]
 	//[ Private data                                          ]
 	//[-------------------------------------------------------]
 	private:
-		Interaction							*m_pInteraction;						/**< Owner interaction, always valid! */
-		bool								 m_bPlaying;							/**< Is playback currently enabled? */
-		float								 m_fTime;								/**< Total playback time (in seconds) */
-		PLGeneral::uint32					 m_nState;								/**< Current state (changes over playback time) */
-		float								 m_fStateTimeout;						/**< State timeout until next state (in seconds) */
+		Interaction			*m_pInteraction;	/**< Owner interaction, always valid! */
+		bool				 m_bPlaying;		/**< Is playback currently enabled? */
+		PLScript::Script	*m_pScript;			/**< The used script, can be a null pointer */
 		class SSettings {
 			public:
 				PLGeneral::String sName;	// Scene renderer pass name

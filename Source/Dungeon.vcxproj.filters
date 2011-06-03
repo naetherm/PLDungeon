@@ -8,6 +8,9 @@
     <Filter Include="Gui">
       <UniqueIdentifier>{36aedf71-fd84-4ca5-ba3b-9379a6c12053}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Scripts">
+      <UniqueIdentifier>{29430a57-c906-41c5-bfe3-af41ffa28a14}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Application.cpp">
@@ -103,6 +106,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="CMakeLists.txt" />
+    <None Include="..\Bin\Data\Scripts\MakingOf.lua">
+      <Filter>Scripts</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Dungeon.rc" />

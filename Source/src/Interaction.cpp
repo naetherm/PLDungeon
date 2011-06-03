@@ -78,7 +78,7 @@ Interaction::Interaction(Application &cApplication) :
 	m_pCamcorder->EventPlaybackFinished.Connect(&EventHandlerMoviePlaybackFinished);
 
 	// Connect the making of event handler
-	m_pMakingOf->EventPlaybackFinished.Connect(&EventHandlerMakingOfPlaybackFinished);
+	m_pMakingOf->SignalPlaybackFinished.Connect(&EventHandlerMakingOfPlaybackFinished);
 
 	// Get the scene container
 	SceneContainer *pScene = m_pApplication->GetScene();
