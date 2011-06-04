@@ -99,8 +99,6 @@ void MakingOf::ShowText(String sText, float fTimeout)
 */
 MakingOf::MakingOf(Interaction &cInteraction) :
 	SignalPlaybackFinished(this),
-	MethodSetInitialSettings(this),
-	MethodShowText(this),
 	m_pInteraction(&cInteraction),
 	m_bPlaying(false),
 	m_pScript(nullptr)
