@@ -257,7 +257,7 @@ void Camcorder::StartPlayback(const String &sName)
 						const String sSceneContainer = pCamcorderElement->GetAttribute("SceneContainer");
 
 						// Set the camera into this scene container
-						SceneNode *pSceneNode = pCameraSceneNode->GetContainer()->Get(sSceneContainer);
+						SceneNode *pSceneNode = pCameraSceneNode->GetContainer()->GetByName(sSceneContainer);
 						if (pSceneNode && pSceneNode->IsContainer())
 							pCameraSceneNode->SetContainer(*static_cast<SceneContainer*>(pSceneNode));
 

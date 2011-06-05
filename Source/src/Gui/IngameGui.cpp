@@ -132,7 +132,7 @@ IngameGui::~IngameGui()
 	SceneContainer *pSceneContainer = m_pInteraction->GetApplication().GetRootScene();
 	if (pSceneContainer) {
 		// Get 'ingame'-GUI scene node
-		SceneNode *pGuiSceneNode = pSceneContainer->Get("GUI");
+		SceneNode *pGuiSceneNode = pSceneContainer->GetByName("GUI");
 		if (pGuiSceneNode)
 			pGuiSceneNode->Delete(true);
 	}

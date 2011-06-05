@@ -182,7 +182,7 @@ bool Application::LoadScene(const String &sFilename)
 	SceneContainer *pSceneContainer = GetScene();
 	if (pSceneContainer) {
 		// Get the tavern scene container
-		SceneContainer *pTavernSceneContainer = static_cast<SceneContainer*>(pSceneContainer->Get("Container.Tavern"));
+		SceneContainer *pTavernSceneContainer = static_cast<SceneContainer*>(pSceneContainer->GetByName("Container.Tavern"));
 		if (pTavernSceneContainer) {
 			// Add the first dancing skeleton
 			SceneNode *pDancingSkeletonSceneNode = pTavernSceneContainer->Create("PLScene::SNMesh", "Bulck_DancingSkeleton", "Flags=\"CastShadow|ReceiveShadow\" Position=\"18.0 -1.32 -2.0\" Scale=\"0.75 0.75 0.75\" Mesh=\"Data/Meshes/Bulck_DancingSkeleton.mesh\" StaticMesh=\"0\"");
@@ -285,13 +285,13 @@ void Application::SetFogDensity(float fDensity)
 *  @brief
 *    Returns the currently shown text
 */
-String Application::GetShownText() const
+String Application::GetShownText()
 {
 	// Get the root scene container
 	SceneContainer *pSceneContainer = GetRootScene();
 	if (pSceneContainer)  {
 		// Get the text scene node, or create it right now
-		SceneNode *pSceneNode = pSceneContainer->Get("Text");
+		SceneNode *pSceneNode = pSceneContainer->GetByName("Text");
 		if (pSceneNode && pSceneNode->IsActive()) {
 			// Get the text attribute
 			DynVar *pDynVar = pSceneNode->GetAttribute("Text");
@@ -314,7 +314,7 @@ void Application::ShowText(const String &sText, float fTimeout)
 	SceneContainer *pSceneContainer = GetRootScene();
 	if (pSceneContainer)  {
 		// Get the text scene node, or create it right now
-		SceneNode *pSceneNode = pSceneContainer->Get("Text");
+		SceneNode *pSceneNode = pSceneContainer->GetByName("Text");
 		if (!pSceneNode)
 			pSceneNode = pSceneContainer->Create("PLScene::SNText2D", "Text", "Position=\"0.5 0.95 0.0\" Scale=\"1.1 1.1 1.1\" Flags=\"No3DPosition\"");
 		if (pSceneNode) {

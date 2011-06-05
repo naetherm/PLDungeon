@@ -148,7 +148,7 @@ class Application : public PLEngine::BasicSceneApplication {
 		*  @return
 		*    The currently shown text
 		*/
-		PLGeneral::String GetShownText() const;
+		PLGeneral::String GetShownText();
 
 		/**
 		*  @brief

@@ -87,16 +87,16 @@ Interaction::Interaction(Application &cApplication) :
 		// change their scene container and therefore change their name....
 
 		// Walk camera scene node handler
-		m_cWalkCameraSceneNodeHandler.SetElement(pScene->Get("Container.kanal3.WalkCamera"));
+		m_cWalkCameraSceneNodeHandler.SetElement(pScene->GetByName("Container.kanal3.WalkCamera"));
 
 		// Free camera scene node handler
-		m_cFreeCameraSceneNodeHandler.SetElement(pScene->Get("Container.kanal3.FreeCamera"));
+		m_cFreeCameraSceneNodeHandler.SetElement(pScene->GetByName("Container.kanal3.FreeCamera"));
 
 		// Ghost camera scene node handler
-		m_cGhostCameraSceneNodeHandler.SetElement(pScene->Get("Container.kanal3.GhostCamera"));
+		m_cGhostCameraSceneNodeHandler.SetElement(pScene->GetByName("Container.kanal3.GhostCamera"));
 
 		// Making of camera scene node handler
-		m_cMakingOfCameraSceneNodeHandler.SetElement(pScene->Get("Container.WineCellar.MakingOfCamera"));
+		m_cMakingOfCameraSceneNodeHandler.SetElement(pScene->GetByName("Container.WineCellar.MakingOfCamera"));
 	}
 
 	// The offical release should always start with the movie mode
@@ -326,7 +326,7 @@ void Interaction::UpdateMousePickingPullAnimation()
 	SceneContainer *pSceneContainer = m_pApplication->GetScene();
 	if (pSceneContainer) {
 		// Get the "PLPhysics::SNPhysicsMouseInteraction" instance
-		SceneNode *pSceneNode = pSceneContainer->Get("Container.SNPhysicsMouseInteraction");
+		SceneNode *pSceneNode = pSceneContainer->GetByName("Container.SNPhysicsMouseInteraction");
 		if (pSceneNode && pSceneNode->IsInstanceOf("PLPhysics::SNPhysicsMouseInteraction")) {
 			SNPhysicsMouseInteraction *pSNPhysicsMouseInteraction = static_cast<SNPhysicsMouseInteraction*>(pSceneNode);
 

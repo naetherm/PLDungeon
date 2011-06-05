@@ -70,7 +70,7 @@ void MakingOf::SetInitialSettings()
 				const SSettings &sSettings = m_lstInitialSceneRendererPassSettings[i];
 
 				// Get the scene renderer pass
-				SceneRendererPass *pSceneRendererPass = pSceneRenderer->Get(sSettings.sName);
+				SceneRendererPass *pSceneRendererPass = pSceneRenderer->GetByName(sSettings.sName);
 				if (pSceneRendererPass) {
 					// Set values
 					pSceneRendererPass->FromString(sSettings.sValues);
@@ -151,7 +151,7 @@ void MakingOf::StartPlayback(const String &sScriptFilename)
 				// Loop through all scene renderer passes
 				for (uint32 i=0; i<pSceneRenderer->GetNumOfElements(); i++) {
 					// Get the scene renderer pass
-					SceneRendererPass *pSceneRendererPass = pSceneRenderer->Get(i);
+					SceneRendererPass *pSceneRendererPass = pSceneRenderer->GetByIndex(i);
 
 					// Backup the current scene renderer pass settings
 					SSettings sSettings;

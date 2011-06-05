@@ -109,7 +109,7 @@ void SNMPositionKeyframeRecord::NotifyUpdate()
 		// Transform the position into the requested scene container space?
 		if (CoordinateSystem.Get().GetLength()) {
 			// Get the scene container the position keys should be in
-			SceneNode *pTargetSceneNode = GetSceneNode().GetContainer()->Get(CoordinateSystem);
+			SceneNode *pTargetSceneNode = GetSceneNode().GetContainer()->GetByName(CoordinateSystem);
 			if (pTargetSceneNode && pTargetSceneNode->IsContainer()) {
 				// Get the transform matrix that transform from "this scene container" into "the other scene container"
 				Matrix3x4 mTransform;
