@@ -204,7 +204,7 @@ bool Application::LoadScene(const String &sFilename)
 	RendererContext *pRendererContext = GetRendererContext();
 	if (pRendererContext) {
 		// Give the "DoorGlow" material an animated emissive map for a more impressive god rays effect and enhance the diffuse color for more glow
-		Material *pMaterial = pRendererContext->GetMaterialManager().Get("Data\\Materials\\Dungeon\\DoorGlow.mat");
+		Material *pMaterial = pRendererContext->GetMaterialManager().GetByName("Data\\Materials\\Dungeon\\DoorGlow.mat");
 		if (pMaterial) {
 			// Set an animated emissive map
 			pMaterial->GetParameterManager().SetParameterString("EmissiveMap", "Data/Textures/Caust.tani");
@@ -214,7 +214,7 @@ bool Application::LoadScene(const String &sFilename)
 		}
 
 		// Let the "ILB_texPak01_decal002" (mos) material glow
-		pMaterial = pRendererContext->GetMaterialManager().Get("Data\\Materials\\Dungeon\\ILB_texPak01_decal002.mat");
+		pMaterial = pRendererContext->GetMaterialManager().GetByName("Data\\Materials\\Dungeon\\ILB_texPak01_decal002.mat");
 		if (pMaterial) {
 			// Set emissive map color
 			pMaterial->GetParameterManager().SetParameter3f("EmissiveMapColor", 2.0f, 2.0f, 2.0f);
