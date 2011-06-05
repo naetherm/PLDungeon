@@ -225,22 +225,22 @@ bool Application::LoadScene(const String &sFilename)
 	}
 
 	// More HDR bloom, please
-	GetSceneRendererTool().SetPassAttribute("EndHDR", "BloomBrightThreshold", "0.2");
-	GetSceneRendererTool().SetPassAttribute("EndHDR", "BloomDownscale", "4.0");
-	GetSceneRendererTool().SetPassAttribute("EndHDR", "BloomFactor", "0.5");
+	GetSceneRendererTool()->SetPassAttribute("EndHDR", "BloomBrightThreshold", "0.2");
+	GetSceneRendererTool()->SetPassAttribute("EndHDR", "BloomDownscale", "4.0");
+	GetSceneRendererTool()->SetPassAttribute("EndHDR", "BloomFactor", "0.5");
 
 	// Use ambient occlusion also during lighting... this isn't physically correct, but within the dungeon it looks cool *g*
-	GetSceneRendererTool().SetPassAttribute("DeferredLighting", "Flags", "NoShadowLOD");
+	GetSceneRendererTool()->SetPassAttribute("DeferredLighting", "Flags", "NoShadowLOD");
 
 	// No one likes shy god rays, so increase them a bit *g*
-	GetSceneRendererTool().SetPassAttribute("DeferredGodRays", "Density", "0.25");
-	GetSceneRendererTool().SetPassAttribute("DeferredGodRays", "Decay", "0.92");
-	GetSceneRendererTool().SetPassAttribute("DeferredGodRays", "Weight", "0.6");
+	GetSceneRendererTool()->SetPassAttribute("DeferredGodRays", "Density", "0.25");
+	GetSceneRendererTool()->SetPassAttribute("DeferredGodRays", "Decay", "0.92");
+	GetSceneRendererTool()->SetPassAttribute("DeferredGodRays", "Weight", "0.6");
 
 	// Tweak the HDR tone mapping settings a bit
-	GetSceneRendererTool().SetPassAttribute("EndHDR", "Key", "0.4");
-	GetSceneRendererTool().SetPassAttribute("EndHDR", "WhiteLevel", "100.0");
-	GetSceneRendererTool().SetPassAttribute("EndHDR", "LuminanceConvert", "0.2125 0.2154 0.5721");	// Give blue more importance... this isn't physically correct, but within the dungeon it looks cool *g*
+	GetSceneRendererTool()->SetPassAttribute("EndHDR", "Key", "0.4");
+	GetSceneRendererTool()->SetPassAttribute("EndHDR", "WhiteLevel", "100.0");
+	GetSceneRendererTool()->SetPassAttribute("EndHDR", "LuminanceConvert", "0.2125 0.2154 0.5721");	// Give blue more importance... this isn't physically correct, but within the dungeon it looks cool *g*
 
 	// Create the interaction component
 	m_pInteraction = new Interaction(*this);
@@ -256,7 +256,7 @@ bool Application::LoadScene(const String &sFilename)
 float Application::GetFogDensity() const
 {
 	// Get the RTTI variable
-	DynVar *pDynVar = GetSceneRendererTool().GetPassAttribute("DeferredDepthFog", "FogDensity");
+	DynVar *pDynVar = GetSceneRendererTool()->GetPassAttribute("DeferredDepthFog", "FogDensity");
 
 	// Return the value of the RTTI variable as float - if there's such a variable
 	return pDynVar ? pDynVar->GetFloat() : 0.0f;
@@ -271,13 +271,13 @@ void Application::SetFogDensity(float fDensity)
 	// Enable/disable the fog?
 	if (fDensity > 0.0f) {
 		// Enable the fog
-		GetSceneRendererTool().SetPassAttribute("DeferredDepthFog", "Flags", "");
+		GetSceneRendererTool()->SetPassAttribute("DeferredDepthFog", "Flags", "");
 
 		// Set the fog density
-		GetSceneRendererTool().SetPassAttribute("DeferredDepthFog", "FogDensity", fDensity);
+		GetSceneRendererTool()->SetPassAttribute("DeferredDepthFog", "FogDensity", fDensity);
 	} else {
 		// Disable the fog
-		GetSceneRendererTool().SetPassAttribute("DeferredDepthFog", "Flags", "Inactive");
+		GetSceneRendererTool()->SetPassAttribute("DeferredDepthFog", "Flags", "Inactive");
 	}
 }
 
