@@ -27,7 +27,7 @@ function Update()
 
 		-- Show the text
 		if text ~= nil then
-			this:ShowText(text, stateTimeout + 1)	-- +1 second so the text don't get invisible when showing twice
+			PL.GetApplication():ShowText(text, stateTimeout + 1)	-- +1 second so the text don't get invisible when showing twice
 		end
 	end
 end

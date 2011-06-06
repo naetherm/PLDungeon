@@ -308,7 +308,7 @@ String Application::GetShownText()
 *  @brief
 *    Shows a text
 */
-void Application::ShowText(const String &sText, float fTimeout)
+void Application::ShowText(String sText, float fTimeout)
 {
 	// Get the root scene container
 	SceneContainer *pSceneContainer = GetRootScene();

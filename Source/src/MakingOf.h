@@ -56,7 +56,6 @@ class MakingOf : public PLCore::Object {
 	pl_class(pl_rtti_export, MakingOf, "", PLCore::Object, "Making of interaction component")
 		pl_signal_0(SignalPlaybackFinished, "Playback has been finished", "")
 		pl_method_0(SetInitialSettings, void, "Sets the initial state settings", "")
-		pl_method_2(ShowText, void, PLGeneral::String, float, "Shows a text, text to show as first parameter and timeout (in seconds) as second parameter", "")
 	pl_class_end
 
 
@@ -69,17 +68,6 @@ class MakingOf : public PLCore::Object {
 		*    Sets the initial state settings
 		*/
 		void SetInitialSettings();
-
-		/**
-		*  @brief
-		*    Shows a text
-		*
-		*  @param[in] sText
-		*    Text to show
-		*  @param[in] fTimeout
-		*    Timeout (in seconds)
-		*/
-		void ShowText(PLGeneral::String sText, float fTimeout);
 
 
 	//[-------------------------------------------------------]

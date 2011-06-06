@@ -80,15 +80,6 @@ void MakingOf::SetInitialSettings()
 	}
 }
 
-/**
-*  @brief
-*    Shows a text
-*/
-void MakingOf::ShowText(String sText, float fTimeout)
-{
-	m_pInteraction->GetApplication().ShowText(sText, fTimeout);
-}
-
 
 //[-------------------------------------------------------]
 //[ Public functions                                      ]

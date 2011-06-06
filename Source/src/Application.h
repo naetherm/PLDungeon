@@ -55,6 +55,7 @@ class Application : public PLEngine::BasicSceneApplication {
 	//[-------------------------------------------------------]
 	pl_class(pl_rtti_export, Application, "", PLEngine::BasicSceneApplication, "Application class")
 		pl_constructor_0(DefaultConstructor, "Default constructor", "")
+		pl_method_2(ShowText, void, PLGeneral::String, float, "Shows a text, text to show as first parameter and timeout (in seconds) as second parameter", "")
 	pl_class_end
 
 
@@ -159,7 +160,7 @@ class Application : public PLEngine::BasicSceneApplication {
 		*  @param[in] fTimeout
 		*    Timeout (in seconds)
 		*/
-		void ShowText(const PLGeneral::String &sText, float fTimeout = 5.0f);
+		void ShowText(PLGeneral::String sText, float fTimeout = 5.0f);
 
 
 	//[-------------------------------------------------------]
