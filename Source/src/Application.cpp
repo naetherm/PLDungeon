@@ -28,6 +28,9 @@
 #include <PLCore/Base/Class.h>
 #include <PLCore/Tools/Localization.h>
 #include <PLCore/Tools/LoadableManager.h>
+#include <PLScript/Script.h>
+#include <PLScript/FuncScriptPtr.h>
+#include <PLScript/ScriptManager.h>
 #include <PLGui/Gui/Gui.h>
 #include <PLGui/Gui/Base/Keys.h>
 #include <PLGui/Widgets/Widget.h>
@@ -50,6 +53,7 @@
 //[-------------------------------------------------------]
 using namespace PLGeneral;
 using namespace PLCore;
+using namespace PLScript;
 using namespace PLGui;
 using namespace PLRenderer;
 using namespace PLScene;
@@ -79,6 +83,7 @@ const String Application::DefaultScene = "Data/Scenes/Dungeon.scene";
 */
 Application::Application() : BasicSceneApplication(),
 	EventHandlerLoadProgress(&Application::OnLoadProgress, this),
+	m_pScript(nullptr),
 	m_pInteraction(nullptr),
 	m_fLoadProgress(0.0f)
 {
@@ -175,31 +180,6 @@ bool Application::LoadScene(const String &sFilename)
 	// Load the scene
 	const bool bResult = BasicSceneApplication::LoadScene(sFilename);
 
-	// Set the fog density
-	SetFogDensity(0.6f);
-
-	// Add the dancing skeletons
-	SceneContainer *pSceneContainer = GetScene();
-	if (pSceneContainer) {
-		// Get the tavern scene container
-		SceneContainer *pTavernSceneContainer = static_cast<SceneContainer*>(pSceneContainer->GetByName("Container.Tavern"));
-		if (pTavernSceneContainer) {
-			// Add the first dancing skeleton
-			SceneNode *pDancingSkeletonSceneNode = pTavernSceneContainer->Create("PLScene::SNMesh", "Bulck_DancingSkeleton", "Flags=\"CastShadow|ReceiveShadow\" Position=\"18.0 -1.32 -2.0\" Scale=\"0.75 0.75 0.75\" Mesh=\"Data/Meshes/Bulck_DancingSkeleton.mesh\" StaticMesh=\"0\"");
-			if (pDancingSkeletonSceneNode)
-				pDancingSkeletonSceneNode->AddModifier("PLScene::SNMMeshAnimation", "Name=\"Skeleton animation\"");
-
-			/*
-			// [TODO] Disabled because skinning currently is performed on the CPU (no multithreading, too) and this mesh has a lot of vertices...
-			// Add the second dancing skeleton
-			pDancingSkeletonSceneNode = pTavernSceneContainer->Create("PLScene::SNMesh", "Doerholt_DancingSkeleton", "Flags=\"CastShadow|ReceiveShadow\" Position=\"5.5 -1.38 1.0\" Rotation=\"0 180 0\" Scale=\"0.02 0.02 0.02\" Mesh=\"Data/Meshes/Doerholt_DancingSkeleton.mesh\" StaticMesh=\"0\"");
-			if (pDancingSkeletonSceneNode)
-				// [TODO] "Skeleton animation_2" instead of "Skeleton animation" because the name was changed due name conflicts within the skeleton manager... not good, rethink this...
-				pDancingSkeletonSceneNode->AddModifier("PLScene::SNMMeshAnimation", "Name=\"Skeleton animation_2\"");
-			*/
-		}
-	}
-
 	// Get the renderer context
 	RendererContext *pRendererContext = GetRendererContext();
 	if (pRendererContext) {
@@ -224,23 +204,9 @@ bool Application::LoadScene(const String &sFilename)
 		}
 	}
 
-	// More HDR bloom, please
-	GetSceneRendererTool()->SetPassAttribute("EndHDR", "BloomBrightThreshold", "0.2");
-	GetSceneRendererTool()->SetPassAttribute("EndHDR", "BloomDownscale", "4.0");
-	GetSceneRendererTool()->SetPassAttribute("EndHDR", "BloomFactor", "0.5");
-
-	// Use ambient occlusion also during lighting... this isn't physically correct, but within the dungeon it looks cool *g*
-	GetSceneRendererTool()->SetPassAttribute("DeferredLighting", "Flags", "NoShadowLOD");
-
-	// No one likes shy god rays, so increase them a bit *g*
-	GetSceneRendererTool()->SetPassAttribute("DeferredGodRays", "Density", "0.25");
-	GetSceneRendererTool()->SetPassAttribute("DeferredGodRays", "Decay", "0.92");
-	GetSceneRendererTool()->SetPassAttribute("DeferredGodRays", "Weight", "0.6");
-
-	// Tweak the HDR tone mapping settings a bit
-	GetSceneRendererTool()->SetPassAttribute("EndHDR", "Key", "0.4");
-	GetSceneRendererTool()->SetPassAttribute("EndHDR", "WhiteLevel", "100.0");
-	GetSceneRendererTool()->SetPassAttribute("EndHDR", "LuminanceConvert", "0.2125 0.2154 0.5721");	// Give blue more importance... this isn't physically correct, but within the dungeon it looks cool *g*
+	// Call the post-load script function
+	if (m_pScript)
+		FuncScriptPtr<void>(m_pScript, "PostLoad").Call(Params<void>());
 
 	// Create the interaction component
 	m_pInteraction = new Interaction(*this);
@@ -251,89 +217,13 @@ bool Application::LoadScene(const String &sFilename)
 
 /**
 *  @brief
-*    Returns the current fog density
-*/
-float Application::GetFogDensity() const
-{
-	// Get the RTTI variable
-	DynVar *pDynVar = GetSceneRendererTool()->GetPassAttribute("DeferredDepthFog", "FogDensity");
-
-	// Return the value of the RTTI variable as float - if there's such a variable
-	return pDynVar ? pDynVar->GetFloat() : 0.0f;
-}
-
-/**
-*  @brief
-*    Sets the fog density
-*/
-void Application::SetFogDensity(float fDensity)
-{
-	// Enable/disable the fog?
-	if (fDensity > 0.0f) {
-		// Enable the fog
-		GetSceneRendererTool()->SetPassAttribute("DeferredDepthFog", "Flags", "");
-
-		// Set the fog density
-		GetSceneRendererTool()->SetPassAttribute("DeferredDepthFog", "FogDensity", fDensity);
-	} else {
-		// Disable the fog
-		GetSceneRendererTool()->SetPassAttribute("DeferredDepthFog", "Flags", "Inactive");
-	}
-}
-
-/**
-*  @brief
-*    Returns the currently shown text
-*/
-String Application::GetShownText()
-{
-	// Get the root scene container
-	SceneContainer *pSceneContainer = GetRootScene();
-	if (pSceneContainer)  {
-		// Get the text scene node, or create it right now
-		SceneNode *pSceneNode = pSceneContainer->GetByName("Text");
-		if (pSceneNode && pSceneNode->IsActive()) {
-			// Get the text attribute
-			DynVar *pDynVar = pSceneNode->GetAttribute("Text");
-			if (pDynVar)
-				return pDynVar->GetString();
-		}
-	}
-
-	// Error, no text shown
-	return "";
-}
-
-/**
-*  @brief
 *    Shows a text
 */
 void Application::ShowText(String sText, float fTimeout)
 {
-	// Get the root scene container
-	SceneContainer *pSceneContainer = GetRootScene();
-	if (pSceneContainer)  {
-		// Get the text scene node, or create it right now
-		SceneNode *pSceneNode = pSceneContainer->GetByName("Text");
-		if (!pSceneNode)
-			pSceneNode = pSceneContainer->Create("PLScene::SNText2D", "Text", "Position=\"0.5 0.95 0.0\" Scale=\"1.1 1.1 1.1\" Flags=\"No3DPosition\"");
-		if (pSceneNode) {
-			// Set the text
-			pSceneNode->SetAttribute("Text", sText);
-
-			// Make the scene node active (in case SNMDeactivationOnTimeout already deactivated it)
-			pSceneNode->SetActive(true);
-
-			// Get the timeout scene node modifier, or create it right now
-			SceneNodeModifier *pSceneNodeModifier = pSceneNode->GetModifier("PLScene::SNMDeactivationOnTimeout");
-			if (!pSceneNodeModifier)
-				pSceneNodeModifier = pSceneNode->AddModifier("PLScene::SNMDeactivationOnTimeout");
-			if (pSceneNodeModifier) {
-				// Set the timeout
-				pSceneNodeModifier->SetAttribute("Timeout", fTimeout);
-			}
-		}
-	}
+	// Call the show text script function
+	if (m_pScript)
+		FuncScriptPtr<void, String, float>(m_pScript, "ShowText").Call(Params<void, String, float>(sText, fTimeout));
 }
 
 
@@ -385,6 +275,13 @@ void Application::OnInit()
 		// Enable/disable edit mode
 		SetEditModeEnabled(GetConfig().GetVar("DungeonConfig", "EditModeEnabled").GetBool());
 
+		// Create the script instance
+		m_pScript = ScriptManager::GetInstance()->CreateFromFile("Data/Scripts/Application.lua");
+		if (m_pScript) {
+			// Add the global variable "this" to the script so that it's able to access "this" RTTI class instance
+			m_pScript->SetGlobalVariable("this", Var<Object*>(this));
+		}
+
 		// Load scene
 		if (!LoadScene(sSceneFilename)) {
 			// Present the user an sweet 'ERROR!!!'-message
@@ -402,6 +299,12 @@ void Application::OnInit()
 
 void Application::OnDeInit()
 {
+	// Destroy the used script
+	if (m_pScript) {
+		delete m_pScript;
+		m_pScript = nullptr;
+	}
+
 	// Destroy the interaction component
 	if (m_pInteraction) {
 		delete m_pInteraction;
@@ -418,6 +321,10 @@ void Application::OnDeInit()
 //[-------------------------------------------------------]
 bool Application::OnUpdate()
 {
+	// Call the update script function
+	if (m_pScript)
+		FuncScriptPtr<void>(m_pScript, "Update").Call(Params<void>());
+
 	// Update the interaction application component
 	if (m_pInteraction)
 		m_pInteraction->Update();

@@ -34,6 +34,9 @@
 //[-------------------------------------------------------]
 //[ Forward declarations                                  ]
 //[-------------------------------------------------------]
+namespace PLScript {
+	class Script;
+}
 namespace PLScene {
 	class SceneRendererPass;
 }
@@ -126,33 +129,6 @@ class Application : public PLEngine::BasicSceneApplication {
 
 		/**
 		*  @brief
-		*    Returns the current fog density
-		*
-		*  @return
-		*    The current fog density, <= 0 means there's no fog
-		*/
-		float GetFogDensity() const;
-
-		/**
-		*  @brief
-		*    Sets the fog density
-		*
-		*  @param[in] fDensity
-		*    Fog density, <= 0 means there's no fog
-		*/
-		void SetFogDensity(float fDensity);
-
-		/**
-		*  @brief
-		*    Returns the currently shown text
-		*
-		*  @return
-		*    The currently shown text
-		*/
-		PLGeneral::String GetShownText();
-
-		/**
-		*  @brief
 		*    Shows a text
 		*
 		*  @param[in] sText
@@ -225,6 +201,7 @@ class Application : public PLEngine::BasicSceneApplication {
 	//[ Private data                                          ]
 	//[-------------------------------------------------------]
 	private:
+		PLScript::Script  *m_pScript;						/**< The used script, can be a null pointer */
 		Interaction		  *m_pInteraction;					/**< Interaction application component, can be a null pointer */
 		float			   m_fLoadProgress;					/**< Load progress */
 		PLGeneral::String  m_sCurrentSceneBaseDirectory;	/**< Base directory of the currently loaded scene */

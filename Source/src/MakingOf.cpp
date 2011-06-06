@@ -106,10 +106,8 @@ MakingOf::~MakingOf()
 	StopPlayback();
 
 	// Destroy the used script
-	if (m_pScript) {
+	if (m_pScript)
 		delete m_pScript;
-		m_pScript = nullptr;
-	}
 }
 
 /**

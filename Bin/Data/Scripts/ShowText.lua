@@ -34,7 +34,7 @@ function ShowText(text, timeout)
 		local sceneNode = sceneContainer:GetByName("Text")
 		if sceneNode == nil then
 			-- Create the text scene node right now
-			sceneNode = sceneContainer:Create("PLScene::SNText2D", "Text", "Position=\"0.5 0.95 0.0\" Scale=\"1.1 1.1 1.1\" Flags=\"No3DPosition\"")
+			sceneNode = sceneContainer:Create("PLScene::SNText2D", "Text", "Position='0.5 0.95 0.0' Scale='1.1 1.1 1.1' Flags='No3DPosition'")
 		end
 		if sceneNode ~= nil then
 			-- Set the text
