@@ -1,4 +1,10 @@
 --[-------------------------------------------------------]
+--[ Includes                                              ]
+--[-------------------------------------------------------]
+require("Data/Scripts/ShowText")
+
+
+--[-------------------------------------------------------]
 --[ Global variables                                      ]
 --[-------------------------------------------------------]
 timeScale		= 1		-- Time scale to speed up or slow down the playback
@@ -27,7 +33,7 @@ function Update()
 
 		-- Show the text
 		if text ~= nil then
-			PL.GetApplication():ShowText(text, stateTimeout + 1)	-- +1 second so the text don't get invisible when showing twice
+			ShowText(text, stateTimeout + 1)	-- +1 second so the text don't get invisible when showing twice
 		end
 	end
 end
@@ -142,7 +148,7 @@ function SetState(newState)
 
 		-- Ambient
 		[12] = function()
-			PL.GetApplication():GetSceneRendererTool():SetPassAttribute("DeferredSPSSAO",			"Flags", "Inactive")
+			PL.GetApplication():GetSceneRendererTool():SetPassAttribute("DeferredSPSSAO",		"Flags", "Inactive")
 			PL.GetApplication():GetSceneRendererTool():SetPassAttribute("DeferredGlow",			"Flags", "Inactive")
 			PL.GetApplication():GetSceneRendererTool():SetPassAttribute("DeferredLighting",		"Flags", "Inactive")
 			PL.GetApplication():GetSceneRendererTool():SetPassAttribute("ForwardVolumetricFog",	"Flags", "Inactive")
