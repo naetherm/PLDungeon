@@ -360,7 +360,7 @@ void Application::OnCreateRootScene()
 
 				// Connect event handler
 				if (pSceneContainerNode->IsInstanceOf("PLScene::SceneContainer"))
-					static_cast<SceneContainer*>(pSceneContainerNode)->EventLoadProgress.Connect(&EventHandlerLoadProgress);
+					static_cast<SceneContainer*>(pSceneContainerNode)->SignalLoadProgress.Connect(&EventHandlerLoadProgress);
 
 				// Create the 'concrete scene'
 				OnCreateScene(*pSceneContainer);
