@@ -82,7 +82,7 @@ WindowResolution::WindowResolution(Application *pApplication, Widget *pParent) :
 	m_pSlider->SetOrientation(Horizontal);
 	m_pSlider->SetPos(Vector2i(10, 35));
 	m_pSlider->SetSize(Vector2i(764, 10));
-	m_pSlider->EventChangeValue.Connect(&EventHandlerChangeValue);
+	m_pSlider->SignalChangeValue.Connect(&EventHandlerChangeValue);
 
 	// Create display mode list
 	if (m_pApplication->GetRendererContext()) {
