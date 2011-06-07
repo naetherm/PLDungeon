@@ -54,6 +54,8 @@ class WindowMenu : public WindowBase {
 	//[ RTTI interface                                        ]
 	//[-------------------------------------------------------]
 	pl_class(pl_rtti_export, WindowMenu, "", WindowBase, "Window that displays the main menu")
+		// Signals
+		pl_signal_1(SignalCommand,	int,	"Command signal",	"")
 	pl_class_end
 
 
@@ -76,13 +78,6 @@ class WindowMenu : public WindowBase {
 			COMMAND_HELP,
 			COMMAND_EXIT
 		};
-
-
-	//[-------------------------------------------------------]
-	//[ Public events                                         ]
-	//[-------------------------------------------------------]
-	public:
-		PLCore::Event<int> EventCommand;
 
 
 	//[-------------------------------------------------------]

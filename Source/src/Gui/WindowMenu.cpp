@@ -52,6 +52,7 @@ pl_implement_class(WindowMenu)
 *    Constructor
 */
 WindowMenu::WindowMenu(Widget *pParent) : WindowBase(pParent),
+	SignalCommand(this),
 	m_pFontTitle(new Font(*GetGui())),
 	m_pFontText(new Font(*GetGui())),
 	m_cColorTitle(1.0f, 1.0f, 1.0f, 1.0f),
@@ -149,7 +150,7 @@ void WindowMenu::OnMouseButtonDown(uint32 nButton, const Vector2i &vPos)
 {
 	// Send command of currently selected menu item
 	if (nButton == 0 && m_nSelected > COMMAND_NONE)
-		EventCommand(m_nSelected);
+		SignalCommand(m_nSelected);
 
 	// Blend out after 10 seconds
 	SetTimeout(10.0f);

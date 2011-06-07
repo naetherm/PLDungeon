@@ -104,9 +104,9 @@ IngameGui::IngameGui(Interaction &cInteraction) :
 				m_pResolution->SetSize(Vector2i(m_pIngameGui->GetDefaultScreen()->GetSize().x - 240, 100));
 				m_pResolution->SetVisible(false);
 
-				// Connect events
-				m_pMenu->EventCommand.Connect(&EventHandlerMenu);
-				m_pResolution->EventResolutionChanged.Connect(&EventHandlerResolution);
+				// Connect signals
+				m_pMenu->SignalCommand.Connect(&EventHandlerMenu);
+				m_pResolution->SignalResolutionChanged.Connect(&EventHandlerResolution);
 			}
 		}
 	}

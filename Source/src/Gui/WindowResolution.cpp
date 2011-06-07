@@ -60,6 +60,7 @@ pl_implement_class(WindowResolution)
 *    Constructor
 */
 WindowResolution::WindowResolution(Application *pApplication, Widget *pParent) : WindowBase(pParent),
+	SignalResolutionChanged(this),
 	m_pApplication(pApplication),
 	m_pSlider(nullptr),
 	m_pFont(new Font(*GetGui())),
@@ -219,8 +220,8 @@ void WindowResolution::OnMouseButtonDown(uint32 nButton, const Vector2i &vPos)
 			if (pWidget && pWidget->IsInstanceOf("PLEngine::RenderWindow"))
 				bFullscreen = static_cast<RenderWindow*>(pWidget)->IsFullscreen();
 
-			// Call ResolutionChanged-Event
-			EventResolutionChanged(pDisplayMode, (m_nSelectedButton == 2 ? !bFullscreen : bFullscreen));
+			// Call ResolutionChanged-signal
+			SignalResolutionChanged(pDisplayMode, (m_nSelectedButton == 2 ? !bFullscreen : bFullscreen));
 		}
 	}
 

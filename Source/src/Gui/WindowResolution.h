@@ -63,14 +63,9 @@ class WindowResolution : public WindowBase {
 	//[ RTTI interface                                        ]
 	//[-------------------------------------------------------]
 	pl_class(pl_rtti_export, WindowResolution, "", WindowBase, "Window that displays options for choosing the resolution")
+		// Signals
+		pl_signal_2(SignalResolutionChanged,	const PLRenderer::DisplayMode*,	bool,	"Resolution changed",	"")
 	pl_class_end
-
-
-	//[-------------------------------------------------------]
-	//[ Public events                                         ]
-	//[-------------------------------------------------------]
-	public:
-		PLCore::Event<const PLRenderer::DisplayMode*, bool> EventResolutionChanged;
 
 
 	//[-------------------------------------------------------]
