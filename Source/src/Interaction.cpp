@@ -118,13 +118,13 @@ Interaction::Interaction(Application &cApplication) :
 	Widget *pWidget = m_pApplication->GetMainWindow();
 	if (pWidget) {
 		// Connect event handler
-		pWidget->GetContentWidget()->EventMouseMove.	  Connect(&EventHandlerMouseMove);
-		pWidget->GetContentWidget()->EventMouseButtonDown.Connect(&EventHandlerMouseButtonDown);
-		pWidget->GetContentWidget()->EventMouseButtonUp.  Connect(&EventHandlerMouseButtonUp);
-		pWidget->EventKeyDown.Connect(&EventHandlerKeyDown);
-		// [TODO] Linux: Currently we need to listen to the content widget key events as well ("focus follows mouse"-topic)
+		pWidget->GetContentWidget()->SignalMouseMove.	   Connect(&EventHandlerMouseMove);
+		pWidget->GetContentWidget()->SignalMouseButtonDown.Connect(&EventHandlerMouseButtonDown);
+		pWidget->GetContentWidget()->SignalMouseButtonUp.  Connect(&EventHandlerMouseButtonUp);
+		pWidget->SignalKeyDown.Connect(&EventHandlerKeyDown);
+		// [TODO] Linux: Currently we need to listen to the content widget key signals as well ("focus follows mouse"-topic)
 		if (pWidget->GetContentWidget() != pWidget)
-			pWidget->GetContentWidget()->EventKeyDown.Connect(&EventHandlerKeyDown);
+			pWidget->GetContentWidget()->SignalKeyDown.Connect(&EventHandlerKeyDown);
 	}
 
 	// By default, the mouse cursor is visible

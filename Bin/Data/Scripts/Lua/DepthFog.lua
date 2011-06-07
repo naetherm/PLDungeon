@@ -2,7 +2,7 @@
 --[ Global functions                                      ]
 --[-------------------------------------------------------]
 --@brief
---  Sets the depthfog density
+--  Sets the depth fog density
 --
 --@param[in] density
 --  Depth fog density, <= 0 means there's no fog

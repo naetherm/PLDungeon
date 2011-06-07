@@ -82,7 +82,7 @@ IngameGui::IngameGui(Interaction &cInteraction) :
 				m_pFocusWindow = new Window(m_pIngameGui->GetRootWidget());
 				m_pFocusWindow->SetVisible(false);
 				m_pFocusWindow->SetFocus();
-				m_pFocusWindow->EventLooseFocus.Connect(&EventHandlerFocus);
+				m_pFocusWindow->SignalLooseFocus.Connect(&EventHandlerFocus);
 
 				// Create menu window
 				m_pMenu = new WindowMenu(m_pIngameGui->GetRootWidget());
@@ -118,7 +118,7 @@ IngameGui::IngameGui(Interaction &cInteraction) :
 		Widget *pContentWidget = pWidget->GetContentWidget();
 
 		// Connect event handler
-		pContentWidget->EventMouseButtonDown.Connect(&EventHandlerMouseDown);
+		pContentWidget->SignalMouseButtonDown.Connect(&EventHandlerMouseDown);
 	}
 }
 
