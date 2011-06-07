@@ -57,8 +57,8 @@ class Application : public PLEngine::BasicSceneApplication {
 	//[ RTTI interface                                        ]
 	//[-------------------------------------------------------]
 	pl_class(pl_rtti_export, Application, "", PLEngine::BasicSceneApplication, "Application class")
-		pl_constructor_0(DefaultConstructor, "Default constructor", "")
-		pl_method_2(ShowText, void, PLGeneral::String, float, "Shows a text, text to show as first parameter and timeout (in seconds) as second parameter", "")
+		// Constructors
+		pl_constructor_0(DefaultConstructor,	"Default constructor",	"")
 	pl_class_end
 
 

@@ -11,6 +11,9 @@
     <Filter Include="Scripts">
       <UniqueIdentifier>{29430a57-c906-41c5-bfe3-af41ffa28a14}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Scripts\Lua">
+      <UniqueIdentifier>{79068466-59f8-4521-98da-d17226eba8ea}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Application.cpp">
@@ -106,8 +109,17 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="CMakeLists.txt" />
-    <None Include="..\Bin\Data\Scripts\MakingOf.lua">
-      <Filter>Scripts</Filter>
+    <None Include="..\Bin\Data\Scripts\Lua\DepthFog.lua">
+      <Filter>Scripts\Lua</Filter>
+    </None>
+    <None Include="..\Bin\Data\Scripts\Lua\MakingOf.lua">
+      <Filter>Scripts\Lua</Filter>
+    </None>
+    <None Include="..\Bin\Data\Scripts\Lua\ShowText.lua">
+      <Filter>Scripts\Lua</Filter>
+    </None>
+    <None Include="..\Bin\Data\Scripts\Lua\Application.lua">
+      <Filter>Scripts\Lua</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>

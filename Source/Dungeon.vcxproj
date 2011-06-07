@@ -392,7 +392,10 @@
     <ClInclude Include="resource.h" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\Bin\Data\Scripts\MakingOf.lua" />
+    <None Include="..\Bin\Data\Scripts\Lua\Application.lua" />
+    <None Include="..\Bin\Data\Scripts\Lua\DepthFog.lua" />
+    <None Include="..\Bin\Data\Scripts\Lua\MakingOf.lua" />
+    <None Include="..\Bin\Data\Scripts\Lua\ShowText.lua" />
     <None Include="CMakeLists.txt" />
   </ItemGroup>
   <ItemGroup>

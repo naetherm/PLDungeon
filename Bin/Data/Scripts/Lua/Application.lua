@@ -1,8 +1,8 @@
 --[-------------------------------------------------------]
 --[ Includes                                              ]
 --[-------------------------------------------------------]
-require("Data/Scripts/ShowText")
-require("Data/Scripts/DepthFog")
+require("Data/Scripts/Lua/ShowText")
+require("Data/Scripts/Lua/DepthFog")
 
 
 --[-------------------------------------------------------]

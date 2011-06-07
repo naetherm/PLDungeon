@@ -54,8 +54,10 @@ class MakingOf : public PLCore::Object {
 	//[ RTTI interface                                        ]
 	//[-------------------------------------------------------]
 	pl_class(pl_rtti_export, MakingOf, "", PLCore::Object, "Making of interaction component")
-		pl_signal_0(SignalPlaybackFinished, "Playback has been finished", "")
-		pl_method_0(SetInitialSettings, void, "Sets the initial state settings", "")
+		// Methods
+		pl_method_0(SetInitialSettings,	void,	"Sets the initial state settings",	"")
+		// Signals
+		pl_signal_0(SignalPlaybackFinished,	"Playback has been finished",	"")
 	pl_class_end
 
 
@@ -105,7 +107,7 @@ class MakingOf : public PLCore::Object {
 		*  @param[in] sScriptFilename
 		*    Filename of the script to use
 		*/
-		void StartPlayback(const PLGeneral::String &sScriptFilename = "Data/Scripts/MakingOf.lua");
+		void StartPlayback(const PLGeneral::String &sScriptFilename = "Data/Scripts/Lua/MakingOf.lua");
 
 		/**
 		*  @brief

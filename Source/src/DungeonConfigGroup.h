@@ -109,13 +109,15 @@ class DungeonConfig : public DungeonConfigGroup {
 	//[ RTTI interface                                        ]
 	//[-------------------------------------------------------]
 	pl_class(pl_rtti_export, DungeonConfig, "", DungeonConfigGroup, "Dungeon configuration class")
-		pl_constructor_0(DefaultConstructor, "Default constructor", "")
+		// Attributes
 		pl_attribute(SoundAPI,			PLGeneral::String,	"PLSoundOpenAL::SoundManager",	ReadWrite,	DirectValue,	"Name of the sound API to use",	"")
 	#ifdef INTERNALRELEASE
 		pl_attribute(EditModeEnabled,	bool,				true,							ReadWrite,	DirectValue,	"Edit mode enabled?",			"")
 	#else
 		pl_attribute(EditModeEnabled,	bool,				false,							ReadWrite,	DirectValue,	"Edit mode enabled?",			"")
 	#endif
+		// Constructors
+		pl_constructor_0(DefaultConstructor,	"Default constructor",	"")
 	pl_class_end
 
 

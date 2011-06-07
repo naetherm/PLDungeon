@@ -276,7 +276,7 @@ void Application::OnInit()
 		SetEditModeEnabled(GetConfig().GetVar("DungeonConfig", "EditModeEnabled").GetBool());
 
 		// Create the script instance
-		m_pScript = ScriptManager::GetInstance()->CreateFromFile("Data/Scripts/Application.lua");
+		m_pScript = ScriptManager::GetInstance()->CreateFromFile("Data/Scripts/Lua/Application.lua");
 		if (m_pScript) {
 			// Add the global variable "this" to the script so that it's able to access "this" RTTI class instance
 			m_pScript->SetGlobalVariable("this", Var<Object*>(this));

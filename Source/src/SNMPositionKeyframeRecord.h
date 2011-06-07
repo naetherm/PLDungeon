@@ -61,10 +61,12 @@ class SNMPositionKeyframeRecord : public PLScene::SNMTransform {
 	//[ RTTI interface                                        ]
 	//[-------------------------------------------------------]
 	pl_class(pl_rtti_export, SNMPositionKeyframeRecord, "", PLScene::SNMTransform, "Keyframe position animation scene node modifier class")
-		pl_constructor_1(ParameterConstructor, PLScene::SceneNode&, "Parameter constructor", "")
+		// Attributes
 		pl_attribute(FramesPerSecond,	PLGeneral::uint32,	24,	ReadWrite,	DirectValue,	"Frames per second",																											"")
 		pl_attribute(Keys,				PLGeneral::String,	"",	ReadWrite,	DirectValue,	"Position keys (x, y and z) chunk filename",																					"")
 		pl_attribute(CoordinateSystem,	PLGeneral::String,	"",	ReadWrite,	DirectValue,	"Name of the scene container the position keys are in, empty string means scene container of the modifiers owner scene node",	"")
+		// Constructors
+		pl_constructor_1(ParameterConstructor,	PLScene::SceneNode&,	"Parameter constructor",	"")
 	pl_class_end
 
 
