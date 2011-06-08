@@ -29,7 +29,6 @@
 //[ Includes                                              ]
 //[-------------------------------------------------------]
 #include <PLCore/Base/Object.h>
-#include <PLCore/Base/Event/EventHandler.h>
 #include <PLScene/Scene/SceneNodeHandler.h>
 
 
@@ -66,6 +65,13 @@ class Interaction : public PLCore::Object {
 	pl_class(pl_rtti_export, Interaction, "", PLCore::Object, "Interaction application component")
 		// Methods
 		pl_method_0(GetIngameGui,	IngameGui*,	"Returns the ingame GUI interaction component instance, never a null pointer",	"")
+		// Slots
+		pl_slot_1(NotifyMouseMove,					const PLMath::Vector2i&,								"Called when the mouse is moved, mouse position within the window as first parameter",																"")
+		pl_slot_2(NotifyMouseButtonDown,			PLGeneral::uint32,			const PLMath::Vector2i&,	"Called when a mouse button is pressed, mouse button that is pressed as first parameter, mouse position within the window as second parameter",		"")
+		pl_slot_2(NotifyMouseButtonUp,				PLGeneral::uint32,			const PLMath::Vector2i&,	"Called when a mouse button is released, mouse button that is released as first parameter, mouse position within the window as second parameter",	"")
+		pl_slot_2(NotifyKeyDown,					PLGeneral::uint32,			PLGeneral::uint32,			"Called when a key is pressed down, pressed key as first parameter, modifier keys pressed as second parameter",										"")
+		pl_slot_0(NotifyMoviePlaybackFinished,																"Called when the camcorder playback has been finished",																								"")
+		pl_slot_0(NotifyMakingOfPlaybackFinished,															"Called when the making of playback has been finished",																								"")
 	pl_class_end
 
 
@@ -223,18 +229,6 @@ class Interaction : public PLCore::Object {
 		*    Called when the making of playback has been finished
 		*/
 		void NotifyMakingOfPlaybackFinished();
-
-
-	//[-------------------------------------------------------]
-	//[ Private event handlers                                ]
-	//[-------------------------------------------------------]
-	private:
-		PLCore::EventHandler<const PLMath::Vector2i&>						EventHandlerMouseMove;
-		PLCore::EventHandler<PLGeneral::uint32, const PLMath::Vector2i&>	EventHandlerMouseButtonDown;
-		PLCore::EventHandler<PLGeneral::uint32, const PLMath::Vector2i&>	EventHandlerMouseButtonUp;
-		PLCore::EventHandler<PLGeneral::uint32, PLGeneral::uint32>			EventHandlerKeyDown;
-		PLCore::EventHandler<>												EventHandlerMoviePlaybackFinished;
-		PLCore::EventHandler<>												EventHandlerMakingOfPlaybackFinished;
 
 
 	//[-------------------------------------------------------]

@@ -82,7 +82,7 @@ const String Application::DefaultScene = "Data/Scenes/Dungeon.scene";
 *    Constructor
 */
 Application::Application() : BasicSceneApplication(),
-	EventHandlerLoadProgress(&Application::OnLoadProgress, this),
+	SlotOnLoadProgress(this),
 	m_pScript(nullptr),
 	m_pInteraction(nullptr),
 	m_fLoadProgress(0.0f)
@@ -360,7 +360,7 @@ void Application::OnCreateRootScene()
 
 				// Connect event handler
 				if (pSceneContainerNode->IsInstanceOf("PLScene::SceneContainer"))
-					static_cast<SceneContainer*>(pSceneContainerNode)->SignalLoadProgress.Connect(&EventHandlerLoadProgress);
+					static_cast<SceneContainer*>(pSceneContainerNode)->SignalLoadProgress.Connect(&SlotOnLoadProgress);
 
 				// Create the 'concrete scene'
 				OnCreateScene(*pSceneContainer);

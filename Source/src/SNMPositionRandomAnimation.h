@@ -28,7 +28,6 @@
 //[-------------------------------------------------------]
 //[ Includes                                              ]
 //[-------------------------------------------------------]
-#include <PLCore/Base/Event/EventHandler.h>
 #include <PLMath/Vector3.h>
 #include <PLScene/Scene/SceneNodeModifiers/SNMTransform.h>
 
@@ -56,6 +55,8 @@ class SNMPositionRandomAnimation : public PLScene::SNMTransform {
 		pl_attribute(FixPosition,	PLMath::Vector3,	PLMath::Vector3(0.0f, 0.0f, 0.0f),	ReadWrite,	DirectValue,	"Position, if default, the initial scene node position is used",	"")
 		// Constructors
 		pl_constructor_1(ParameterConstructor,	PLScene::SceneNode&,	"Parameter constructor",	"")
+		// Slots
+		pl_slot_0(NotifyUpdate,	"Called when the scene node needs to be updated",	"")
 	pl_class_end
 
 
@@ -95,13 +96,6 @@ class SNMPositionRandomAnimation : public PLScene::SNMTransform {
 		*    Called when the scene node needs to be updated
 		*/
 		void NotifyUpdate();
-
-
-	//[-------------------------------------------------------]
-	//[ Private event handlers                                ]
-	//[-------------------------------------------------------]
-	private:
-		PLCore::EventHandler<> EventHandlerUpdate;
 
 
 	//[-------------------------------------------------------]

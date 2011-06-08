@@ -56,7 +56,7 @@ SNMPositionKeyframeRecord::SNMPositionKeyframeRecord(SceneNode &cSceneNode) : SN
 	FramesPerSecond(this),
 	Keys(this),
 	CoordinateSystem(this),
-	EventHandlerUpdate(&SNMPositionKeyframeRecord::NotifyUpdate, this),
+	SlotNotifyUpdate(this),
 	m_bRecording(false),
 	m_fFrame(0.0f),
 	m_nFrame(0),
@@ -208,7 +208,7 @@ void SNMPositionKeyframeRecord::OnActivate(bool bActivate)
 		// Connect event handler
 		SceneContext *pSceneContext = GetSceneContext();
 		if (pSceneContext)
-			pSceneContext->EventUpdate.Connect(&EventHandlerUpdate);
+			pSceneContext->EventUpdate.Connect(&SlotNotifyUpdate);
 	} else {
 		// Stop the record
 		StopRecord();
@@ -216,6 +216,6 @@ void SNMPositionKeyframeRecord::OnActivate(bool bActivate)
 		// Disconnect event handler
 		SceneContext *pSceneContext = GetSceneContext();
 		if (pSceneContext)
-			pSceneContext->EventUpdate.Disconnect(&EventHandlerUpdate);
+			pSceneContext->EventUpdate.Disconnect(&SlotNotifyUpdate);
 	}
 }

@@ -54,7 +54,7 @@ SNMPositionRandomAnimation::SNMPositionRandomAnimation(SceneNode &cSceneNode) : 
 	Speed(this),
 	Radius(this),
 	FixPosition(this),
-	EventHandlerUpdate(&SNMPositionRandomAnimation::NotifyUpdate, this)
+	SlotNotifyUpdate(this)
 {
 	// Set initial fixed position
 	FixPosition.Set(cSceneNode.GetTransform().GetPosition());
@@ -78,9 +78,9 @@ void SNMPositionRandomAnimation::OnActivate(bool bActivate)
 	SceneContext *pSceneContext = GetSceneContext();
 	if (pSceneContext) {
 		if (bActivate)
-			pSceneContext->EventUpdate.Connect(&EventHandlerUpdate);
+			pSceneContext->EventUpdate.Connect(&SlotNotifyUpdate);
 		else
-			pSceneContext->EventUpdate.Disconnect(&EventHandlerUpdate);
+			pSceneContext->EventUpdate.Disconnect(&SlotNotifyUpdate);
 	}
 }
 

@@ -28,7 +28,6 @@
 //[-------------------------------------------------------]
 //[ Includes                                              ]
 //[-------------------------------------------------------]
-#include <PLCore/Base/Event/EventHandler.h>
 #include <PLScene/Scene/SceneNodeModifiers/SNMTransform.h>
 
 
@@ -63,6 +62,8 @@ class SNMRotationKeyframeRecord : public PLScene::SNMTransform {
 		pl_attribute(Keys,				PLGeneral::String,	"",	ReadWrite,	DirectValue,	"Rotation keys (w, x, y and z quaternion components) chunk filename",	"")
 		// Constructors
 		pl_constructor_1(ParameterConstructor,	PLScene::SceneNode&,	"Parameter constructor",	"")
+		// Slots
+		pl_slot_0(NotifyUpdate,	"Called when the scene node needs to be updated",	"")
 	pl_class_end
 
 
@@ -124,13 +125,6 @@ class SNMRotationKeyframeRecord : public PLScene::SNMTransform {
 		*    - If "Keys" is not empty, the chunk is saved
 		*/
 		void StopRecord();
-
-
-	//[-------------------------------------------------------]
-	//[ Private event handlers                                ]
-	//[-------------------------------------------------------]
-	private:
-		PLCore::EventHandler<> EventHandlerUpdate;
 
 
 	//[-------------------------------------------------------]

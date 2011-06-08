@@ -28,7 +28,6 @@
 //[-------------------------------------------------------]
 //[ Includes                                              ]
 //[-------------------------------------------------------]
-#include <PLCore/Base/Event/EventHandler.h>
 #include <PLScene/Scene/SceneNodeModifiers/SNMTransform.h>
 
 
@@ -67,6 +66,8 @@ class SNMPositionKeyframeRecord : public PLScene::SNMTransform {
 		pl_attribute(CoordinateSystem,	PLGeneral::String,	"",	ReadWrite,	DirectValue,	"Name of the scene container the position keys are in, empty string means scene container of the modifiers owner scene node",	"")
 		// Constructors
 		pl_constructor_1(ParameterConstructor,	PLScene::SceneNode&,	"Parameter constructor",	"")
+		// Slots
+		pl_slot_0(NotifyUpdate,	"Called when the scene node needs to be updated",	"")
 	pl_class_end
 
 
@@ -128,13 +129,6 @@ class SNMPositionKeyframeRecord : public PLScene::SNMTransform {
 		*    - If "Keys" is not empty, the chunk is saved
 		*/
 		void StopRecord();
-
-
-	//[-------------------------------------------------------]
-	//[ Private event handlers                                ]
-	//[-------------------------------------------------------]
-	private:
-		PLCore::EventHandler<> EventHandlerUpdate;
 
 
 	//[-------------------------------------------------------]

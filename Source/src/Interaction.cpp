@@ -63,12 +63,12 @@ pl_implement_class(Interaction)
 *    Constructor
 */
 Interaction::Interaction(Application &cApplication) :
-	EventHandlerMouseMove				(&Interaction::NotifyMouseMove,					this),
-	EventHandlerMouseButtonDown			(&Interaction::NotifyMouseButtonDown,			this),
-	EventHandlerMouseButtonUp			(&Interaction::NotifyMouseButtonUp,				this),
-	EventHandlerKeyDown					(&Interaction::NotifyKeyDown,					this),
-	EventHandlerMoviePlaybackFinished	(&Interaction::NotifyMoviePlaybackFinished,		this),
-	EventHandlerMakingOfPlaybackFinished(&Interaction::NotifyMakingOfPlaybackFinished,	this),
+	SlotNotifyMouseMove(this),
+	SlotNotifyMouseButtonDown(this),
+	SlotNotifyMouseButtonUp(this),
+	SlotNotifyKeyDown(this),
+	SlotNotifyMoviePlaybackFinished(this),
+	SlotNotifyMakingOfPlaybackFinished(this),
 	m_pApplication(&cApplication),
 	m_nMode(UnknownMode),
 	m_nModeBackup(UnknownMode),
@@ -79,10 +79,10 @@ Interaction::Interaction(Application &cApplication) :
 	m_fMousePickingPullAnimation(0.0f)
 {
 	// Connect the camcorder event handler
-	m_pCamcorder->EventPlaybackFinished.Connect(&EventHandlerMoviePlaybackFinished);
+	m_pCamcorder->EventPlaybackFinished.Connect(&SlotNotifyMoviePlaybackFinished);
 
 	// Connect the making of event handler
-	m_pMakingOf->SignalPlaybackFinished.Connect(&EventHandlerMakingOfPlaybackFinished);
+	m_pMakingOf->SignalPlaybackFinished.Connect(&SlotNotifyMakingOfPlaybackFinished);
 
 	// Get the scene container
 	SceneContainer *pScene = m_pApplication->GetScene();
@@ -122,13 +122,13 @@ Interaction::Interaction(Application &cApplication) :
 	Widget *pWidget = m_pApplication->GetMainWindow();
 	if (pWidget) {
 		// Connect event handler
-		pWidget->GetContentWidget()->SignalMouseMove.	   Connect(&EventHandlerMouseMove);
-		pWidget->GetContentWidget()->SignalMouseButtonDown.Connect(&EventHandlerMouseButtonDown);
-		pWidget->GetContentWidget()->SignalMouseButtonUp.  Connect(&EventHandlerMouseButtonUp);
-		pWidget->SignalKeyDown.Connect(&EventHandlerKeyDown);
+		pWidget->GetContentWidget()->SignalMouseMove.	   Connect(&SlotNotifyMouseMove);
+		pWidget->GetContentWidget()->SignalMouseButtonDown.Connect(&SlotNotifyMouseButtonDown);
+		pWidget->GetContentWidget()->SignalMouseButtonUp.  Connect(&SlotNotifyMouseButtonUp);
+		pWidget->SignalKeyDown.Connect(&SlotNotifyKeyDown);
 		// [TODO] Linux: Currently we need to listen to the content widget key signals as well ("focus follows mouse"-topic)
 		if (pWidget->GetContentWidget() != pWidget)
-			pWidget->GetContentWidget()->SignalKeyDown.Connect(&EventHandlerKeyDown);
+			pWidget->GetContentWidget()->SignalKeyDown.Connect(&SlotNotifyKeyDown);
 	}
 
 	// By default, the mouse cursor is visible

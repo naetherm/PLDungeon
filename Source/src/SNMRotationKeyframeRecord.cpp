@@ -55,7 +55,7 @@ pl_implement_class(SNMRotationKeyframeRecord)
 SNMRotationKeyframeRecord::SNMRotationKeyframeRecord(SceneNode &cSceneNode) : SNMTransform(cSceneNode),
 	FramesPerSecond(this),
 	Keys(this),
-	EventHandlerUpdate(&SNMRotationKeyframeRecord::NotifyUpdate, this),
+	SlotNotifyUpdate(this),
 	m_bRecording(false),
 	m_fFrame(0.0f),
 	m_nFrame(0),
@@ -194,7 +194,7 @@ void SNMRotationKeyframeRecord::OnActivate(bool bActivate)
 		// Connect event handler
 		SceneContext *pSceneContext = GetSceneContext();
 		if (pSceneContext)
-			pSceneContext->EventUpdate.Connect(&EventHandlerUpdate);
+			pSceneContext->EventUpdate.Connect(&SlotNotifyUpdate);
 	} else {
 		// Stop the record
 		StopRecord();
@@ -202,6 +202,6 @@ void SNMRotationKeyframeRecord::OnActivate(bool bActivate)
 		// Disconnect event handler
 		SceneContext *pSceneContext = GetSceneContext();
 		if (pSceneContext)
-			pSceneContext->EventUpdate.Disconnect(&EventHandlerUpdate);
+			pSceneContext->EventUpdate.Disconnect(&SlotNotifyUpdate);
 	}
 }
