@@ -394,6 +394,7 @@
   <ItemGroup>
     <None Include="..\Bin\Data\Scripts\Lua\Application.lua" />
     <None Include="..\Bin\Data\Scripts\Lua\DepthFog.lua" />
+    <None Include="..\Bin\Data\Scripts\Lua\GUIBackground.lua" />
     <None Include="..\Bin\Data\Scripts\Lua\MakingOf.lua" />
     <None Include="..\Bin\Data\Scripts\Lua\OldFilm.lua" />
     <None Include="..\Bin\Data\Scripts\Lua\ShowText.lua" />

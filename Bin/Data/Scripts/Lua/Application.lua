@@ -4,6 +4,7 @@
 require("Data/Scripts/Lua/ShowText")
 require("Data/Scripts/Lua/DepthFog")
 require("Data/Scripts/Lua/OldFilm")
+require("Data/Scripts/Lua/GUIBackground")
 
 
 --[-------------------------------------------------------]
@@ -78,4 +79,7 @@ end
 function Update()
 	-- Update the old film post process effect
 	UpdateOldFilm()
+
+	-- Update the the GUI background blur
+	UpdateGUIBackgroundBlur()
 end

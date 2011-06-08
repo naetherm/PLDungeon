@@ -28,6 +28,7 @@
 //[-------------------------------------------------------]
 //[ Includes                                              ]
 //[-------------------------------------------------------]
+#include <PLCore/Base/Object.h>
 #include <PLCore/Base/Event/EventHandler.h>
 #include <PLScene/Scene/SceneNodeHandler.h>
 
@@ -35,9 +36,6 @@
 //[-------------------------------------------------------]
 //[ Forward declarations                                  ]
 //[-------------------------------------------------------]
-namespace PLGeneral {
-	class String;
-}
 namespace PLMath {
 	class Vector2i;
 }
@@ -59,7 +57,16 @@ class MakingOf;
 *    - Management of the modes (walk, free, ghost and so on)
 *    - Hiding the mouse cursor on 'mouse look around'
 */
-class Interaction {
+class Interaction : public PLCore::Object {
+
+
+	//[-------------------------------------------------------]
+	//[ RTTI interface                                        ]
+	//[-------------------------------------------------------]
+	pl_class(pl_rtti_export, Interaction, "", PLCore::Object, "Interaction application component")
+		// Methods
+		pl_method_0(GetIngameGui,	IngameGui*,	"Returns the ingame GUI interaction component instance, never a null pointer",	"")
+	pl_class_end
 
 
 	//[-------------------------------------------------------]
@@ -134,6 +141,15 @@ class Interaction {
 		*/
 		void Update();
 
+		/**
+		*  @brief
+		*    Returns the ingame GUI interaction component instance
+		*
+		*  @return
+		*    The ingame GUI interaction component instance, never a null pointer
+		*/
+		IngameGui *GetIngameGui() const;
+
 
 	//[-------------------------------------------------------]
 	//[ Private functions                                     ]
@@ -144,12 +160,6 @@ class Interaction {
 		*    Updates the mouse picking pull animation
 		*/
 		void UpdateMousePickingPullAnimation();
-
-		/**
-		*  @brief
-		*    Updates the the GUI background blur
-		*/
-		void UpdateGUIBackgroundBlur();
 
 		/**
 		*  @brief
@@ -243,7 +253,6 @@ class Interaction {
 		Camcorder				  *m_pCamcorder;						/**< Camcorder interaction component instance, always valid! */
 		MakingOf				  *m_pMakingOf;							/**< Making of interaction component instance, always valid! */
 		float					   m_fMousePickingPullAnimation;		/**< Mouse picking pull animation */
-		float					   m_fGUIBackgroundBlur;				/**< GUI background blur (0 = no blur, 1 full blur) */
 
 
 };

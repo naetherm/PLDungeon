@@ -50,6 +50,12 @@ using namespace PLPhysics;
 
 
 //[-------------------------------------------------------]
+//[ RTTI interface                                        ]
+//[-------------------------------------------------------]
+pl_implement_class(Interaction)
+
+
+//[-------------------------------------------------------]
 //[ Public functions                                      ]
 //[-------------------------------------------------------]
 /**
@@ -70,8 +76,7 @@ Interaction::Interaction(Application &cApplication) :
 	m_pIngameGui(new IngameGui(*this)),
 	m_pCamcorder(new Camcorder(*this)),
 	m_pMakingOf(new MakingOf(*this)),
-	m_fMousePickingPullAnimation(0.0f),
-	m_fGUIBackgroundBlur(0.0f)
+	m_fMousePickingPullAnimation(0.0f)
 {
 	// Connect the camcorder event handler
 	m_pCamcorder->EventPlaybackFinished.Connect(&EventHandlerMoviePlaybackFinished);
@@ -297,9 +302,15 @@ void Interaction::Update()
 
 	// Update the mouse picking pull animation
 	UpdateMousePickingPullAnimation();
+}
 
-	// Update the GUI background blur
-	UpdateGUIBackgroundBlur();
+/**
+*  @brief
+*    Returns the ingame GUI interaction component instance
+*/
+IngameGui *Interaction::GetIngameGui() const
+{
+	return m_pIngameGui;
 }
 
 
@@ -350,48 +361,6 @@ void Interaction::UpdateMousePickingPullAnimation()
 					pCameraSceneNode->RemoveModifier("PLPostProcessEffects::SNMPostProcessPull");
 				}
 			}
-		}
-	}
-}
-
-/**
-*  @brief
-*    Updates the the GUI background blur
-*/
-void Interaction::UpdateGUIBackgroundBlur()
-{
-	// Get the current time difference
-	const float fTimeDiff = Timing::GetInstance()->GetTimeDifference();
-
-	// Update the the GUI background blur depending on whether or not the ingame GUI is currently visible
-	if (m_pIngameGui->IsGuiShown()) {
-		m_fGUIBackgroundBlur += fTimeDiff;
-		if (m_fGUIBackgroundBlur > 1.0f)
-			m_fGUIBackgroundBlur = 1.0f;
-	} else {
-		m_fGUIBackgroundBlur -= fTimeDiff;
-		if (m_fGUIBackgroundBlur < 0.0f)
-			m_fGUIBackgroundBlur = 0.0f;
-	}
-
-	// Get the currently set camera scene node
-	SceneNode *pCameraSceneNode = reinterpret_cast<SceneNode*>(m_pApplication->GetCamera());
-	if (pCameraSceneNode) {
-		// Is there currently GUI background blur?
-		if (m_fGUIBackgroundBlur) {
-			// Update "PLPostProcessEffects::SNMPostProcessBlur" modifier
-			SceneNodeModifier *pSceneNodeModifier = pCameraSceneNode->GetModifier("PLPostProcessEffects::SNMPostProcessBlur");
-			if (!pSceneNodeModifier)
-				pSceneNodeModifier = pCameraSceneNode->AddModifier("PLPostProcessEffects::SNMPostProcessBlur");
-			if (pSceneNodeModifier) {
-				const float fFactor = static_cast<float>(Math::Sin(m_fGUIBackgroundBlur*Math::PiHalf));
-				pSceneNodeModifier->SetAttribute("EffectWeight", fFactor);
-				pSceneNodeModifier->SetAttribute("BloomScale",   0.8f + (1.0f-fFactor)*3.0f);
-				pSceneNodeModifier->SetAttribute("Strength",     String::Format("%f %f", 1.0f+fFactor*3, 1.0f+fFactor*4));
-			}
-		} else {
-			// Remove "PLPostProcessEffects::SNMPostProcessBlur" modifier
-			pCameraSceneNode->RemoveModifier("PLPostProcessEffects::SNMPostProcessBlur");
 		}
 	}
 }

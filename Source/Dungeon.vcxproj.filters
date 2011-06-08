@@ -124,6 +124,9 @@
     <None Include="..\Bin\Data\Scripts\Lua\OldFilm.lua">
       <Filter>Scripts\Lua</Filter>
     </None>
+    <None Include="..\Bin\Data\Scripts\Lua\GUIBackground.lua">
+      <Filter>Scripts\Lua</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Dungeon.rc" />

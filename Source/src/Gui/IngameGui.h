@@ -28,6 +28,7 @@
 //[-------------------------------------------------------]
 //[ Includes                                              ]
 //[-------------------------------------------------------]
+#include <PLCore/Base/Object.h>
 #include <PLCore/Base/Event/EventHandler.h>
 
 
@@ -53,7 +54,16 @@ class WindowResolution;
 *  @brief
 *    Ingame GUI interaction component
 */
-class IngameGui {
+class IngameGui : public PLCore::Object {
+
+
+	//[-------------------------------------------------------]
+	//[ RTTI interface                                        ]
+	//[-------------------------------------------------------]
+	pl_class(pl_rtti_export, IngameGui, "", PLCore::Object, "Ingame GUI interaction component")
+		// Methods
+		pl_method_0(IsGuiShown,	bool,	"Returns 'true' if currently at least one GUI element is shown, else 'false'",	"")
+	pl_class_end
 
 
 	//[-------------------------------------------------------]

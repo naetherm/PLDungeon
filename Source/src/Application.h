@@ -57,8 +57,8 @@ class Application : public PLEngine::BasicSceneApplication {
 	//[ RTTI interface                                        ]
 	//[-------------------------------------------------------]
 	pl_class(pl_rtti_export, Application, "", PLEngine::BasicSceneApplication, "Application class")
-		// Constructors
-		pl_constructor_0(DefaultConstructor,	"Default constructor",	"")
+		// Methods
+		pl_method_0(GetInteraction,	Interaction*,	"Returns the interaction component instance, can be a null pointer",	"")
 	pl_class_end
 
 
@@ -105,10 +105,10 @@ class Application : public PLEngine::BasicSceneApplication {
 
 		/**
 		*  @brief
-		*    Returns the interaction component
+		*    Returns the interaction component instance
 		*
 		*  @return
-		*    The interaction component, can be a null pointer
+		*    The interaction component instance, can be a null pointer
 		*/
 		Interaction *GetInteraction();
 

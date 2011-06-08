@@ -136,7 +136,7 @@ bool Application::IsRepeatMode() const
 
 /**
 *  @brief
-*    Returns the interaction component
+*    Returns the interaction component instance
 */
 Interaction *Application::GetInteraction()
 {
