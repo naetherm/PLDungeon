@@ -153,12 +153,6 @@ class Interaction {
 
 		/**
 		*  @brief
-		*    Update the old film post process effect
-		*/
-		void UpdateOldFilm();
-
-		/**
-		*  @brief
 		*    Set mouse cursor visibility
 		*
 		*  @param[in] bVisible
@@ -250,7 +244,6 @@ class Interaction {
 		MakingOf				  *m_pMakingOf;							/**< Making of interaction component instance, always valid! */
 		float					   m_fMousePickingPullAnimation;		/**< Mouse picking pull animation */
 		float					   m_fGUIBackgroundBlur;				/**< GUI background blur (0 = no blur, 1 full blur) */
-		float					   m_fOldFilmPostProcess;				/**< Old film post process effect factor */
 
 
 };

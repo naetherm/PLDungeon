@@ -71,8 +71,7 @@ Interaction::Interaction(Application &cApplication) :
 	m_pCamcorder(new Camcorder(*this)),
 	m_pMakingOf(new MakingOf(*this)),
 	m_fMousePickingPullAnimation(0.0f),
-	m_fGUIBackgroundBlur(0.0f),
-	m_fOldFilmPostProcess(0.0f)
+	m_fGUIBackgroundBlur(0.0f)
 {
 	// Connect the camcorder event handler
 	m_pCamcorder->EventPlaybackFinished.Connect(&EventHandlerMoviePlaybackFinished);
@@ -301,9 +300,6 @@ void Interaction::Update()
 
 	// Update the GUI background blur
 	UpdateGUIBackgroundBlur();
-
-	// Update the old film post process effect
-	UpdateOldFilm();
 }
 
 
@@ -396,44 +392,6 @@ void Interaction::UpdateGUIBackgroundBlur()
 		} else {
 			// Remove "PLPostProcessEffects::SNMPostProcessBlur" modifier
 			pCameraSceneNode->RemoveModifier("PLPostProcessEffects::SNMPostProcessBlur");
-		}
-	}
-}
-
-/**
-*  @brief
-*    Update the old film post process effect
-*/
-void Interaction::UpdateOldFilm()
-{
-	// Get the currently set camera scene node
-	SceneNode *pCameraSceneNode = reinterpret_cast<SceneNode*>(m_pApplication->GetCamera());
-	if (pCameraSceneNode) {
-		// Get the current time difference
-		const float fTimeDiff = Timing::GetInstance()->GetTimeDifference()/4;
-
-		// Update the the old film post process effect factor
-		if (pCameraSceneNode->GetContainer()->GetName() == "kanal2" || pCameraSceneNode->GetContainer()->GetName() == "kanal4") {
-			m_fOldFilmPostProcess += fTimeDiff;
-			if (m_fOldFilmPostProcess > 1.0f)
-				m_fOldFilmPostProcess = 1.0f;
-		} else {
-			m_fOldFilmPostProcess -= fTimeDiff;
-			if (m_fOldFilmPostProcess < 0.0f)
-				m_fOldFilmPostProcess = 0.0f;
-		}
-
-		// Is there currently a old film post process effect?
-		if (m_fOldFilmPostProcess) {
-			// Update "PLPostProcessEffects::SNMPostProcessOldFilm" modifier
-			SceneNodeModifier *pSceneNodeModifier = pCameraSceneNode->GetModifier("PLPostProcessEffects::SNMPostProcessOldFilm");
-			if (!pSceneNodeModifier)
-				pSceneNodeModifier = pCameraSceneNode->AddModifier("PLPostProcessEffects::SNMPostProcessOldFilm");
-			if (pSceneNodeModifier)
-				pSceneNodeModifier->SetAttribute("EffectWeight", m_fOldFilmPostProcess);
-		} else {
-			// Remove "PLPostProcessEffects::SNMPostProcessOldFilm" modifier
-			pCameraSceneNode->RemoveModifier("PLPostProcessEffects::SNMPostProcessOldFilm");
 		}
 	}
 }

@@ -3,6 +3,7 @@
 --[-------------------------------------------------------]
 require("Data/Scripts/Lua/ShowText")
 require("Data/Scripts/Lua/DepthFog")
+require("Data/Scripts/Lua/OldFilm")
 
 
 --[-------------------------------------------------------]
@@ -75,4 +76,6 @@ end
 --@brief
 --  Update function called by C++
 function Update()
+	-- Update the old film post process effect
+	UpdateOldFilm()
 end
