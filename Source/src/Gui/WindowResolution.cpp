@@ -60,7 +60,6 @@ pl_implement_class(WindowResolution)
 *    Constructor
 */
 WindowResolution::WindowResolution(Application *pApplication, Widget *pParent) : WindowBase(pParent),
-	SignalResolutionChanged(this),
 	m_pApplication(pApplication),
 	m_pSlider(nullptr),
 	m_pFont(new Font(*GetGui())),

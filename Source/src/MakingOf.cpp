@@ -89,7 +89,6 @@ void MakingOf::SetInitialSettings()
 *    Constructor
 */
 MakingOf::MakingOf(Interaction &cInteraction) :
-	SignalPlaybackFinished(this),
 	m_pInteraction(&cInteraction),
 	m_bPlaying(false),
 	m_pScript(nullptr)

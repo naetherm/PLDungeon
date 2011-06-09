@@ -52,7 +52,6 @@ pl_implement_class(WindowMenu)
 *    Constructor
 */
 WindowMenu::WindowMenu(Widget *pParent) : WindowBase(pParent),
-	SignalCommand(this),
 	m_pFontTitle(new Font(*GetGui())),
 	m_pFontText(new Font(*GetGui())),
 	m_cColorTitle(1.0f, 1.0f, 1.0f, 1.0f),
