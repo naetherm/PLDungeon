@@ -63,12 +63,12 @@ pl_implement_class(Interaction)
 *    Constructor
 */
 Interaction::Interaction(Application &cApplication) :
-	SlotNotifyMouseMove(this),
-	SlotNotifyMouseButtonDown(this),
-	SlotNotifyMouseButtonUp(this),
-	SlotNotifyKeyDown(this),
-	SlotNotifyMoviePlaybackFinished(this),
-	SlotNotifyMakingOfPlaybackFinished(this),
+	SlotOnMouseMove(this),
+	SlotOnMouseButtonDown(this),
+	SlotOnMouseButtonUp(this),
+	SlotOnKeyDown(this),
+	SlotOnMoviePlaybackFinished(this),
+	SlotOnMakingOfPlaybackFinished(this),
 	m_pApplication(&cApplication),
 	m_nMode(UnknownMode),
 	m_nModeBackup(UnknownMode),
@@ -79,10 +79,10 @@ Interaction::Interaction(Application &cApplication) :
 	m_fMousePickingPullAnimation(0.0f)
 {
 	// Connect the camcorder event handler
-	m_pCamcorder->EventPlaybackFinished.Connect(&SlotNotifyMoviePlaybackFinished);
+	m_pCamcorder->EventPlaybackFinished.Connect(&SlotOnMoviePlaybackFinished);
 
 	// Connect the making of event handler
-	m_pMakingOf->SignalPlaybackFinished.Connect(&SlotNotifyMakingOfPlaybackFinished);
+	m_pMakingOf->SignalPlaybackFinished.Connect(&SlotOnMakingOfPlaybackFinished);
 
 	// Get the scene container
 	SceneContainer *pScene = m_pApplication->GetScene();
@@ -122,13 +122,13 @@ Interaction::Interaction(Application &cApplication) :
 	Widget *pWidget = m_pApplication->GetMainWindow();
 	if (pWidget) {
 		// Connect event handler
-		pWidget->GetContentWidget()->SignalMouseMove.	   Connect(&SlotNotifyMouseMove);
-		pWidget->GetContentWidget()->SignalMouseButtonDown.Connect(&SlotNotifyMouseButtonDown);
-		pWidget->GetContentWidget()->SignalMouseButtonUp.  Connect(&SlotNotifyMouseButtonUp);
-		pWidget->SignalKeyDown.Connect(&SlotNotifyKeyDown);
+		pWidget->GetContentWidget()->SignalMouseMove.	   Connect(&SlotOnMouseMove);
+		pWidget->GetContentWidget()->SignalMouseButtonDown.Connect(&SlotOnMouseButtonDown);
+		pWidget->GetContentWidget()->SignalMouseButtonUp.  Connect(&SlotOnMouseButtonUp);
+		pWidget->SignalKeyDown.Connect(&SlotOnKeyDown);
 		// [TODO] Linux: Currently we need to listen to the content widget key signals as well ("focus follows mouse"-topic)
 		if (pWidget->GetContentWidget() != pWidget)
-			pWidget->GetContentWidget()->SignalKeyDown.Connect(&SlotNotifyKeyDown);
+			pWidget->GetContentWidget()->SignalKeyDown.Connect(&SlotOnKeyDown);
 	}
 
 	// By default, the mouse cursor is visible
@@ -390,7 +390,7 @@ void Interaction::SetMouseVisible(bool bVisible)
 *  @brief
 *    Called when the mouse is moved
 */
-void Interaction::NotifyMouseMove(const Vector2i &vPos)
+void Interaction::OnMouseMove(const Vector2i &vPos)
 {
 	if (m_bLeftMouseButtonDown) {
 		// Hide the mouse cursor - we don't want to have one during look around
@@ -402,7 +402,7 @@ void Interaction::NotifyMouseMove(const Vector2i &vPos)
 *  @brief
 *    Called when a mouse button is pressed
 */
-void Interaction::NotifyMouseButtonDown(uint32 nButton, const Vector2i &vPos)
+void Interaction::OnMouseButtonDown(uint32 nButton, const Vector2i &vPos)
 {
 	// Left mouse button
 	if (nButton == 0)
@@ -413,7 +413,7 @@ void Interaction::NotifyMouseButtonDown(uint32 nButton, const Vector2i &vPos)
 *  @brief
 *    Called when a mouse button is released
 */
-void Interaction::NotifyMouseButtonUp(uint32 nButton, const Vector2i &vPos)
+void Interaction::OnMouseButtonUp(uint32 nButton, const Vector2i &vPos)
 {
 	// Left mouse button
 	if (nButton == 0) {
@@ -428,7 +428,7 @@ void Interaction::NotifyMouseButtonUp(uint32 nButton, const Vector2i &vPos)
 *  @brief
 *    Called when a key is pressed down
 */
-void Interaction::NotifyKeyDown(uint32 nKey, uint32 nModifiers)
+void Interaction::OnKeyDown(uint32 nKey, uint32 nModifiers)
 {
 	switch (nKey) {
 		case PLGUIKEY_ESCAPE:
@@ -510,7 +510,7 @@ void Interaction::NotifyKeyDown(uint32 nKey, uint32 nModifiers)
 *  @brief
 *    Called when the camcorder playback has been finished
 */
-void Interaction::NotifyMoviePlaybackFinished()
+void Interaction::OnMoviePlaybackFinished()
 {
 	// Change into the making of mode
 	SetMode(MakingOfMode);
@@ -520,7 +520,7 @@ void Interaction::NotifyMoviePlaybackFinished()
 *  @brief
 *    Called when the making playback has been finished
 */
-void Interaction::NotifyMakingOfPlaybackFinished()
+void Interaction::OnMakingOfPlaybackFinished()
 {
 	// Change into the free mode or start the movie again
 	SetMode(m_pApplication->IsRepeatMode() ? MovieMode : FreeMode);

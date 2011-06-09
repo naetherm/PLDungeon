@@ -168,7 +168,7 @@ class Camcorder {
 		*  @brief
 		*    Called when one of the keyframe animations has been stopped
 		*/
-		void NotifyAnimationStop();
+		void OnAnimationStop();
 
 
 	//[-------------------------------------------------------]

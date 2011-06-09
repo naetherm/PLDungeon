@@ -66,12 +66,12 @@ class Interaction : public PLCore::Object {
 		// Methods
 		pl_method_0(GetIngameGui,	IngameGui*,	"Returns the ingame GUI interaction component instance, never a null pointer",	"")
 		// Slots
-		pl_slot_1(NotifyMouseMove,					const PLMath::Vector2i&,								"Called when the mouse is moved, mouse position within the window as first parameter",																"")
-		pl_slot_2(NotifyMouseButtonDown,			PLGeneral::uint32,			const PLMath::Vector2i&,	"Called when a mouse button is pressed, mouse button that is pressed as first parameter, mouse position within the window as second parameter",		"")
-		pl_slot_2(NotifyMouseButtonUp,				PLGeneral::uint32,			const PLMath::Vector2i&,	"Called when a mouse button is released, mouse button that is released as first parameter, mouse position within the window as second parameter",	"")
-		pl_slot_2(NotifyKeyDown,					PLGeneral::uint32,			PLGeneral::uint32,			"Called when a key is pressed down, pressed key as first parameter, modifier keys pressed as second parameter",										"")
-		pl_slot_0(NotifyMoviePlaybackFinished,																"Called when the camcorder playback has been finished",																								"")
-		pl_slot_0(NotifyMakingOfPlaybackFinished,															"Called when the making of playback has been finished",																								"")
+		pl_slot_1(OnMouseMove,					const PLMath::Vector2i&,								"Called when the mouse is moved, mouse position within the window as first parameter",																"")
+		pl_slot_2(OnMouseButtonDown,			PLGeneral::uint32,			const PLMath::Vector2i&,	"Called when a mouse button is pressed, mouse button that is pressed as first parameter, mouse position within the window as second parameter",		"")
+		pl_slot_2(OnMouseButtonUp,				PLGeneral::uint32,			const PLMath::Vector2i&,	"Called when a mouse button is released, mouse button that is released as first parameter, mouse position within the window as second parameter",	"")
+		pl_slot_2(OnKeyDown,					PLGeneral::uint32,			PLGeneral::uint32,			"Called when a key is pressed down, pressed key as first parameter, modifier keys pressed as second parameter",										"")
+		pl_slot_0(OnMoviePlaybackFinished,																"Called when the camcorder playback has been finished",																								"")
+		pl_slot_0(OnMakingOfPlaybackFinished,															"Called when the making of playback has been finished",																								"")
 	pl_class_end
 
 
@@ -183,7 +183,7 @@ class Interaction : public PLCore::Object {
 		*  @param[in] vPos
 		*    Mouse position within the window
 		*/
-		void NotifyMouseMove(const PLMath::Vector2i &vPos);
+		void OnMouseMove(const PLMath::Vector2i &vPos);
 
 		/**
 		*  @brief
@@ -194,7 +194,7 @@ class Interaction : public PLCore::Object {
 		*  @param[in] vPos
 		*    Mouse position within the window
 		*/
-		void NotifyMouseButtonDown(PLGeneral::uint32 nButton, const PLMath::Vector2i &vPos);
+		void OnMouseButtonDown(PLGeneral::uint32 nButton, const PLMath::Vector2i &vPos);
 
 		/**
 		*  @brief
@@ -205,7 +205,7 @@ class Interaction : public PLCore::Object {
 		*  @param[in] vPos
 		*    Mouse position within the window
 		*/
-		void NotifyMouseButtonUp(PLGeneral::uint32 nButton, const PLMath::Vector2i &vPos);
+		void OnMouseButtonUp(PLGeneral::uint32 nButton, const PLMath::Vector2i &vPos);
 
 		/**
 		*  @brief
@@ -216,19 +216,19 @@ class Interaction : public PLCore::Object {
 		*  @param[in] nModifiers
 		*    Modifier keys pressed
 		*/
-		void NotifyKeyDown(PLGeneral::uint32 nKey, PLGeneral::uint32 nModifiers);
+		void OnKeyDown(PLGeneral::uint32 nKey, PLGeneral::uint32 nModifiers);
 
 		/**
 		*  @brief
 		*    Called when the camcorder playback has been finished
 		*/
-		void NotifyMoviePlaybackFinished();
+		void OnMoviePlaybackFinished();
 
 		/**
 		*  @brief
 		*    Called when the making of playback has been finished
 		*/
-		void NotifyMakingOfPlaybackFinished();
+		void OnMakingOfPlaybackFinished();
 
 
 	//[-------------------------------------------------------]

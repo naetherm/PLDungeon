@@ -56,7 +56,7 @@ class SNMPositionRandomAnimation : public PLScene::SNMTransform {
 		// Constructors
 		pl_constructor_1(ParameterConstructor,	PLScene::SceneNode&,	"Parameter constructor",	"")
 		// Slots
-		pl_slot_0(NotifyUpdate,	"Called when the scene node needs to be updated",	"")
+		pl_slot_0(OnUpdate,	"Called when the scene node needs to be updated",	"")
 	pl_class_end
 
 
@@ -95,7 +95,7 @@ class SNMPositionRandomAnimation : public PLScene::SNMTransform {
 		*  @brief
 		*    Called when the scene node needs to be updated
 		*/
-		void NotifyUpdate();
+		void OnUpdate();
 
 
 	//[-------------------------------------------------------]

@@ -57,7 +57,7 @@ SNMLightRandomAnimation::SNMLightRandomAnimation(SceneNode &cSceneNode) : SceneN
 	FixColor(this),
 	Color(this),
 	Flags(this),
-	SlotNotifyUpdate(this),
+	SlotOnUpdate(this),
 	m_fCurrentIntensity(1.0f),
 	m_fDestinationIntensity(1.0f)
 {
@@ -81,9 +81,9 @@ void SNMLightRandomAnimation::OnActivate(bool bActivate)
 	SceneContext *pSceneContext = GetSceneContext();
 	if (pSceneContext) {
 		if (bActivate)
-			pSceneContext->EventUpdate.Connect(&SlotNotifyUpdate);
+			pSceneContext->EventUpdate.Connect(&SlotOnUpdate);
 		else
-			pSceneContext->EventUpdate.Disconnect(&SlotNotifyUpdate);
+			pSceneContext->EventUpdate.Disconnect(&SlotOnUpdate);
 	}
 }
 
@@ -95,7 +95,7 @@ void SNMLightRandomAnimation::OnActivate(bool bActivate)
 *  @brief
 *    Called when the scene node needs to be updated
 */
-void SNMLightRandomAnimation::NotifyUpdate()
+void SNMLightRandomAnimation::OnUpdate()
 {
 	// Set current scene node scale
 	SNLight &cLight = static_cast<SNLight&>(GetSceneNode());

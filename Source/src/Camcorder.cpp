@@ -50,7 +50,7 @@ using namespace PLScene;
 *    Constructor
 */
 Camcorder::Camcorder(Interaction &cInteraction) :
-	EventHandlerAnimationStop(&Camcorder::NotifyAnimationStop, this),
+	EventHandlerAnimationStop(&Camcorder::OnAnimationStop, this),
 	m_pInteraction(&cInteraction),
 	m_bRecording(false),
 	m_bPlaying(false),
@@ -391,7 +391,7 @@ void Camcorder::SetupSceneNodeModifiers(SceneNode &cSceneNode, bool bActive)
 *  @brief
 *    Called when one of the keyframe animations has been stopped
 */
-void Camcorder::NotifyAnimationStop()
+void Camcorder::OnAnimationStop()
 {
 	// Job done...
 	m_bPlaybackFinished = true;

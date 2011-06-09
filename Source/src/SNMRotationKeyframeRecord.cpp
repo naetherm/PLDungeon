@@ -55,7 +55,7 @@ pl_implement_class(SNMRotationKeyframeRecord)
 SNMRotationKeyframeRecord::SNMRotationKeyframeRecord(SceneNode &cSceneNode) : SNMTransform(cSceneNode),
 	FramesPerSecond(this),
 	Keys(this),
-	SlotNotifyUpdate(this),
+	SlotOnUpdate(this),
 	m_bRecording(false),
 	m_fFrame(0.0f),
 	m_nFrame(0),
@@ -95,7 +95,7 @@ Chunk &SNMRotationKeyframeRecord::GetChunk()
 *  @brief
 *    Called when the scene node needs to be updated
 */
-void SNMRotationKeyframeRecord::NotifyUpdate()
+void SNMRotationKeyframeRecord::OnUpdate()
 {
 	// Update the current frame
 	m_fFrame += float(FramesPerSecond)*Timing::GetInstance()->GetTimeDifference();
@@ -194,7 +194,7 @@ void SNMRotationKeyframeRecord::OnActivate(bool bActivate)
 		// Connect event handler
 		SceneContext *pSceneContext = GetSceneContext();
 		if (pSceneContext)
-			pSceneContext->EventUpdate.Connect(&SlotNotifyUpdate);
+			pSceneContext->EventUpdate.Connect(&SlotOnUpdate);
 	} else {
 		// Stop the record
 		StopRecord();
@@ -202,6 +202,6 @@ void SNMRotationKeyframeRecord::OnActivate(bool bActivate)
 		// Disconnect event handler
 		SceneContext *pSceneContext = GetSceneContext();
 		if (pSceneContext)
-			pSceneContext->EventUpdate.Disconnect(&SlotNotifyUpdate);
+			pSceneContext->EventUpdate.Disconnect(&SlotOnUpdate);
 	}
 }

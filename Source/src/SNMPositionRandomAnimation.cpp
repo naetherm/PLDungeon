@@ -54,7 +54,7 @@ SNMPositionRandomAnimation::SNMPositionRandomAnimation(SceneNode &cSceneNode) : 
 	Speed(this),
 	Radius(this),
 	FixPosition(this),
-	SlotNotifyUpdate(this)
+	SlotOnUpdate(this)
 {
 	// Set initial fixed position
 	FixPosition.Set(cSceneNode.GetTransform().GetPosition());
@@ -78,9 +78,9 @@ void SNMPositionRandomAnimation::OnActivate(bool bActivate)
 	SceneContext *pSceneContext = GetSceneContext();
 	if (pSceneContext) {
 		if (bActivate)
-			pSceneContext->EventUpdate.Connect(&SlotNotifyUpdate);
+			pSceneContext->EventUpdate.Connect(&SlotOnUpdate);
 		else
-			pSceneContext->EventUpdate.Disconnect(&SlotNotifyUpdate);
+			pSceneContext->EventUpdate.Disconnect(&SlotOnUpdate);
 	}
 }
 
@@ -92,7 +92,7 @@ void SNMPositionRandomAnimation::OnActivate(bool bActivate)
 *  @brief
 *    Called when the scene node needs to be updated
 */
-void SNMPositionRandomAnimation::NotifyUpdate()
+void SNMPositionRandomAnimation::OnUpdate()
 {
 	// Update the current local position
 	const float fTimeDiff = Timing::GetInstance()->GetTimeDifference()*Speed;

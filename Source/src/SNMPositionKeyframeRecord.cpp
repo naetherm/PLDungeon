@@ -56,7 +56,7 @@ SNMPositionKeyframeRecord::SNMPositionKeyframeRecord(SceneNode &cSceneNode) : SN
 	FramesPerSecond(this),
 	Keys(this),
 	CoordinateSystem(this),
-	SlotNotifyUpdate(this),
+	SlotOnUpdate(this),
 	m_bRecording(false),
 	m_fFrame(0.0f),
 	m_nFrame(0),
@@ -96,7 +96,7 @@ Chunk &SNMPositionKeyframeRecord::GetChunk()
 *  @brief
 *    Called when the scene node needs to be updated
 */
-void SNMPositionKeyframeRecord::NotifyUpdate()
+void SNMPositionKeyframeRecord::OnUpdate()
 {
 	// Update the current frame
 	m_fFrame += float(FramesPerSecond)*Timing::GetInstance()->GetTimeDifference();
@@ -208,7 +208,7 @@ void SNMPositionKeyframeRecord::OnActivate(bool bActivate)
 		// Connect event handler
 		SceneContext *pSceneContext = GetSceneContext();
 		if (pSceneContext)
-			pSceneContext->EventUpdate.Connect(&SlotNotifyUpdate);
+			pSceneContext->EventUpdate.Connect(&SlotOnUpdate);
 	} else {
 		// Stop the record
 		StopRecord();
@@ -216,6 +216,6 @@ void SNMPositionKeyframeRecord::OnActivate(bool bActivate)
 		// Disconnect event handler
 		SceneContext *pSceneContext = GetSceneContext();
 		if (pSceneContext)
-			pSceneContext->EventUpdate.Disconnect(&SlotNotifyUpdate);
+			pSceneContext->EventUpdate.Disconnect(&SlotOnUpdate);
 	}
 }
