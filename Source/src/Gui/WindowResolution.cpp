@@ -60,6 +60,7 @@ pl_implement_class(WindowResolution)
 *    Constructor
 */
 WindowResolution::WindowResolution(Application *pApplication, Widget *pParent) : WindowBase(pParent),
+	SlotOnChangeValue(this),
 	m_pApplication(pApplication),
 	m_pSlider(nullptr),
 	m_pFont(new Font(*GetGui())),
@@ -67,8 +68,7 @@ WindowResolution::WindowResolution(Application *pApplication, Widget *pParent) :
 	m_cColorSelected(1.0f, 1.0f, 1.0f, 1.0f),
 	m_nWidthButton1(0),
 	m_nWidthButton2(0),
-	m_nSelectedButton(-1),
-	EventHandlerChangeValue(&WindowResolution::OnChangeValue, this)
+	m_nSelectedButton(-1)
 {
 	// Load font from file
 	m_pFont->LoadFromFile("Data/Fonts/arialbd.ttf", 14);
@@ -82,7 +82,7 @@ WindowResolution::WindowResolution(Application *pApplication, Widget *pParent) :
 	m_pSlider->SetOrientation(Horizontal);
 	m_pSlider->SetPos(Vector2i(10, 35));
 	m_pSlider->SetSize(Vector2i(764, 10));
-	m_pSlider->SignalChangeValue.Connect(&EventHandlerChangeValue);
+	m_pSlider->SignalChangeValue.Connect(&SlotOnChangeValue);
 
 	// Create display mode list
 	if (m_pApplication->GetRendererContext()) {

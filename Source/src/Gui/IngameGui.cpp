@@ -63,10 +63,10 @@ pl_implement_class(IngameGui)
 *    Constructor
 */
 IngameGui::IngameGui(Interaction &cInteraction) :
-	EventHandlerMenu	  (&IngameGui::OnMenu,		 this),
-	EventHandlerResolution(&IngameGui::OnResolution, this),
-	EventHandlerFocus	  (&IngameGui::OnFocus,		 this),
-	EventHandlerMouseDown (&IngameGui::OnMouseDown,	 this),
+	SlotOnMenu(this),
+	SlotOnResolution(this),
+	SlotOnFocus(this),
+	SlotOnMouseDown(this),
 	m_pInteraction(&cInteraction),
 	m_pIngameGui(nullptr),
 	m_pMenu(nullptr),
@@ -88,7 +88,7 @@ IngameGui::IngameGui(Interaction &cInteraction) :
 				m_pFocusWindow = new Window(m_pIngameGui->GetRootWidget());
 				m_pFocusWindow->SetVisible(false);
 				m_pFocusWindow->SetFocus();
-				m_pFocusWindow->SignalLooseFocus.Connect(&EventHandlerFocus);
+				m_pFocusWindow->SignalLooseFocus.Connect(&SlotOnFocus);
 
 				// Create menu window
 				m_pMenu = new WindowMenu(m_pIngameGui->GetRootWidget());
@@ -111,8 +111,8 @@ IngameGui::IngameGui(Interaction &cInteraction) :
 				m_pResolution->SetVisible(false);
 
 				// Connect signals
-				m_pMenu->SignalCommand.Connect(&EventHandlerMenu);
-				m_pResolution->SignalResolutionChanged.Connect(&EventHandlerResolution);
+				m_pMenu->SignalCommand.Connect(&SlotOnMenu);
+				m_pResolution->SignalResolutionChanged.Connect(&SlotOnResolution);
 			}
 		}
 	}
@@ -124,7 +124,7 @@ IngameGui::IngameGui(Interaction &cInteraction) :
 		Widget *pContentWidget = pWidget->GetContentWidget();
 
 		// Connect event handler
-		pContentWidget->SignalMouseButtonDown.Connect(&EventHandlerMouseDown);
+		pContentWidget->SignalMouseButtonDown.Connect(&SlotOnMouseDown);
 	}
 }
 

@@ -28,8 +28,6 @@
 //[-------------------------------------------------------]
 //[ Includes                                              ]
 //[-------------------------------------------------------]
-#include <PLGeneral/Container/List.h>
-#include <PLCore/Base/Event/EventHandler.h>
 #include "Gui/WindowBase.h"
 
 
@@ -40,8 +38,8 @@ namespace PLGraphics {
 	class Color4;
 }
 namespace PLGui {
-	class Slider;
 	class Font;
+	class Slider;
 }
 namespace PLRenderer {
 	struct DisplayMode;
@@ -65,6 +63,8 @@ class WindowResolution : public WindowBase {
 	pl_class(pl_rtti_export, WindowResolution, "", WindowBase, "Window that displays options for choosing the resolution")
 		// Signals
 		pl_signal_2(SignalResolutionChanged,	const PLRenderer::DisplayMode*,	bool,	"Resolution changed",	"")
+		// Slots
+		pl_slot_1(OnChangeValue,	int,	"Called when slider value has changed, current slider value as first parameter",	"")
 	pl_class_end
 
 
@@ -144,9 +144,6 @@ class WindowResolution : public WindowBase {
 		PLGeneral::uint32								 m_nWidthButton1;		/**< Width of button "Fullscreen" */
 		PLGeneral::uint32								 m_nWidthButton2;		/**< Width of button "Change Mode" */
 		int												 m_nSelectedButton;		/**< Selected button */
-
-		// Event handlers
-		PLCore::EventHandler<int>						 EventHandlerChangeValue;
 
 
 };

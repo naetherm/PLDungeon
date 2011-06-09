@@ -29,7 +29,6 @@
 //[ Includes                                              ]
 //[-------------------------------------------------------]
 #include <PLCore/Base/Object.h>
-#include <PLCore/Base/Event/EventHandler.h>
 
 
 //[-------------------------------------------------------]
@@ -41,9 +40,9 @@ namespace PLGui {
 namespace PLRenderer {
 	struct DisplayMode;
 }
-class Interaction;
 class WindowMenu;
 class WindowText;
+class Interaction;
 class WindowResolution;
 
 
@@ -63,6 +62,11 @@ class IngameGui : public PLCore::Object {
 	pl_class(pl_rtti_export, IngameGui, "", PLCore::Object, "Ingame GUI interaction component")
 		// Methods
 		pl_method_0(IsGuiShown,	bool,	"Returns 'true' if currently at least one GUI element is shown, else 'false'",	"")
+		// Slots
+		pl_slot_1(OnMenu,		int,														"Called when a menu item has been selected, selected menu item as first parameter",												"")
+		pl_slot_2(OnResolution,	const PLRenderer::DisplayMode*,	bool,						"Called when the resolution slider was changed, new display mode as first parameter, new fullscreen mode as second parameter",	"")
+		pl_slot_0(OnFocus,																	"Called when an ingame window has got the focus",																				"")
+		pl_slot_2(OnMouseDown,	PLGeneral::uint32,				const PLMath::Vector2i&,	"Called when a mouse button was pressed, mouse button as first parameter, mouse position as second parameter",					"")
 	pl_class_end
 
 
@@ -183,16 +187,6 @@ class IngameGui : public PLCore::Object {
 		*    Mouse position
 		*/
 		void OnMouseDown(PLGeneral::uint32 nButton, const PLMath::Vector2i &vPos);
-
-
-	//[-------------------------------------------------------]
-	//[ Private event handlers                                ]
-	//[-------------------------------------------------------]
-	private:
-		PLCore::EventHandler<int>											EventHandlerMenu;
-		PLCore::EventHandler<const PLRenderer::DisplayMode*, bool>			EventHandlerResolution;
-		PLCore::EventHandler<>												EventHandlerFocus;
-		PLCore::EventHandler<PLGeneral::uint32, const PLMath::Vector2i &>	EventHandlerMouseDown;
 
 
 	//[-------------------------------------------------------]
