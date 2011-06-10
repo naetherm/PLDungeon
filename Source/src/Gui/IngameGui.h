@@ -61,7 +61,7 @@ class IngameGui : public PLCore::Object {
 	//[-------------------------------------------------------]
 	pl_class(pl_rtti_export, IngameGui, "", PLCore::Object, "Ingame GUI interaction component")
 		// Methods
-		pl_method_0(IsGuiShown,	bool,	"Returns 'true' if currently at least one GUI element is shown, else 'false'",	"")
+		pl_method_0(IsGuiShown,	pl_ret_type(bool),	"Returns 'true' if currently at least one GUI element is shown, else 'false'",	"")
 		// Slots
 		pl_slot_1(OnMenu,		int,														"Called when a menu item has been selected, selected menu item as first parameter",												"")
 		pl_slot_2(OnResolution,	const PLRenderer::DisplayMode*,	bool,						"Called when the resolution slider was changed, new display mode as first parameter, new fullscreen mode as second parameter",	"")

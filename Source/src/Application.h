@@ -58,7 +58,7 @@ class Application : public PLEngine::BasicSceneApplication {
 	//[-------------------------------------------------------]
 	pl_class(pl_rtti_export, Application, "", PLEngine::BasicSceneApplication, "Application class")
 		// Methods
-		pl_method_0(GetInteraction,	Interaction*,	"Returns the interaction component instance, can be a null pointer",	"")
+		pl_method_0(GetInteraction,	pl_ret_type(Interaction*),	"Returns the interaction component instance, can be a null pointer",	"")
 		// Slot
 		pl_slot_1(OnLoadProgress,	float,	"Called on load progress, load progress (0.0-1.0) as first parameter",	"")
 	pl_class_end

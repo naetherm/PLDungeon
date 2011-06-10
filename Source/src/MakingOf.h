@@ -55,7 +55,7 @@ class MakingOf : public PLCore::Object {
 	//[-------------------------------------------------------]
 	pl_class(pl_rtti_export, MakingOf, "", PLCore::Object, "Making of interaction component")
 		// Methods
-		pl_method_0(SetInitialSettings,	void,	"Sets the initial state settings",	"")
+		pl_method_0(SetInitialSettings,	pl_ret_type(void),	"Sets the initial state settings",	"")
 		// Signals
 		pl_signal_0(SignalPlaybackFinished,	"Playback has been finished",	"")
 	pl_class_end
