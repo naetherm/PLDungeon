@@ -28,9 +28,9 @@
 #include <PLCore/Base/Class.h>
 #include <PLCore/Tools/Localization.h>
 #include <PLCore/Tools/LoadableManager.h>
-#include <PLScript/Script.h>
-#include <PLScript/FuncScriptPtr.h>
-#include <PLScript/ScriptManager.h>
+#include <PLCore/Script/Script.h>
+#include <PLCore/Script/FuncScriptPtr.h>
+#include <PLCore/Script/ScriptManager.h>
 #include <PLGui/Gui/Gui.h>
 #include <PLGui/Gui/Base/Keys.h>
 #include <PLGui/Widgets/Widget.h>
@@ -53,7 +53,6 @@
 //[-------------------------------------------------------]
 using namespace PLGeneral;
 using namespace PLCore;
-using namespace PLScript;
 using namespace PLGui;
 using namespace PLRenderer;
 using namespace PLScene;

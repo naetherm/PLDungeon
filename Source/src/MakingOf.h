@@ -34,7 +34,7 @@
 //[-------------------------------------------------------]
 //[ Forward declarations                                  ]
 //[-------------------------------------------------------]
-namespace PLScript {
+namespace PLCore {
 	class Script;
 }
 class Interaction;
@@ -132,9 +132,9 @@ class MakingOf : public PLCore::Object {
 	//[ Private data                                          ]
 	//[-------------------------------------------------------]
 	private:
-		Interaction			*m_pInteraction;	/**< Owner interaction, always valid! */
-		bool				 m_bPlaying;		/**< Is playback currently enabled? */
-		PLScript::Script	*m_pScript;			/**< The used script, can be a null pointer */
+		Interaction		*m_pInteraction;	/**< Owner interaction, always valid! */
+		bool			 m_bPlaying;		/**< Is playback currently enabled? */
+		PLCore::Script	*m_pScript;			/**< The used script, can be a null pointer */
 		class SSettings {
 			public:
 				PLGeneral::String sName;	// Scene renderer pass name

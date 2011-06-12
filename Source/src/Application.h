@@ -34,7 +34,7 @@
 //[-------------------------------------------------------]
 //[ Forward declarations                                  ]
 //[-------------------------------------------------------]
-namespace PLScript {
+namespace PLCore {
 	class Script;
 }
 namespace PLScene {
@@ -196,7 +196,7 @@ class Application : public PLEngine::BasicSceneApplication {
 	//[ Private data                                          ]
 	//[-------------------------------------------------------]
 	private:
-		PLScript::Script  *m_pScript;						/**< The used script, can be a null pointer */
+		PLCore::Script	  *m_pScript;						/**< The used script, can be a null pointer */
 		Interaction		  *m_pInteraction;					/**< Interaction application component, can be a null pointer */
 		float			   m_fLoadProgress;					/**< Load progress */
 		PLGeneral::String  m_sCurrentSceneBaseDirectory;	/**< Base directory of the currently loaded scene */
