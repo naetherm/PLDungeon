@@ -30,7 +30,6 @@
 #include <PLCore/Tools/LoadableManager.h>
 #include <PLCore/Script/Script.h>
 #include <PLCore/Script/FuncScriptPtr.h>
-#include <PLCore/Script/ScriptManager.h>
 #include <PLGui/Gui/Gui.h>
 #include <PLGui/Gui/Base/Keys.h>
 #include <PLGui/Widgets/Widget.h>
@@ -80,9 +79,8 @@ const String Application::DefaultScene = "Data/Scenes/Dungeon.scene";
 *  @brief
 *    Constructor
 */
-Application::Application() : BasicSceneApplication(),
+Application::Application() : ScriptApplication("Data/Scripts/Lua/Application.lua"),
 	SlotOnLoadProgress(this),
-	m_pScript(nullptr),
 	m_pInteraction(nullptr),
 	m_fLoadProgress(0.0f)
 {
@@ -157,27 +155,23 @@ bool Application::LoadScene(const String &sFilename)
 	// Reset the current load progress
 	m_fLoadProgress = 0.0f;
 
-	// Remove the base directory of the previously loaded scene from the loadable manager
-	if (m_sCurrentSceneBaseDirectory.GetLength())
-		LoadableManager::GetInstance()->RemoveBaseDir(m_sCurrentSceneBaseDirectory);
-	m_sCurrentSceneBaseDirectory = "";
-
-	{ // Add the base directory of the scene to load is in
+	{ // Make the directory of the scene to load in to the application base directory
 		// Validate path
 		const String sDirectory = Url(sFilename).Collapse().CutFilename();
 
 		// Search for "/Data/Scenes/" and get the prefix of that
+		String sBaseDirectory;
 		int nIndex = sDirectory.IndexOf("/Data/Scenes/");
 		if (nIndex >= 0)
-			m_sCurrentSceneBaseDirectory = sDirectory.GetSubstring(0, nIndex);
-		m_sCurrentSceneBaseDirectory = "file://" + m_sCurrentSceneBaseDirectory + '/';
+			sBaseDirectory = sDirectory.GetSubstring(0, nIndex);
+		sBaseDirectory = "file://" + sBaseDirectory + '/';
 
-		// Add the base directory of the current scene to the loadable manager
-		LoadableManager::GetInstance()->AddBaseDir(m_sCurrentSceneBaseDirectory);
+		// Set the base directory of the application
+		SetBaseDirectory(sBaseDirectory);
 	}
 
 	// Load the scene
-	const bool bResult = BasicSceneApplication::LoadScene(sFilename);
+	const bool bResult = ScriptApplication::LoadScene(sFilename);
 
 	// Get the renderer context
 	RendererContext *pRendererContext = GetRendererContext();
@@ -254,11 +248,14 @@ void Application::OnInitLog()
 	GetApplicationContext().ChangeIntoAppDirectory();
 
 	// Call base implementation
-	BasicSceneApplication::OnInitLog();
+	ScriptApplication::OnInitLog();
 }
 
 void Application::OnInit()
 {
+	// Call base implementation
+	ScriptApplication::OnInit();
+
 	// Scene filename given?
 	String sSceneFilename = m_cCommandLine.GetValue("Filename");
 	if (!sSceneFilename.GetLength()) {
@@ -273,13 +270,6 @@ void Application::OnInit()
 	if (sSceneFilename.GetLength()) {
 		// Enable/disable edit mode
 		SetEditModeEnabled(GetConfig().GetVar("DungeonConfig", "EditModeEnabled").GetBool());
-
-		// Create the script instance
-		m_pScript = ScriptManager::GetInstance()->CreateFromFile("Data/Scripts/Lua/Application.lua");
-		if (m_pScript) {
-			// Add the global variable "this" to the script so that it's able to access "this" RTTI class instance
-			m_pScript->SetGlobalVariable("this", Var<Object*>(this));
-		}
 
 		// Load scene
 		if (!LoadScene(sSceneFilename)) {
@@ -298,12 +288,6 @@ void Application::OnInit()
 
 void Application::OnDeInit()
 {
-	// Destroy the used script
-	if (m_pScript) {
-		delete m_pScript;
-		m_pScript = nullptr;
-	}
-
 	// Destroy the interaction component
 	if (m_pInteraction) {
 		delete m_pInteraction;
@@ -311,25 +295,7 @@ void Application::OnDeInit()
 	}
 
 	// Call base implementation
-	BasicSceneApplication::OnDeInit();
-}
-
-
-//[-------------------------------------------------------]
-//[ Protected virtual PLEngine::RenderApplication functions ]
-//[-------------------------------------------------------]
-bool Application::OnUpdate()
-{
-	// Call the update script function
-	if (m_pScript)
-		FuncScriptPtr<void>(m_pScript, "Update").Call(Params<void>());
-
-	// Update the interaction application component
-	if (m_pInteraction)
-		m_pInteraction->Update();
-
-	// Call base implementation
-	return BasicSceneApplication::OnUpdate();
+	ScriptApplication::OnDeInit();
 }
 
 
@@ -377,13 +343,13 @@ void Application::OnCreateRootScene()
 				SNConsoleBase *pConsole = static_cast<SNConsoleBase*>(pSceneNode);
 
 				// Register default commands
-				pConsole->RegisterCommand(0,	"quit",			"",	"",	Functor<void, ConsoleCommand &>(&BasicSceneApplication::ConsoleCommandQuit, this));
-				pConsole->RegisterCommand(0,	"exit",			"",	"",	Functor<void, ConsoleCommand &>(&BasicSceneApplication::ConsoleCommandQuit, this));
-				pConsole->RegisterCommand(0,	"bye",			"",	"",	Functor<void, ConsoleCommand &>(&BasicSceneApplication::ConsoleCommandQuit, this));
-				pConsole->RegisterCommand(0,	"logout",		"",	"",	Functor<void, ConsoleCommand &>(&BasicSceneApplication::ConsoleCommandQuit, this));
+				pConsole->RegisterCommand(0,	"quit",			"",	"",	Functor<void, ConsoleCommand &>(&ScriptApplication::ConsoleCommandQuit, this));
+				pConsole->RegisterCommand(0,	"exit",			"",	"",	Functor<void, ConsoleCommand &>(&ScriptApplication::ConsoleCommandQuit, this));
+				pConsole->RegisterCommand(0,	"bye",			"",	"",	Functor<void, ConsoleCommand &>(&ScriptApplication::ConsoleCommandQuit, this));
+				pConsole->RegisterCommand(0,	"logout",		"",	"",	Functor<void, ConsoleCommand &>(&ScriptApplication::ConsoleCommandQuit, this));
 
 				// Edit commands
-				pConsole->RegisterCommand(1,	"editdialog",	"",	"",	Functor<void, ConsoleCommand &>(&BasicSceneApplication::ConsoleCommandEditDialog, this));
+				pConsole->RegisterCommand(1,	"editdialog",	"",	"",	Functor<void, ConsoleCommand &>(&ScriptApplication::ConsoleCommandEditDialog, this));
 
 				// Set active state
 				pConsole->SetActive(m_bEditModeEnabled);
@@ -402,7 +368,7 @@ void Application::OnCreateRootScene()
 void Application::SetCamera(SNCamera *pCamera)
 {
 	// Call base implementation
-	BasicSceneApplication::SetCamera(pCamera);
+	ScriptApplication::SetCamera(pCamera);
 
 	// Make the current set camera to the listener of the sound manager
 	SceneContainer *pRootScene = GetRootScene();	// The root scene is an instance of "PLSound::SCSound"

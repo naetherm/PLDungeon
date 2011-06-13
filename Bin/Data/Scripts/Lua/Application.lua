@@ -76,10 +76,16 @@ end
 
 --@brief
 --  Update function called by C++
-function Update()
+function OnUpdate()
 	-- Update the old film post process effect
 	UpdateOldFilm()
 
 	-- Update the the GUI background blur
 	UpdateGUIBackgroundBlur()
+
+	-- Update the interaction application component
+	local interaction = PL.GetApplication():GetInteraction()
+	if interaction ~= nil then
+		interaction:Update()
+	end
 end

@@ -28,15 +28,12 @@
 //[-------------------------------------------------------]
 //[ Includes                                              ]
 //[-------------------------------------------------------]
-#include <PLEngine/Application/BasicSceneApplication.h>
+#include <PLEngine/Application/ScriptApplication.h>
 
 
 //[-------------------------------------------------------]
 //[ Forward declarations                                  ]
 //[-------------------------------------------------------]
-namespace PLCore {
-	class Script;
-}
 namespace PLScene {
 	class SceneRendererPass;
 }
@@ -50,13 +47,13 @@ class Interaction;
 *  @brief
 *    Application class
 */
-class Application : public PLEngine::BasicSceneApplication {
+class Application : public PLEngine::ScriptApplication {
 
 
 	//[-------------------------------------------------------]
 	//[ RTTI interface                                        ]
 	//[-------------------------------------------------------]
-	pl_class(pl_rtti_export, Application, "", PLEngine::BasicSceneApplication, "Application class")
+	pl_class(pl_rtti_export, Application, "", PLEngine::ScriptApplication, "Application class")
 		// Methods
 		pl_method_0(GetInteraction,	pl_ret_type(Interaction*),	"Returns the interaction component instance, can be a null pointer",	"")
 		// Slot
@@ -165,13 +162,6 @@ class Application : public PLEngine::BasicSceneApplication {
 
 
 	//[-------------------------------------------------------]
-	//[ Protected virtual PLEngine::RenderApplication functions ]
-	//[-------------------------------------------------------]
-	protected:
-		virtual bool OnUpdate();
-
-
-	//[-------------------------------------------------------]
 	//[ Protected virtual PLEngine::SceneApplication functions ]
 	//[-------------------------------------------------------]
 	protected:
@@ -196,10 +186,8 @@ class Application : public PLEngine::BasicSceneApplication {
 	//[ Private data                                          ]
 	//[-------------------------------------------------------]
 	private:
-		PLCore::Script	  *m_pScript;						/**< The used script, can be a null pointer */
-		Interaction		  *m_pInteraction;					/**< Interaction application component, can be a null pointer */
-		float			   m_fLoadProgress;					/**< Load progress */
-		PLGeneral::String  m_sCurrentSceneBaseDirectory;	/**< Base directory of the currently loaded scene */
+		Interaction	*m_pInteraction;	/**< Interaction application component, can be a null pointer */
+		float		 m_fLoadProgress;	/**< Load progress */
 
 
 };

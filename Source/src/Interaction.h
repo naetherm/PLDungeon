@@ -64,6 +64,7 @@ class Interaction : public PLCore::Object {
 	//[-------------------------------------------------------]
 	pl_class(pl_rtti_export, Interaction, "", PLCore::Object, "Interaction application component")
 		// Methods
+		pl_method_0(Update,			pl_ret_type(void),			"Updates the interaction component",											"")
 		pl_method_0(GetIngameGui,	pl_ret_type(IngameGui*),	"Returns the ingame GUI interaction component instance, never a null pointer",	"")
 		// Slots
 		pl_slot_1(OnMouseMove,					const PLMath::Vector2i&,								"Called when the mouse is moved, mouse position within the window as first parameter",																"")
