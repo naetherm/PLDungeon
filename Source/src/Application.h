@@ -113,21 +113,6 @@ class Application : public PLEngine::ScriptApplication {
 
 		/**
 		*  @brief
-		*    Loads a scene
-		*
-		*  @param[in] sFilename
-		*    Filename of the scene to load
-		*
-		*  @return
-		*    'true' if all went fine, else 'false'
-		*
-		*  @note
-		*    - Similar to PLEngine::BasicSceneApplication::LoadScene, but sets the base path the scene is in, as the new current system directory
-		*/
-		bool LoadScene(const PLGeneral::String &sFilename);
-
-		/**
-		*  @brief
 		*    Shows a text
 		*
 		*  @param[in] sText
@@ -173,6 +158,7 @@ class Application : public PLEngine::ScriptApplication {
 	//[-------------------------------------------------------]
 	public:
 		virtual void SetCamera(PLScene::SNCamera *pCamera);
+		virtual bool LoadScene(PLGeneral::String sFilename);
 
 
 	//[-------------------------------------------------------]

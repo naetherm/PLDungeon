@@ -142,74 +142,6 @@ Interaction *Application::GetInteraction()
 
 /**
 *  @brief
-*    Loads a scene
-*/
-bool Application::LoadScene(const String &sFilename)
-{
-	// Destroy the previous interaction component
-	if (m_pInteraction) {
-		delete m_pInteraction;
-		m_pInteraction = nullptr;
-	}
-
-	// Reset the current load progress
-	m_fLoadProgress = 0.0f;
-
-	{ // Make the directory of the scene to load in to the application base directory
-		// Validate path
-		const String sDirectory = Url(sFilename).Collapse().CutFilename();
-
-		// Search for "/Data/Scenes/" and get the prefix of that
-		String sBaseDirectory;
-		int nIndex = sDirectory.IndexOf("/Data/Scenes/");
-		if (nIndex >= 0)
-			sBaseDirectory = sDirectory.GetSubstring(0, nIndex);
-		sBaseDirectory = "file://" + sBaseDirectory + '/';
-
-		// Set the base directory of the application
-		SetBaseDirectory(sBaseDirectory);
-	}
-
-	// Load the scene
-	const bool bResult = ScriptApplication::LoadScene(sFilename);
-
-	// Get the renderer context
-	RendererContext *pRendererContext = GetRendererContext();
-	if (pRendererContext) {
-		// Give the "DoorGlow" material an animated emissive map for a more impressive god rays effect and enhance the diffuse color for more glow
-		Material *pMaterial = pRendererContext->GetMaterialManager().GetByName("Data\\Materials\\Dungeon\\DoorGlow.mat");
-		if (pMaterial) {
-			// Set an animated emissive map
-			pMaterial->GetParameterManager().SetParameterString("EmissiveMap", "Data/Textures/Caust.tani");
-
-			// Enhance the diffuse color for more glow
-			pMaterial->GetParameterManager().SetParameter3f("DiffuseColor", 4.0f, 4.0f, 4.0f);
-		}
-
-		// Let the "ILB_texPak01_decal002" (mos) material glow
-		pMaterial = pRendererContext->GetMaterialManager().GetByName("Data\\Materials\\Dungeon\\ILB_texPak01_decal002.mat");
-		if (pMaterial) {
-			// Set emissive map color
-			pMaterial->GetParameterManager().SetParameter3f("EmissiveMapColor", 2.0f, 2.0f, 2.0f);
-
-			// Set glow
-			pMaterial->GetParameterManager().SetParameter1f("Glow", 4.0f);
-		}
-	}
-
-	// Call the post-load script function
-	if (m_pScript)
-		FuncScriptPtr<void>(m_pScript, "PostLoad").Call(Params<void>());
-
-	// Create the interaction component
-	m_pInteraction = new Interaction(*this);
-
-	// Done
-	return bResult;
-}
-
-/**
-*  @brief
 *    Shows a text
 */
 void Application::ShowText(String sText, float fTimeout)
@@ -374,6 +306,70 @@ void Application::SetCamera(SNCamera *pCamera)
 	SceneContainer *pRootScene = GetRootScene();	// The root scene is an instance of "PLSound::SCSound"
 	if (pRootScene)
 		pRootScene->SetAttribute("Listener", pCamera ? reinterpret_cast<SceneNode*>(pCamera)->GetAbsoluteName() : "");
+}
+
+bool Application::LoadScene(String sFilename)
+{
+	// Destroy the previous interaction component
+	if (m_pInteraction) {
+		delete m_pInteraction;
+		m_pInteraction = nullptr;
+	}
+
+	// Reset the current load progress
+	m_fLoadProgress = 0.0f;
+
+	{ // Make the directory of the scene to load in to the application base directory
+		// Validate path
+		const String sDirectory = Url(sFilename).Collapse().CutFilename();
+
+		// Search for "/Data/Scenes/" and get the prefix of that
+		String sBaseDirectory;
+		int nIndex = sDirectory.IndexOf("/Data/Scenes/");
+		if (nIndex >= 0)
+			sBaseDirectory = sDirectory.GetSubstring(0, nIndex);
+		sBaseDirectory = "file://" + sBaseDirectory + '/';
+
+		// Set the base directory of the application
+		SetBaseDirectory(sBaseDirectory);
+	}
+
+	// Call base implementation
+	const bool bResult = ScriptApplication::LoadScene(sFilename);
+
+	// Get the renderer context
+	RendererContext *pRendererContext = GetRendererContext();
+	if (pRendererContext) {
+		// Give the "DoorGlow" material an animated emissive map for a more impressive god rays effect and enhance the diffuse color for more glow
+		Material *pMaterial = pRendererContext->GetMaterialManager().GetByName("Data\\Materials\\Dungeon\\DoorGlow.mat");
+		if (pMaterial) {
+			// Set an animated emissive map
+			pMaterial->GetParameterManager().SetParameterString("EmissiveMap", "Data/Textures/Caust.tani");
+
+			// Enhance the diffuse color for more glow
+			pMaterial->GetParameterManager().SetParameter3f("DiffuseColor", 4.0f, 4.0f, 4.0f);
+		}
+
+		// Let the "ILB_texPak01_decal002" (mos) material glow
+		pMaterial = pRendererContext->GetMaterialManager().GetByName("Data\\Materials\\Dungeon\\ILB_texPak01_decal002.mat");
+		if (pMaterial) {
+			// Set emissive map color
+			pMaterial->GetParameterManager().SetParameter3f("EmissiveMapColor", 2.0f, 2.0f, 2.0f);
+
+			// Set glow
+			pMaterial->GetParameterManager().SetParameter1f("Glow", 4.0f);
+		}
+	}
+
+	// Call the post-load script function
+	if (m_pScript)
+		FuncScriptPtr<void>(m_pScript, "PostLoad").Call(Params<void>());
+
+	// Create the interaction component
+	m_pInteraction = new Interaction(*this);
+
+	// Done
+	return bResult;
 }
 
 
