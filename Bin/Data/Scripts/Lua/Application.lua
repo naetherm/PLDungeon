@@ -13,8 +13,15 @@ require("Data/Scripts/Lua/GUIBackground")
 --[ Global functions                                      ]
 --[-------------------------------------------------------]
 --@brief
---  Function is called by C++ after a scene has been loaded
-function PostLoad()
+--  Called by C++ when the application should initialize itself
+function OnInit()
+	-- Use the script function "OnSceneLoadingFinished" as slot and connect it with the RTTI "SignalSceneLoadingFinished"-signal of our RTTI application class instance
+	this.SignalSceneLoadingFinished.Connect(OnSceneLoadingFinished)
+end
+
+--@brief
+--  Slot function is called by C++ after a scene has been loaded
+function OnSceneLoadingFinished()
 	-- Configurate the scene renderer
 	ConfigureSceneRenderer()
 

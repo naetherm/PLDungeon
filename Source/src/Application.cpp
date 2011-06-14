@@ -361,10 +361,6 @@ bool Application::LoadScene(String sFilename)
 		}
 	}
 
-	// Call the post-load script function
-	if (m_pScript)
-		FuncScriptPtr<void>(m_pScript, "PostLoad").Call(Params<void>());
-
 	// Create the interaction component
 	m_pInteraction = new Interaction(*this);
 
