@@ -15,8 +15,27 @@ require("Data/Scripts/Lua/GUIBackground")
 --@brief
 --  Called by C++ when the application should initialize itself
 function OnInit()
+	-- Use the script function "OnCameraSet" as slot and connect it with the RTTI "SignalCameraSet"-signal of our RTTI application class instance
+	this.SignalCameraSet.Connect(OnCameraSet)
+
 	-- Use the script function "OnSceneLoadingFinished" as slot and connect it with the RTTI "SignalSceneLoadingFinished"-signal of our RTTI application class instance
 	this.SignalSceneLoadingFinished.Connect(OnSceneLoadingFinished)
+end
+
+--@brief
+--  Slot function is called by C++ after a new camera has been set
+function OnCameraSet()
+	-- Make the current set camera to the listener of the sound manager *our ear*
+	local rootScene = this:GetRootScene()	-- The root scene is an instance of "PLSound::SCSound"
+	if rootScene ~= nil then
+		-- Get the currently set camera scene node
+		local cameraSceneNode = this:GetCamera()
+		if cameraSceneNode ~= nil then
+			rootScene.Listener = cameraSceneNode:GetAbsoluteName()	-- Use the current camera scene node as listener
+		else
+			rootScene.Listener = ""	-- No listener scene node set
+		end
+	end
 end
 
 --@brief

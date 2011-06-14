@@ -157,7 +157,6 @@ class Application : public PLEngine::ScriptApplication {
 	//[ Public virtual PLEngine::BasicSceneApplication functions ]
 	//[-------------------------------------------------------]
 	public:
-		virtual void SetCamera(PLScene::SNCamera *pCamera);
 		virtual bool LoadScene(PLGeneral::String sFilename);
 
 
