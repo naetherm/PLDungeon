@@ -1,3 +1,5 @@
+-- -> The global variable "this" points to the RTTI application class instance invoking the script
+
 --[-------------------------------------------------------]
 --[ Includes                                              ]
 --[-------------------------------------------------------]
@@ -27,7 +29,7 @@ end
 --  Configurates the scene renderer
 function ConfigureSceneRenderer()
 	-- Get scene renderer tool
-	local sceneRendererTool = PL.GetApplication():GetSceneRendererTool()
+	local sceneRendererTool = this:GetSceneRendererTool()
 
 	-- More HDR bloom, please
 	sceneRendererTool:SetPassAttribute("EndHDR", "BloomBrightThreshold", "0.2")
@@ -52,7 +54,7 @@ end
 --  Add the dancing skeleton to the scene
 function AddDancingSkeleton()
 	-- Get the scene container
-	local sceneContainer = PL.GetApplication():GetScene()
+	local sceneContainer = this:GetScene()
 	if sceneContainer ~= nil then
 		-- Get the tavern scene container
 		local tavernSceneContainer = sceneContainer:GetByName("Container.Tavern")
@@ -84,7 +86,7 @@ function OnUpdate()
 	UpdateGUIBackgroundBlur()
 
 	-- Update the interaction application component
-	local interaction = PL.GetApplication():GetInteraction()
+	local interaction = this:GetInteraction()
 	if interaction ~= nil then
 		interaction:Update()
 	end
