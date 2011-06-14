@@ -79,10 +79,10 @@ Interaction::Interaction(Application &cApplication) :
 	m_fMousePickingPullAnimation(0.0f)
 {
 	// Connect the camcorder event handler
-	m_pCamcorder->EventPlaybackFinished.Connect(&SlotOnMoviePlaybackFinished);
+	m_pCamcorder->EventPlaybackFinished.Connect(SlotOnMoviePlaybackFinished);
 
 	// Connect the making of event handler
-	m_pMakingOf->SignalPlaybackFinished.Connect(&SlotOnMakingOfPlaybackFinished);
+	m_pMakingOf->SignalPlaybackFinished.Connect(SlotOnMakingOfPlaybackFinished);
 
 	// Get the scene container
 	SceneContainer *pScene = m_pApplication->GetScene();
@@ -122,13 +122,13 @@ Interaction::Interaction(Application &cApplication) :
 	Widget *pWidget = m_pApplication->GetMainWindow();
 	if (pWidget) {
 		// Connect event handler
-		pWidget->GetContentWidget()->SignalMouseMove.	   Connect(&SlotOnMouseMove);
-		pWidget->GetContentWidget()->SignalMouseButtonDown.Connect(&SlotOnMouseButtonDown);
-		pWidget->GetContentWidget()->SignalMouseButtonUp.  Connect(&SlotOnMouseButtonUp);
-		pWidget->SignalKeyDown.Connect(&SlotOnKeyDown);
+		pWidget->GetContentWidget()->SignalMouseMove.	   Connect(SlotOnMouseMove);
+		pWidget->GetContentWidget()->SignalMouseButtonDown.Connect(SlotOnMouseButtonDown);
+		pWidget->GetContentWidget()->SignalMouseButtonUp.  Connect(SlotOnMouseButtonUp);
+		pWidget->SignalKeyDown.Connect(SlotOnKeyDown);
 		// [TODO] Linux: Currently we need to listen to the content widget key signals as well ("focus follows mouse"-topic)
 		if (pWidget->GetContentWidget() != pWidget)
-			pWidget->GetContentWidget()->SignalKeyDown.Connect(&SlotOnKeyDown);
+			pWidget->GetContentWidget()->SignalKeyDown.Connect(SlotOnKeyDown);
 	}
 
 	// By default, the mouse cursor is visible

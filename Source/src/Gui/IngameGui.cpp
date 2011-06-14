@@ -88,7 +88,7 @@ IngameGui::IngameGui(Interaction &cInteraction) :
 				m_pFocusWindow = new Window(m_pIngameGui->GetRootWidget());
 				m_pFocusWindow->SetVisible(false);
 				m_pFocusWindow->SetFocus();
-				m_pFocusWindow->SignalLooseFocus.Connect(&SlotOnFocus);
+				m_pFocusWindow->SignalLooseFocus.Connect(SlotOnFocus);
 
 				// Create menu window
 				m_pMenu = new WindowMenu(m_pIngameGui->GetRootWidget());
@@ -111,8 +111,8 @@ IngameGui::IngameGui(Interaction &cInteraction) :
 				m_pResolution->SetVisible(false);
 
 				// Connect signals
-				m_pMenu->SignalCommand.Connect(&SlotOnMenu);
-				m_pResolution->SignalResolutionChanged.Connect(&SlotOnResolution);
+				m_pMenu->SignalCommand.Connect(SlotOnMenu);
+				m_pResolution->SignalResolutionChanged.Connect(SlotOnResolution);
 			}
 		}
 	}
@@ -124,7 +124,7 @@ IngameGui::IngameGui(Interaction &cInteraction) :
 		Widget *pContentWidget = pWidget->GetContentWidget();
 
 		// Connect event handler
-		pContentWidget->SignalMouseButtonDown.Connect(&SlotOnMouseDown);
+		pContentWidget->SignalMouseButtonDown.Connect(SlotOnMouseDown);
 	}
 }
 

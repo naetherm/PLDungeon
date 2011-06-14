@@ -257,7 +257,7 @@ void Application::OnCreateRootScene()
 
 				// Connect event handler
 				if (pSceneContainerNode->IsInstanceOf("PLScene::SceneContainer"))
-					static_cast<SceneContainer*>(pSceneContainerNode)->SignalLoadProgress.Connect(&SlotOnLoadProgress);
+					static_cast<SceneContainer*>(pSceneContainerNode)->SignalLoadProgress.Connect(SlotOnLoadProgress);
 
 				// Create the 'concrete scene'
 				OnCreateScene(*pSceneContainer);
@@ -297,17 +297,6 @@ void Application::OnCreateRootScene()
 //[-------------------------------------------------------]
 //[ Public virtual PLEngine::BasicSceneApplication functions ]
 //[-------------------------------------------------------]
-void Application::SetCamera(SNCamera *pCamera)
-{
-	// Call base implementation
-	ScriptApplication::SetCamera(pCamera);
-
-	// Make the current set camera to the listener of the sound manager
-	SceneContainer *pRootScene = GetRootScene();	// The root scene is an instance of "PLSound::SCSound"
-	if (pRootScene)
-		pRootScene->SetAttribute("Listener", pCamera ? reinterpret_cast<SceneNode*>(pCamera)->GetAbsoluteName() : "");
-}
-
 bool Application::LoadScene(String sFilename)
 {
 	// Destroy the previous interaction component

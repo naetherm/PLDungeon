@@ -208,7 +208,7 @@ void SNMPositionKeyframeRecord::OnActivate(bool bActivate)
 		// Connect event handler
 		SceneContext *pSceneContext = GetSceneContext();
 		if (pSceneContext)
-			pSceneContext->EventUpdate.Connect(&SlotOnUpdate);
+			pSceneContext->EventUpdate.Connect(SlotOnUpdate);
 	} else {
 		// Stop the record
 		StopRecord();
@@ -216,6 +216,6 @@ void SNMPositionKeyframeRecord::OnActivate(bool bActivate)
 		// Disconnect event handler
 		SceneContext *pSceneContext = GetSceneContext();
 		if (pSceneContext)
-			pSceneContext->EventUpdate.Disconnect(&SlotOnUpdate);
+			pSceneContext->EventUpdate.Disconnect(SlotOnUpdate);
 	}
 }

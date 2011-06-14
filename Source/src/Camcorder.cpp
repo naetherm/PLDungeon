@@ -284,7 +284,7 @@ void Camcorder::StartPlayback(const String &sName)
 
 									// Connect the event handler
 									if (pSNMPositionKeyframeAnimation)
-										pSNMPositionKeyframeAnimation->GetAnimation().EventStop.Connect(&EventHandlerAnimationStop);
+										pSNMPositionKeyframeAnimation->GetAnimation().EventStop.Connect(EventHandlerAnimationStop);
 								}
 							}
 						}
@@ -305,7 +305,7 @@ void Camcorder::StartPlayback(const String &sName)
 
 									// Connect the event handler
 									if (pSNMRotationKeyframeAnimation)
-										pSNMRotationKeyframeAnimation->GetAnimation().EventStop.Connect(&EventHandlerAnimationStop);
+										pSNMRotationKeyframeAnimation->GetAnimation().EventStop.Connect(EventHandlerAnimationStop);
 								}
 							}
 						}
