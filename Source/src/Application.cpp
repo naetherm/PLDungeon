@@ -319,21 +319,6 @@ bool Application::LoadScene(String sFilename)
 	// Reset the current load progress
 	m_fLoadProgress = 0.0f;
 
-	{ // Make the directory of the scene to load in to the application base directory
-		// Validate path
-		const String sDirectory = Url(sFilename).Collapse().CutFilename();
-
-		// Search for "/Data/Scenes/" and get the prefix of that
-		String sBaseDirectory;
-		int nIndex = sDirectory.IndexOf("/Data/Scenes/");
-		if (nIndex >= 0)
-			sBaseDirectory = sDirectory.GetSubstring(0, nIndex);
-		sBaseDirectory = "file://" + sBaseDirectory + '/';
-
-		// Set the base directory of the application
-		SetBaseDirectory(sBaseDirectory);
-	}
-
 	// Call base implementation
 	const bool bResult = ScriptApplication::LoadScene(sFilename);
 
