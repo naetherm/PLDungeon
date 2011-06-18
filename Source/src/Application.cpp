@@ -79,16 +79,11 @@ const String Application::DefaultScene = "Data/Scenes/Dungeon.scene";
 *  @brief
 *    Constructor
 */
-Application::Application() : ScriptApplication("Data/Scripts/Lua/Application.lua"),
+Application::Application() : ScriptApplication("Data/Scripts/Lua/Application.lua", "Dungeon", PLT("PixelLight dungeon demo"), System::GetInstance()->GetDataDirName("PixelLight")),
 	SlotOnLoadProgress(this),
 	m_pInteraction(nullptr),
 	m_fLoadProgress(0.0f)
 {
-	// Set application name and title
-	SetName("Dungeon");
-	SetTitle(PLT("PixelLight dungeon demo"));
-	SetAppDataSubdir(System::GetInstance()->GetDataDirName("PixelLight"));
-
 	// The demo is published as a simple archive, so, put the log and configuration files in the same directory the executable is
 	// in - as a result, the user only has to remove this directory and the demo is completly gone from the system :D
 	SetMultiUser(false);
