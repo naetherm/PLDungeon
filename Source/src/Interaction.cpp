@@ -112,10 +112,6 @@ Interaction::Interaction(Application &cApplication) :
 	#else
 		// Set movie but, but do not show the mode changed text
 		SetMode(MovieMode, false);
-
-		// Show an initial help text for 10 seconds
-		if (!m_pApplication->IsExpertMode())
-			m_pApplication->ShowText(PLT("Press ESC to open menu"), 10.0f);
 	#endif
 
 	// Get the main window of the application

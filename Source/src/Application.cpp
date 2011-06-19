@@ -79,7 +79,7 @@ const String Application::DefaultScene = "Data/Scenes/Dungeon.scene";
 *  @brief
 *    Constructor
 */
-Application::Application() : ScriptApplication("Data/Scripts/Lua/Application.lua", "Dungeon", PLT("PixelLight dungeon demo"), System::GetInstance()->GetDataDirName("PixelLight")),
+Application::Application() : ScriptApplication("Data/Scripts/Lua/Main.lua", "Dungeon", PLT("PixelLight dungeon demo"), System::GetInstance()->GetDataDirName("PixelLight")),
 	SlotOnLoadProgress(this),
 	m_pInteraction(nullptr),
 	m_fLoadProgress(0.0f)

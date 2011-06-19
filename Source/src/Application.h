@@ -55,7 +55,9 @@ class Application : public PLEngine::ScriptApplication {
 	//[-------------------------------------------------------]
 	pl_class(pl_rtti_export, Application, "", PLEngine::ScriptApplication, "Application class")
 		// Methods
-		pl_method_0(GetInteraction,	pl_ret_type(Interaction*),	"Returns the interaction component instance, can be a null pointer",	"")
+		pl_method_0(IsExpertMode,	pl_ret_type(bool),			"Returns whether or not the application runs within the expert mode. Returns 'true' if the application runs within the expert mode, else 'false' (no additional help texts).",															"")
+		pl_method_0(IsRepeatMode,	pl_ret_type(bool),			"Returns whether or not the application runs within the repeat mode. Returns 'true' if the application runs within the repeat mode (\"movie -> making of -> movie\" instead of \"movie -> making of -> interactive\"), else 'false'.",	"")
+		pl_method_0(GetInteraction,	pl_ret_type(Interaction*),	"Returns the interaction component instance, can be a null pointer",																																									"")
 		// Slot
 		pl_slot_1(OnLoadProgress,	float,	"Called on load progress, load progress (0.0-1.0) as first parameter",	"")
 	pl_class_end
