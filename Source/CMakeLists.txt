@@ -24,10 +24,7 @@ find_package(PixelLight)
 add_sources(
     src/Main.cpp
     src/Application.cpp
-    src/Camcorder.cpp
     src/DungeonConfigGroup.cpp
-    src/SNMPositionKeyframeRecord.cpp
-    src/SNMRotationKeyframeRecord.cpp
     src/SNMLightRandomAnimation.cpp
     src/SNMPositionRandomAnimation.cpp
     src/Gui/IngameGui.cpp
