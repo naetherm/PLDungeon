@@ -22,13 +22,7 @@
     <ClCompile Include="src\Camcorder.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\Interaction.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="src\Main.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\MakingOf.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\SNMPositionKeyframeRecord.cpp">
@@ -69,12 +63,6 @@
     <ClInclude Include="src\Camcorder.h">
       <Filter>Source Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\Interaction.h">
-      <Filter>Source Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\MakingOf.h">
-      <Filter>Source Files</Filter>
-    </ClInclude>
     <ClInclude Include="src\SNMPositionKeyframeRecord.h">
       <Filter>Source Files</Filter>
     </ClInclude>
@@ -109,22 +97,19 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="CMakeLists.txt" />
-    <None Include="..\Bin\Data\Scripts\Lua\DepthFog.lua">
+    <None Include="..\Bin\Data\Scripts\Lua\Interaction.lua">
+      <Filter>Scripts\Lua</Filter>
+    </None>
+    <None Include="..\Bin\Data\Scripts\Lua\Main.lua">
       <Filter>Scripts\Lua</Filter>
     </None>
     <None Include="..\Bin\Data\Scripts\Lua\MakingOf.lua">
       <Filter>Scripts\Lua</Filter>
     </None>
-    <None Include="..\Bin\Data\Scripts\Lua\ShowText.lua">
-      <Filter>Scripts\Lua</Filter>
-    </None>
     <None Include="..\Bin\Data\Scripts\Lua\Application.lua">
       <Filter>Scripts\Lua</Filter>
     </None>
-    <None Include="..\Bin\Data\Scripts\Lua\OldFilm.lua">
-      <Filter>Scripts\Lua</Filter>
-    </None>
-    <None Include="..\Bin\Data\Scripts\Lua\GUIBackground.lua">
+    <None Include="..\Bin\Data\Scripts\Lua\GUI.lua">
       <Filter>Scripts\Lua</Filter>
     </None>
   </ItemGroup>

@@ -34,6 +34,9 @@
 //[-------------------------------------------------------]
 //[ Forward declarations                                  ]
 //[-------------------------------------------------------]
+namespace PLMath {
+	class Vector2i;
+}
 namespace PLGui {
 	class Gui;
 }
@@ -42,7 +45,7 @@ namespace PLRenderer {
 }
 class WindowMenu;
 class WindowText;
-class Interaction;
+class Application;
 class WindowResolution;
 
 
@@ -61,7 +64,12 @@ class IngameGui : public PLCore::Object {
 	//[-------------------------------------------------------]
 	pl_class(pl_rtti_export, IngameGui, "", PLCore::Object, "Ingame GUI interaction component")
 		// Methods
-		pl_method_0(IsGuiShown,	pl_ret_type(bool),	"Returns 'true' if currently at least one GUI element is shown, else 'false'",	"")
+		pl_method_0(Update,			pl_ret_type(void),								"Updates the ingame GUI component",																							"")
+		pl_method_0(Hide,			pl_ret_type(void),								"Hides all GUI elements",																									"")
+		pl_method_0(IsGuiShown,		pl_ret_type(bool),								"Returns 'true' if currently at least one GUI element is shown, else 'false'",												"")
+		pl_method_0(IsMenuShown,	pl_ret_type(bool),								"Returns whether or not the menu is currently shown. Returns 'true' if the menu is currently shown, else 'false'.",			"")
+		pl_method_1(ShowMenu,		pl_ret_type(void),	bool,						"Shows/hides the menu, 'true' as first parameter to show the menu, else 'false'",											"")
+		pl_method_1(ShowHelpText,	pl_ret_type(void),	const PLGeneral::String&,	"Display a help text window, name of help text (\"name.xml\" is loaded, \"\" to hide the help text) as first parameter",	"")
 		// Slots
 		pl_slot_1(OnMenu,		int,														"Called when a menu item has been selected, selected menu item as first parameter",												"")
 		pl_slot_2(OnResolution,	const PLRenderer::DisplayMode*,	bool,						"Called when the resolution slider was changed, new display mode as first parameter, new fullscreen mode as second parameter",	"")
@@ -78,10 +86,10 @@ class IngameGui : public PLCore::Object {
 		*  @brief
 		*    Constructor
 		*
-		*  @param[in] cInteraction
-		*    Owner interaction
+		*  @param[in] cApplication
+		*    Owner application
 		*/
-		IngameGui(Interaction &cInteraction);
+		IngameGui(Application &cApplication);
 
 		/**
 		*  @brief
@@ -91,12 +99,12 @@ class IngameGui : public PLCore::Object {
 
 		/**
 		*  @brief
-		*    Returns the owner interaction
+		*    Returns the owner application
 		*
 		*  @return
-		*    The owner interaction
+		*    The owner application
 		*/
-		Interaction &GetInteraction() const;
+		Application &GetApplication() const;
 
 		/**
 		*  @brief
@@ -133,7 +141,7 @@ class IngameGui : public PLCore::Object {
 		*    Shows/hides the menu
 		*
 		*  @param[in] bShow
-		*    'true' to show the menu, else 'faöse'
+		*    'true' to show the menu, else 'false'
 		*/
 		void ShowMenu(bool bShow = true);
 
@@ -193,7 +201,7 @@ class IngameGui : public PLCore::Object {
 	//[ Private data                                          ]
 	//[-------------------------------------------------------]
 	private:
-		Interaction			*m_pInteraction;	/**< Owner interaction, always valid! */
+		Application			*m_pApplication;	/**< Owner application, always valid! */
 		PLGui::Gui			*m_pIngameGui;		/**< Ingame GUI */
 		PLGui::Widget		*m_pFocusWindow;	/**< Window that holds the focus */
 		WindowMenu			*m_pMenu;			/**< Main menu */

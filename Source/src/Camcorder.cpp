@@ -31,7 +31,6 @@
 #include <PLScene/Scene/SceneNodeModifiers/SNMPositionKeyframeAnimation.h>
 #include <PLScene/Scene/SceneNodeModifiers/SNMRotationKeyframeAnimation.h>
 #include "Application.h"
-#include "Interaction.h"
 #include "Camcorder.h"
 
 
@@ -43,15 +42,21 @@ using namespace PLScene;
 
 
 //[-------------------------------------------------------]
+//[ RTTI interface                                        ]
+//[-------------------------------------------------------]
+pl_implement_class(Camcorder)
+
+
+//[-------------------------------------------------------]
 //[ Public functions                                      ]
 //[-------------------------------------------------------]
 /**
 *  @brief
 *    Constructor
 */
-Camcorder::Camcorder(Interaction &cInteraction) :
+Camcorder::Camcorder(Application &cApplication) :
 	EventHandlerAnimationStop(&Camcorder::OnAnimationStop, this),
-	m_pInteraction(&cInteraction),
+	m_pApplication(&cApplication),
 	m_bRecording(false),
 	m_bPlaying(false),
 	m_bPlaybackFinished(false)
@@ -70,11 +75,11 @@ Camcorder::~Camcorder()
 
 /**
 *  @brief
-*    Returns the owner interaction
+*    Returns the owner application
 */
-Interaction &Camcorder::GetInteraction() const
+Application &Camcorder::GetApplication() const
 {
-	return *m_pInteraction;
+	return *m_pApplication;
 }
 
 /**
@@ -92,7 +97,7 @@ void Camcorder::StartRecord(const String &sName)
 	// Valid record name?
 	if (sName.GetLength()) {
 		// Get the currently used camera
-		SceneNode *pCameraSceneNode = reinterpret_cast<SceneNode*>(m_pInteraction->GetApplication().GetCamera());
+		SceneNode *pCameraSceneNode = reinterpret_cast<SceneNode*>(m_pApplication->GetCamera());
 		if (pCameraSceneNode) {
 			// Keep a reference to this camera scene node
 			m_cCameraSceneNodeHandler.SetElement(pCameraSceneNode);
@@ -226,7 +231,7 @@ void Camcorder::StartPlayback(const String &sName)
 	// Valid record name?
 	if (sName.GetLength()) {
 		// Get the currently used camera
-		SceneNode *pCameraSceneNode = reinterpret_cast<SceneNode*>(m_pInteraction->GetApplication().GetCamera());
+		SceneNode *pCameraSceneNode = reinterpret_cast<SceneNode*>(m_pApplication->GetCamera());
 		if (pCameraSceneNode) {
 			// Get the filename
 			const String sFilename = "Data/Camcorder/" + sName + ".cam";
@@ -368,7 +373,7 @@ void Camcorder::Update()
 		StopPlayback();
 
 		// Emit the playback finished event
-		EventPlaybackFinished();
+		SignalPlaybackFinished();
 	}
 }
 

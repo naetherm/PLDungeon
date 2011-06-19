@@ -1,4 +1,4 @@
-PixelLight dungeon demo 1.2
+PixelLight dungeon demo 1.3
 	Copyright © 2002-2011 by The PixelLight Team
 
 
@@ -80,6 +80,8 @@ Sounds from
 	- The dungeon demo has now own options within "Dungeon.cfg"
 	- Fixed some problems with the GLSL shaders when using a NVIDIA graphics card
 	- Added cave with heavy demon model from Nick Zuccarello (http://www.sharecg.com/v/49629/browse/5/3D-Model/UDK-HeavyDemon-Static/Skeletal-Mesh-Example-Files) and plant models from "Irishlostboy" (http://www.sharecg.com/v/7317/gallery/5/3D-Model/foliage-pack-01)
+- 1.3
+	- The application logic is now implemented within the Lua script language (see "Data/Scripts/Lua"-directory)
 
 
 == PixelLight core team ==

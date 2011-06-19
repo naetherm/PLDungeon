@@ -29,7 +29,6 @@
 #include <PLScene/Scene/SceneContainer.h>
 #include <PLScene/Scene/SceneNodes/Gui/SNGui.h>
 #include <PLEngine/Gui/RenderWindow.h>
-#include "Interaction.h"
 #include "Application.h"
 #include "Gui/WindowMenu.h"
 #include "Gui/WindowText.h"
@@ -62,19 +61,19 @@ pl_implement_class(IngameGui)
 *  @brief
 *    Constructor
 */
-IngameGui::IngameGui(Interaction &cInteraction) :
+IngameGui::IngameGui(Application &cApplication) :
 	SlotOnMenu(this),
 	SlotOnResolution(this),
 	SlotOnFocus(this),
 	SlotOnMouseDown(this),
-	m_pInteraction(&cInteraction),
+	m_pApplication(&cApplication),
 	m_pIngameGui(nullptr),
 	m_pMenu(nullptr),
 	m_pText(nullptr),
 	m_pResolution(nullptr)
 {
 	// Get scene container
-	SceneContainer *pSceneContainer = m_pInteraction->GetApplication().GetRootScene();
+	SceneContainer *pSceneContainer = m_pApplication->GetRootScene();
 	if (pSceneContainer) {
 		// Create 'ingame'-GUI scene node
 		SNGui *pGuiSceneNode = static_cast<SNGui*>(pSceneContainer->Create("PLScene::SNGui", "GUI"));
@@ -105,7 +104,7 @@ IngameGui::IngameGui(Interaction &cInteraction) :
 				m_pText->SetVisible(true);
 
 				// Create resolution window
-				m_pResolution = new WindowResolution(&m_pInteraction->GetApplication(), m_pIngameGui->GetRootWidget());
+				m_pResolution = new WindowResolution(m_pApplication, m_pIngameGui->GetRootWidget());
 				m_pResolution->SetPos(Vector2i(220, 345));
 				m_pResolution->SetSize(Vector2i(m_pIngameGui->GetDefaultScreen()->GetSize().x - 240, 100));
 				m_pResolution->SetVisible(false);
@@ -118,7 +117,7 @@ IngameGui::IngameGui(Interaction &cInteraction) :
 	}
 
 	// Get the main window
-	Widget *pWidget = m_pInteraction->GetApplication().GetMainWindow();
+	Widget *pWidget = m_pApplication->GetMainWindow();
 	if (pWidget) {
 		// We're working within the inner part of the window
 		Widget *pContentWidget = pWidget->GetContentWidget();
@@ -135,7 +134,7 @@ IngameGui::IngameGui(Interaction &cInteraction) :
 IngameGui::~IngameGui()
 {
 	// Get scene container
-	SceneContainer *pSceneContainer = m_pInteraction->GetApplication().GetRootScene();
+	SceneContainer *pSceneContainer = m_pApplication->GetRootScene();
 	if (pSceneContainer) {
 		// Get 'ingame'-GUI scene node
 		SceneNode *pGuiSceneNode = pSceneContainer->GetByName("GUI");
@@ -146,11 +145,11 @@ IngameGui::~IngameGui()
 
 /**
 *  @brief
-*    Returns the owner interaction
+*    Returns the owner application
 */
-Interaction &IngameGui::GetInteraction() const
+Application &IngameGui::GetApplication() const
 {
-	return *m_pInteraction;
+	return *m_pApplication;
 }
 
 /**
@@ -248,7 +247,7 @@ void IngameGui::OnMenu(int nCommand)
 	switch (nCommand) {
 		case WindowMenu::COMMAND_WALKMODE:
 			// Set walk mode
-			m_pInteraction->SetMode(Interaction::WalkMode);
+			m_pApplication->SignalSetMode(0, true);	// 0 = Walk mode
 
 			// Hide the GUI
 			Hide();
@@ -256,7 +255,7 @@ void IngameGui::OnMenu(int nCommand)
 
 		case WindowMenu::COMMAND_FREEMODE:
 			// Set free mode
-			m_pInteraction->SetMode(Interaction::FreeMode);
+			m_pApplication->SignalSetMode(1, true);	// 1 = Free mode
 
 			// Hide the GUI
 			Hide();
@@ -264,7 +263,7 @@ void IngameGui::OnMenu(int nCommand)
 
 		case WindowMenu::COMMAND_GHOSTMODE:
 			// Set ghost mode
-			m_pInteraction->SetMode(Interaction::GhostMode);
+			m_pApplication->SignalSetMode(2, true);	// 2 = Ghost mode
 
 			// Hide the GUI
 			Hide();
@@ -272,7 +271,7 @@ void IngameGui::OnMenu(int nCommand)
 
 		case WindowMenu::COMMAND_MOVIE:
 			// Set movie mode
-			m_pInteraction->SetMode(Interaction::MovieMode);
+			m_pApplication->SignalSetMode(3, true);	// 3 = Movie mode
 
 			// Hide the GUI
 			Hide();
@@ -280,7 +279,7 @@ void IngameGui::OnMenu(int nCommand)
 
 		case WindowMenu::COMMAND_MAKINGOF:
 			// Set making of mode
-			m_pInteraction->SetMode(Interaction::MakingOfMode);
+			m_pApplication->SignalSetMode(4, true);	// 4 = Making of mode
 
 			// Hide the GUI
 			Hide();
@@ -298,7 +297,7 @@ void IngameGui::OnMenu(int nCommand)
 
 		case WindowMenu::COMMAND_EXIT:
 			// Exit application
-			m_pInteraction->GetApplication().Exit(0);
+			m_pApplication->Exit(0);
 			break;
 	}
 }
@@ -309,11 +308,8 @@ void IngameGui::OnMenu(int nCommand)
 */
 void IngameGui::OnResolution(const DisplayMode *pMode, bool bFullscreen)
 {
-	// Get the application instance
-	Application &cApplication = m_pInteraction->GetApplication();
-
 	// Get main frame
-	RenderWindow *pFrame = static_cast<RenderWindow*>(cApplication.GetMainWindow());
+	RenderWindow *pFrame = static_cast<RenderWindow*>(m_pApplication->GetMainWindow());
 	if (pFrame) {
 		// Fullscreen mode change?
 		if (pFrame->IsFullscreen() != bFullscreen) {
@@ -326,14 +322,14 @@ void IngameGui::OnResolution(const DisplayMode *pMode, bool bFullscreen)
 
 		{ // Update the configuration
 			// Write fullscreen state back to the configuration
-			cApplication.GetConfig().SetVar("PLEngine::RendererConfig", "Fullscreen", bFullscreen);
+			m_pApplication->GetConfig().SetVar("PLEngine::RendererConfig", "Fullscreen", bFullscreen);
 
 			// Write down display mode information
 			if (pMode) {
-				cApplication.GetConfig().SetVar("PLEngine::RendererConfig", "DisplayWidth",     pMode->vSize.x);
-				cApplication.GetConfig().SetVar("PLEngine::RendererConfig", "DisplayHeight",    pMode->vSize.y);
-				cApplication.GetConfig().SetVar("PLEngine::RendererConfig", "DisplayColorBits", pMode->nColorBits);
-				cApplication.GetConfig().SetVar("PLEngine::RendererConfig", "DisplayFrequency", pMode->nFrequency);
+				m_pApplication->GetConfig().SetVar("PLEngine::RendererConfig", "DisplayWidth",     pMode->vSize.x);
+				m_pApplication->GetConfig().SetVar("PLEngine::RendererConfig", "DisplayHeight",    pMode->vSize.y);
+				m_pApplication->GetConfig().SetVar("PLEngine::RendererConfig", "DisplayColorBits", pMode->nColorBits);
+				m_pApplication->GetConfig().SetVar("PLEngine::RendererConfig", "DisplayFrequency", pMode->nFrequency);
 			}
 		}
 	}

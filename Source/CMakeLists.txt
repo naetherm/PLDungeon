@@ -25,8 +25,6 @@ add_sources(
     src/Main.cpp
     src/Application.cpp
     src/Camcorder.cpp
-    src/Interaction.cpp
-    src/MakingOf.cpp
     src/DungeonConfigGroup.cpp
     src/SNMPositionKeyframeRecord.cpp
     src/SNMRotationKeyframeRecord.cpp

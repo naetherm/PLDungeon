@@ -1,7 +1,6 @@
 --[-------------------------------------------------------]
 --[ Includes                                              ]
 --[-------------------------------------------------------]
-require("Data/Scripts/Lua/ShowText")
 require("Data/Scripts/Lua/Interaction")	-- Interaction script component class
 
 
@@ -13,15 +12,19 @@ require("Data/Scripts/Lua/Interaction")	-- Interaction script component class
 Application = {
 
 
-	-- The default constructor - In Lua a static method
-	new = function()
+	--@brief
+	--  The default constructor - In Lua a static method
+	--
+	--@param[in] cppApplication
+	--  C++ RTTI application class instance
+	new = function(cppApplication)
 
 
 		--[-------------------------------------------------------]
 		--[ Private class attributes                              ]
 		--[-------------------------------------------------------]
-		local this 			= {}				-- A private class attribute -> Emulates the C++ "this"-pointer by using a Lua table
-		local interaction 	= Interaction.new()	-- An instance of the interaction script component class
+		local this 			= {}									-- A private class attribute -> Emulates the C++ "this"-pointer by using a Lua table
+		local _interaction 	= Interaction.new(cppApplication, this)	-- An instance of the interaction script component class
 
 
 		--[-------------------------------------------------------]
@@ -31,7 +34,7 @@ Application = {
 		--  Configurates the scene renderer
 		local function ConfigureSceneRenderer()
 			-- Get scene renderer tool
-			local sceneRendererTool = PL.GetApplication():GetSceneRendererTool()
+			local sceneRendererTool = cppApplication:GetSceneRendererTool()
 
 			-- More HDR bloom, please
 			sceneRendererTool:SetPassAttribute("EndHDR", "BloomBrightThreshold", "0.2")
@@ -61,13 +64,13 @@ Application = {
 			-- Enable/disable the fog?
 			if density > 0 then
 				-- Enable the fog
-				PL.GetApplication():GetSceneRendererTool():SetPassAttribute("DeferredDepthFog", "Flags", "")
+				cppApplication:GetSceneRendererTool():SetPassAttribute("DeferredDepthFog", "Flags", "")
 
 				-- Set the fog density
-				PL.GetApplication():GetSceneRendererTool():SetPassAttribute("DeferredDepthFog", "FogDensity", density)
+				cppApplication:GetSceneRendererTool():SetPassAttribute("DeferredDepthFog", "FogDensity", density)
 			else
 				-- Disable the fog
-				PL.GetApplication():GetSceneRendererTool():SetPassAttribute("DeferredDepthFog", "Flags", "Inactive")
+				cppApplication:GetSceneRendererTool():SetPassAttribute("DeferredDepthFog", "Flags", "Inactive")
 			end
 		end
 
@@ -75,7 +78,7 @@ Application = {
 		--  Add the dancing skeleton to the scene
 		local function AddDancingSkeleton()
 			-- Get the scene container
-			local sceneContainer = PL.GetApplication():GetScene()
+			local sceneContainer = cppApplication:GetScene()
 			if sceneContainer ~= nil then
 				-- Get the tavern scene container
 				local tavernSceneContainer = sceneContainer:GetByName("Container.Tavern")
@@ -105,17 +108,37 @@ Application = {
 		--  Updates the application script component
 		function this.Update()
 			-- Update the instance of the interaction script component class
-			interaction:Update()
+			_interaction:Update()
+
+			-- Get the ingame GUI component
+			local ingameGui = cppApplication:GetIngameGui()
+			if ingameGui ~= nil then
+				-- Get the currently set camera scene node
+				local cameraSceneNode = cppApplication:GetCamera()
+				if cameraSceneNode ~= nil then
+					-- Deactivate the camera if the GUI is currently shown
+					cameraSceneNode:SetActive(not ingameGui:IsGuiShown())
+				end
+
+				-- Update the ingame GUI
+				ingameGui:Update()
+			end
+
+			-- Update the camcorder
+			cppApplication:GetCamcorder():Update()
+
+			-- Update the mouse picking pull animation
+			cppApplication:UpdateMousePickingPullAnimation()
 		end
 
 		--@brief
 		--  Slot function is called by C++ after a new camera has been set
 		function this.OnCameraSet()
 			-- Make the current set camera to the listener of the sound manager *our ear*
-			local rootScene = PL.GetApplication():GetRootScene()	-- The root scene is an instance of "PLSound::SCSound"
+			local rootScene = cppApplication:GetRootScene()	-- The root scene is an instance of "PLSound::SCSound"
 			if rootScene ~= nil then
 				-- Get the currently set camera scene node
-				local cameraSceneNode = PL.GetApplication():GetCamera()
+				local cameraSceneNode = cppApplication:GetCamera()
 				if cameraSceneNode ~= nil then
 					rootScene.Listener = cameraSceneNode:GetAbsoluteName()	-- Use the current camera scene node as listener
 				else
@@ -137,8 +160,67 @@ Application = {
 			AddDancingSkeleton()
 
 			-- Show an initial help text for 10 seconds
-			if not PL.GetApplication():IsExpertMode() then
-				ShowText("Press ESC to open menu", 10.0)
+			if not cppApplication:IsExpertMode() then
+				this.ShowText("Press ESC to open menu", 10.0)
+			end
+		end
+
+		--@brief
+		--  Returns the currently shown text
+		--
+		--@return
+		--  The currently shown text
+		function this.GetShownText()
+			-- Get the root scene container
+			local sceneContainer = cppApplication:GetRootScene()
+			if sceneContainer ~= nil then
+				-- Get the text scene node
+				local sceneNode = sceneContainer:GetByName("Text")
+				if sceneNode ~= nil and sceneNode:IsActive() then
+					-- Return the text
+					return sceneNode.Text
+				end
+			end
+
+			-- Just return an empty string
+			return ""
+		end
+
+		--@brief
+		--  Shows a text
+		--
+		--@param[in] text
+		--  Text to show
+		--@param[in] timeout
+		--  Timeout (in seconds)
+		function this.ShowText(text, timeout)
+			-- Get the root scene container
+			local sceneContainer = cppApplication:GetRootScene()
+			if sceneContainer ~= nil then
+				-- Get the text scene node, or create it right now
+				local sceneNode = sceneContainer:GetByName("Text")
+				if sceneNode == nil then
+					-- Create the text scene node right now
+					sceneNode = sceneContainer:Create("PLScene::SNText2D", "Text", "Position='0.5 0.95 0.0' Scale='1.1 1.1 1.1' Flags='No3DPosition'")
+				end
+				if sceneNode ~= nil then
+					-- Set the text
+					sceneNode.Text = text
+
+					-- Make the scene node active (in case SNMDeactivationOnTimeout already deactivated it)
+					sceneNode:SetActive(true)
+
+					-- Get the timeout scene node modifier, or create it right now
+					local sceneNodeModifier = sceneNode:GetModifier("PLScene::SNMDeactivationOnTimeout")
+					if sceneNodeModifier == nil then
+						-- Create the scene node modifier right now
+						sceneNodeModifier = sceneNode:AddModifier("PLScene::SNMDeactivationOnTimeout")
+					end
+					if sceneNodeModifier ~= nil then
+						-- Set the timeout
+						sceneNodeModifier.Timeout = timeout
+					end
+				end
 			end
 		end
 
@@ -147,10 +229,10 @@ Application = {
 		--[ Public class constructor implementation               ]
 		--[-------------------------------------------------------]
 		-- Use the script function "OnCameraSet" as slot and connect it with the RTTI "SignalCameraSet"-signal of our RTTI application class instance
-		PL.GetApplication().SignalCameraSet.Connect(this.OnCameraSet)
+		cppApplication.SignalCameraSet.Connect(this.OnCameraSet)
 
 		-- Use the script function "OnSceneLoadingFinished" as slot and connect it with the RTTI "SignalSceneLoadingFinished"-signal of our RTTI application class instance
-		PL.GetApplication().SignalSceneLoadingFinished.Connect(this.OnSceneLoadingFinished)
+		cppApplication.SignalSceneLoadingFinished.Connect(this.OnSceneLoadingFinished)
 
 
 		-- Return the created class instance

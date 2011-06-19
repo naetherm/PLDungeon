@@ -6,15 +6,19 @@
 GUI = {
 
 
-	-- The default constructor - In Lua a static method
-	new = function()
+	--@brief
+	--  The default constructor - In Lua a static method
+	--
+	--@param[in] cppApplication
+	--  C++ RTTI application class instance
+	new = function(cppApplication)
 
 
 		--[-------------------------------------------------------]
 		--[ Private class attributes                              ]
 		--[-------------------------------------------------------]
 		local this 				= {}	-- A private class attribute -> Emulates the C++ "this"-pointer by using a Lua table
-		local backgroundBlur 	= 0		-- GUI background blur (0 = no blur, 1 = full blur)
+		local _backgroundBlur 	= 0		-- GUI background blur (0 = no blur, 1 = full blur)
 
 
 		--[-------------------------------------------------------]
@@ -26,35 +30,31 @@ GUI = {
 			-- Get the current time difference
 			local timeDiff = PL.Timing.GetTimeDifference()
 
-			-- Get the interaction component instance
-			local interaction = PL.GetApplication():GetInteraction()
-			if interaction ~= nil then
-				-- Update the the GUI background blur depending on whether or not the ingame GUI is currently visible
-				if interaction:GetIngameGui():IsGuiShown() then
-					backgroundBlur = backgroundBlur + timeDiff
-					if backgroundBlur > 1 then
-						backgroundBlur = 1
-					end
-				else
-					backgroundBlur = backgroundBlur - timeDiff
-					if backgroundBlur < 0 then
-						backgroundBlur = 0
-					end
+			-- Update the the GUI background blur depending on whether or not the ingame GUI is currently visible
+			if cppApplication:GetIngameGui():IsGuiShown() then
+				_backgroundBlur = _backgroundBlur + timeDiff
+				if _backgroundBlur > 1 then
+					_backgroundBlur = 1
+				end
+			else
+				_backgroundBlur = _backgroundBlur - timeDiff
+				if _backgroundBlur < 0 then
+					_backgroundBlur = 0
 				end
 			end
 
 			-- Get the currently set camera scene node
-			local cameraSceneNode = PL.GetApplication():GetCamera()
+			local cameraSceneNode = cppApplication:GetCamera()
 			if cameraSceneNode ~= nil then
 				-- Is there currently GUI background blur?
-				if backgroundBlur > 0 then
+				if _backgroundBlur > 0 then
 					-- Update "PLPostProcessEffects::SNMPostProcessBlur" modifier
 					local sceneNodeModifier = cameraSceneNode:GetModifier("PLPostProcessEffects::SNMPostProcessBlur")
 					if sceneNodeModifier == nil then
 						sceneNodeModifier = cameraSceneNode:AddModifier("PLPostProcessEffects::SNMPostProcessBlur")
 					end
 					if sceneNodeModifier ~= nil then
-						local factor = math.sin(backgroundBlur*math.pi/2)
+						local factor = math.sin(_backgroundBlur*math.pi/2)
 						sceneNodeModifier.EffectWeight = factor
 						sceneNodeModifier.BloomScale   = 0.8 + (1 - factor)*3
 						sceneNodeModifier.Strength     = string.format("%f %f", 1 + factor*3, 1 + factor*4)

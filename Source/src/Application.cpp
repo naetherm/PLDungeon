@@ -24,14 +24,12 @@
 //[ Includes                                              ]
 //[-------------------------------------------------------]
 #include <PLGeneral/File/Url.h>
+#include <PLGeneral/Tools/Timing.h>
 #include <PLGeneral/System/System.h>
 #include <PLCore/Base/Class.h>
 #include <PLCore/Tools/Localization.h>
 #include <PLCore/Tools/LoadableManager.h>
-#include <PLCore/Script/Script.h>
-#include <PLCore/Script/FuncScriptPtr.h>
 #include <PLGui/Gui/Gui.h>
-#include <PLGui/Gui/Base/Keys.h>
 #include <PLGui/Widgets/Widget.h>
 #include <PLRenderer/RendererContext.h>
 #include <PLRenderer/Material/MaterialManager.h>
@@ -42,8 +40,10 @@
 #include <PLScene/Scene/SceneContainer.h>
 #include <PLScene/Scene/SceneNodeModifier.h>
 #include <PLScene/Scene/SceneNodes/Console/SNConsoleBase.h>
+#include <PLPhysics/Body.h>
+#include <PLPhysics/SceneNodeModifiers/SNMPhysicsBodyBox.h>
+#include <PLPhysics/SceneNodes/SNPhysicsMouseInteraction.h>
 #include <PLEngine/Gui/RenderWindow.h>
-#include "Interaction.h"
 #include "Application.h"
 
 
@@ -52,10 +52,12 @@
 //[-------------------------------------------------------]
 using namespace PLGeneral;
 using namespace PLCore;
+using namespace PLMath;
 using namespace PLGui;
 using namespace PLRenderer;
 using namespace PLScene;
 using namespace PLEngine;
+using namespace PLPhysics;
 
 
 //[-------------------------------------------------------]
@@ -81,8 +83,10 @@ const String Application::DefaultScene = "Data/Scenes/Dungeon.scene";
 */
 Application::Application() : ScriptApplication("Data/Scripts/Lua/Main.lua", "Dungeon", PLT("PixelLight dungeon demo"), System::GetInstance()->GetDataDirName("PixelLight")),
 	SlotOnLoadProgress(this),
-	m_pInteraction(nullptr),
-	m_fLoadProgress(0.0f)
+	m_pIngameGui(nullptr),
+	m_pCamcorder(new Camcorder(*this)),
+	m_fLoadProgress(0.0f),
+	m_fMousePickingPullAnimation(0.0f)
 {
 	// The demo is published as a simple archive, so, put the log and configuration files in the same directory the executable is
 	// in - as a result, the user only has to remove this directory and the demo is completly gone from the system :D
@@ -101,9 +105,12 @@ Application::Application() : ScriptApplication("Data/Scripts/Lua/Main.lua", "Dun
 */
 Application::~Application()
 {
-	// Destroy the interaction component
-	if (m_pInteraction)
-		delete m_pInteraction;
+	// Destroy the ingame GUI component
+	if (m_pIngameGui)
+		delete m_pIngameGui;
+
+	// Destroy the camcorder component
+	delete m_pCamcorder;
 }
 
 /**
@@ -128,22 +135,34 @@ bool Application::IsRepeatMode() const
 
 /**
 *  @brief
-*    Returns the interaction component instance
+*    Returns whether or not this is an internal release
 */
-Interaction *Application::GetInteraction()
+bool Application::IsInternalRelease() const
 {
-	return m_pInteraction;
+	#ifdef INTERNALRELEASE
+		return true;
+	#else
+		return false;
+	#endif
 }
 
 /**
 *  @brief
-*    Shows a text
+*    Returns the ingame GUI interaction component instance
 */
-void Application::ShowText(String sText, float fTimeout)
+IngameGui &Application::GetIngameGui() const
 {
-	// Call the show text script function
-	if (m_pScript)
-		FuncScriptPtr<void, String, float>(m_pScript, "ShowText").Call(Params<void, String, float>(sText, fTimeout));
+	// When this method is used, the pointer is valid
+	return *m_pIngameGui;
+}
+
+/**
+*  @brief
+*    Returns the camcorder component instance
+*/
+Camcorder &Application::GetCamcorder() const
+{
+	return *m_pCamcorder;
 }
 
 
@@ -165,6 +184,54 @@ void Application::OnLoadProgress(float fLoadProgress)
 	}
 }
 
+/**
+*  @brief
+*    Updates the mouse picking pull animation
+*/
+void Application::UpdateMousePickingPullAnimation()
+{
+	// Get the current time difference
+	const float fTimeDiff = Timing::GetInstance()->GetTimeDifference();
+
+	// Update the mouse picking pull animation
+	m_fMousePickingPullAnimation += fTimeDiff*5;
+
+	// Get the scene
+	SceneContainer *pSceneContainer = GetScene();
+	if (pSceneContainer) {
+		// Get the "PLPhysics::SNPhysicsMouseInteraction" instance
+		SceneNode *pSceneNode = pSceneContainer->GetByName("Container.SNPhysicsMouseInteraction");
+		if (pSceneNode && pSceneNode->IsInstanceOf("PLPhysics::SNPhysicsMouseInteraction")) {
+			SNPhysicsMouseInteraction *pSNPhysicsMouseInteraction = static_cast<SNPhysicsMouseInteraction*>(pSceneNode);
+
+			// Get the currently set camera scene node
+			SceneNode *pCameraSceneNode = reinterpret_cast<SceneNode*>(GetCamera());
+			if (pCameraSceneNode) {
+				// Is picking currently performed?
+				Vector2i vMousePos;
+				if (pSNPhysicsMouseInteraction->IsPicking(&vMousePos)) {
+					// Update "PLPostProcessEffects::SNMPostProcessPull" modifier
+					SceneNodeModifier *pSceneNodeModifier = pCameraSceneNode->GetModifier("PLPostProcessEffects::SNMPostProcessPull");
+					if (!pSceneNodeModifier)
+						pSceneNodeModifier = pCameraSceneNode->AddModifier("PLPostProcessEffects::SNMPostProcessPull");
+					if (pSceneNodeModifier) {
+						// Get the main window of the application
+						Widget *pWidget = GetMainWindow();
+						if (pWidget && pWidget->GetContentWidget()) {
+							pSceneNodeModifier->SetAttribute("WarpPoint",	  String::Format("%d %d", vMousePos.x, pWidget->GetContentWidget()->GetSize().y-vMousePos.y));
+							pSceneNodeModifier->SetAttribute("WarpScale",	  -5.0f  + Math::Sin(m_fMousePickingPullAnimation)*Math::Cos(m_fMousePickingPullAnimation/4)*10.0f);
+							pSceneNodeModifier->SetAttribute("WarpDimension", 150.0f + Math::Cos(m_fMousePickingPullAnimation)*Math::Sin(m_fMousePickingPullAnimation/6)*60.0f);
+						}
+					}
+				} else {
+					// Remove "PLPostProcessEffects::SNMPostProcessPull" modifier
+					pCameraSceneNode->RemoveModifier("PLPostProcessEffects::SNMPostProcessPull");
+				}
+			}
+		}
+	}
+}
+
 
 //[-------------------------------------------------------]
 //[ Protected virtual PLCore::ConsoleApplication functions ]
@@ -180,6 +247,9 @@ void Application::OnInitLog()
 
 void Application::OnInit()
 {
+	// Create the ingame GUI component
+	m_pIngameGui = new IngameGui(*this);
+
 	// Call base implementation
 	ScriptApplication::OnInit();
 
@@ -215,10 +285,10 @@ void Application::OnInit()
 
 void Application::OnDeInit()
 {
-	// Destroy the interaction component
-	if (m_pInteraction) {
-		delete m_pInteraction;
-		m_pInteraction = nullptr;
+	// Destroy the ingame GUI component
+	if (m_pIngameGui) {
+		delete m_pIngameGui;
+		m_pIngameGui = nullptr;
 	}
 
 	// Call base implementation
@@ -294,12 +364,6 @@ void Application::OnCreateRootScene()
 //[-------------------------------------------------------]
 bool Application::LoadScene(String sFilename)
 {
-	// Destroy the previous interaction component
-	if (m_pInteraction) {
-		delete m_pInteraction;
-		m_pInteraction = nullptr;
-	}
-
 	// Reset the current load progress
 	m_fLoadProgress = 0.0f;
 
@@ -329,9 +393,6 @@ bool Application::LoadScene(String sFilename)
 			pMaterial->GetParameterManager().SetParameter1f("Glow", 4.0f);
 		}
 	}
-
-	// Create the interaction component
-	m_pInteraction = new Interaction(*this);
 
 	// Done
 	return bResult;

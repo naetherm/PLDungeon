@@ -29,6 +29,8 @@
 //[ Includes                                              ]
 //[-------------------------------------------------------]
 #include <PLEngine/Application/ScriptApplication.h>
+#include "Camcorder.h"
+#include "Gui/IngameGui.h"
 
 
 //[-------------------------------------------------------]
@@ -55,10 +57,15 @@ class Application : public PLEngine::ScriptApplication {
 	//[-------------------------------------------------------]
 	pl_class(pl_rtti_export, Application, "", PLEngine::ScriptApplication, "Application class")
 		// Methods
-		pl_method_0(IsExpertMode,	pl_ret_type(bool),			"Returns whether or not the application runs within the expert mode. Returns 'true' if the application runs within the expert mode, else 'false' (no additional help texts).",															"")
-		pl_method_0(IsRepeatMode,	pl_ret_type(bool),			"Returns whether or not the application runs within the repeat mode. Returns 'true' if the application runs within the repeat mode (\"movie -> making of -> movie\" instead of \"movie -> making of -> interactive\"), else 'false'.",	"")
-		pl_method_0(GetInteraction,	pl_ret_type(Interaction*),	"Returns the interaction component instance, can be a null pointer",																																									"")
-		// Slot
+		pl_method_0(IsExpertMode,						pl_ret_type(bool),			"Returns whether or not the application runs within the expert mode. Returns 'true' if the application runs within the expert mode, else 'false' (no additional help texts).",															"")
+		pl_method_0(IsRepeatMode,						pl_ret_type(bool),			"Returns whether or not the application runs within the repeat mode. Returns 'true' if the application runs within the repeat mode (\"movie -> making of -> movie\" instead of \"movie -> making of -> interactive\"), else 'false'.",	"")
+		pl_method_0(IsInternalRelease,					pl_ret_type(bool),			"Returns whether or not this is an internal release. Returns 'true' if this is an internal release, else 'false'.",																														"")
+		pl_method_0(GetIngameGui,						pl_ret_type(IngameGui&),	"Returns the ingame GUI interaction component instance",																																												"")
+		pl_method_0(GetCamcorder,						pl_ret_type(Camcorder&),	"Returns the camcorder component instance",																																																"")
+		pl_method_0(UpdateMousePickingPullAnimation,	pl_ret_type(void),			"Updates the mouse picking pull animation",																																																"")
+		// Signals
+		pl_signal_2(SignalSetMode,	PLGeneral::uint32,	bool,	"Signal indicating that a new interaction mode has been chosen, mode index as first parameter(0 = Walk mode, 1 = Free mode, 2 = Ghost mode, 3 = Movie mode, 4 = Making of mode), 'true' as second parameter to show mode changed text",	"")
+		// Slots
 		pl_slot_1(OnLoadProgress,	float,	"Called on load progress, load progress (0.0-1.0) as first parameter",	"")
 	pl_class_end
 
@@ -106,23 +113,30 @@ class Application : public PLEngine::ScriptApplication {
 
 		/**
 		*  @brief
-		*    Returns the interaction component instance
+		*    Returns whether or not this is an internal release
 		*
 		*  @return
-		*    The interaction component instance, can be a null pointer
+		*    'true' if this is an internal release, else 'false'
 		*/
-		Interaction *GetInteraction();
+		bool IsInternalRelease() const;
 
 		/**
 		*  @brief
-		*    Shows a text
+		*    Returns the ingame GUI interaction component instance
 		*
-		*  @param[in] sText
-		*    Text to show
-		*  @param[in] fTimeout
-		*    Timeout (in seconds)
+		*  @return
+		*    The ingame GUI interaction component instance, never a null pointer
 		*/
-		void ShowText(PLGeneral::String sText, float fTimeout = 5.0f);
+		IngameGui &GetIngameGui() const;
+
+		/**
+		*  @brief
+		*    Returns the camcorder component instance
+		*
+		*  @return
+		*    The camcorder component instance
+		*/
+		Camcorder &GetCamcorder() const;
 
 
 	//[-------------------------------------------------------]
@@ -137,6 +151,12 @@ class Application : public PLEngine::ScriptApplication {
 		*    Load progress (0.0-1.0)
 		*/
 		void OnLoadProgress(float fLoadProgress);
+
+		/**
+		*  @brief
+		*    Updates the mouse picking pull animation
+		*/
+		void UpdateMousePickingPullAnimation();
 
 
 	//[-------------------------------------------------------]
@@ -173,8 +193,10 @@ class Application : public PLEngine::ScriptApplication {
 	//[ Private data                                          ]
 	//[-------------------------------------------------------]
 	private:
-		Interaction	*m_pInteraction;	/**< Interaction application component, can be a null pointer */
-		float		 m_fLoadProgress;	/**< Load progress */
+		IngameGui	*m_pIngameGui;					/**< Ingame GUI interaction component instance, always valid! */
+		Camcorder	*m_pCamcorder;					/**< Camcorder interaction component instance, always valid! */
+		float		 m_fLoadProgress;				/**< Load progress */
+		float		 m_fMousePickingPullAnimation;	/**< Mouse picking pull animation */
 
 
 };

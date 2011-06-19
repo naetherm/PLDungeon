@@ -361,9 +361,7 @@
     <ClCompile Include="src\Application.cpp" />
     <ClCompile Include="src\Camcorder.cpp" />
     <ClCompile Include="src\DungeonConfigGroup.cpp" />
-    <ClCompile Include="src\Interaction.cpp" />
     <ClCompile Include="src\Main.cpp" />
-    <ClCompile Include="src\MakingOf.cpp" />
     <ClCompile Include="src\SNMLightRandomAnimation.cpp" />
     <ClCompile Include="src\SNMPositionKeyframeRecord.cpp" />
     <ClCompile Include="src\SNMPositionRandomAnimation.cpp" />
@@ -378,8 +376,6 @@
     <ClInclude Include="src\Application.h" />
     <ClInclude Include="src\Camcorder.h" />
     <ClInclude Include="src\DungeonConfigGroup.h" />
-    <ClInclude Include="src\Interaction.h" />
-    <ClInclude Include="src\MakingOf.h" />
     <ClInclude Include="src\SNMLightRandomAnimation.h" />
     <ClInclude Include="src\SNMPositionKeyframeRecord.h" />
     <ClInclude Include="src\SNMPositionRandomAnimation.h" />
@@ -393,11 +389,10 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="..\Bin\Data\Scripts\Lua\Application.lua" />
-    <None Include="..\Bin\Data\Scripts\Lua\DepthFog.lua" />
-    <None Include="..\Bin\Data\Scripts\Lua\GUIBackground.lua" />
+    <None Include="..\Bin\Data\Scripts\Lua\GUI.lua" />
+    <None Include="..\Bin\Data\Scripts\Lua\Interaction.lua" />
+    <None Include="..\Bin\Data\Scripts\Lua\Main.lua" />
     <None Include="..\Bin\Data\Scripts\Lua\MakingOf.lua" />
-    <None Include="..\Bin\Data\Scripts\Lua\OldFilm.lua" />
-    <None Include="..\Bin\Data\Scripts\Lua\ShowText.lua" />
     <None Include="CMakeLists.txt" />
   </ItemGroup>
   <ItemGroup>

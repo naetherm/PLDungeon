@@ -28,14 +28,14 @@
 //[-------------------------------------------------------]
 //[ Includes                                              ]
 //[-------------------------------------------------------]
-#include <PLCore/Base/Event/Event.h>
+#include <PLCore/Base/Object.h>
 #include <PLScene/Scene/SceneNodeHandler.h>
 
 
 //[-------------------------------------------------------]
 //[ Forward declarations                                  ]
 //[-------------------------------------------------------]
-class Interaction;
+class Application;
 
 
 //[-------------------------------------------------------]
@@ -48,14 +48,24 @@ class Interaction;
 *  @note
 *    - Do not perform playback if the current camera is using physics...
 */
-class Camcorder {
+class Camcorder : public PLCore::Object {
 
 
 	//[-------------------------------------------------------]
-	//[ Events                                                ]
+	//[ RTTI interface                                        ]
 	//[-------------------------------------------------------]
-	public:
-		PLCore::Event<>	EventPlaybackFinished;	/**< Playback has been finished */
+	pl_class(pl_rtti_export, Camcorder, "", PLCore::Object, "Camcorder interaction component")
+		// Methods
+		pl_method_1(StartRecord,	pl_ret_type(void),	const PLGeneral::String&,	"Starts the record, record name as first parameter (if empty string, no recording can be started). The currently used application camera will be recorded. If playback is currently enabled, the playback will be stopped at once.",	"")
+		pl_method_0(IsRecording,	pl_ret_type(bool),								"Returns whether or not recording is currently active. Returns 'true' if recording is currently active, else 'false'.",																													"")
+		pl_method_0(StopRecord,		pl_ret_type(void),								"Stops the record",																																																						"")
+		pl_method_1(StartPlayback,	pl_ret_type(void),	const PLGeneral::String&,	"Starts the playback, record name as first parameter (must be valid). The currently used application camera will be feed with the recorded data. If recording is currently enabled, the recording will be stopped at once.",			"")
+		pl_method_0(IsPlaying,		pl_ret_type(bool),								"Returns whether or not playback is currently active. Returns 'true' if playback is currently active, else 'false'.",																													"")
+		pl_method_0(StopPlayback,	pl_ret_type(void),								"Stops the playback",																																																					"")
+		pl_method_0(Update,			pl_ret_type(void),								"Updates the camcorder component",																																																		"")
+		// Signals
+		pl_signal_0(SignalPlaybackFinished,	"Playback has been finished",	"")
+	pl_class_end
 
 
 	//[-------------------------------------------------------]
@@ -66,10 +76,10 @@ class Camcorder {
 		*  @brief
 		*    Constructor
 		*
-		*  @param[in] cInteraction
-		*    Owner interaction
+		*  @param[in] cApplication
+		*    Owner application
 		*/
-		Camcorder(Interaction &cInteraction);
+		Camcorder(Application &cApplication);
 
 		/**
 		*  @brief
@@ -79,12 +89,12 @@ class Camcorder {
 
 		/**
 		*  @brief
-		*    Returns the owner interaction
+		*    Returns the owner application
 		*
 		*  @return
-		*    The owner interaction
+		*    The owner application
 		*/
-		Interaction &GetInteraction() const;
+		Application &GetApplication() const;
 
 		/**
 		*  @brief
@@ -182,7 +192,7 @@ class Camcorder {
 	//[ Private data                                          ]
 	//[-------------------------------------------------------]
 	private:
-		Interaction				  *m_pInteraction;					/**< Owner interaction, always valid! */
+		Application				  *m_pApplication;					/**< Owner application, always valid! */
 		bool					   m_bRecording;					/**< Is recording currently enabled? */
 		bool					   m_bPlaying;						/**< Is playback currently enabled? */
 		bool					   m_bPlaybackFinished;				/**< Playback finished? */
