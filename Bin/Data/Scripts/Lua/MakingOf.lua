@@ -7,18 +7,53 @@ require("Data/Scripts/Lua/ShowText")
 --[-------------------------------------------------------]
 --[ Global variables                                      ]
 --[-------------------------------------------------------]
-timeScale		= 1		-- Time scale to speed up or slow down the playback
-playbackTime	= 0		-- Total playback time (in seconds)
-state			= -1	-- Current state (changes over playback time, -1=invalid state)
-stateTimeout	= 0		-- State timeout until next state (in seconds)
+sceneRendererPassSettingsBackup	= {} 	-- Backup of all scene renderer pass settings, <key>=scene renderer pass name, <value>=Values of all scene renderer pass attributes
+timeScale						= 1		-- Time scale to speed up or slow down the playback
+playbackTime					= 0		-- Total playback time (in seconds)
+state							= -1	-- Current state (changes over playback time, -1=invalid state)
+stateTimeout					= 0		-- State timeout until next state (in seconds)
 
 
 --[-------------------------------------------------------]
 --[ Global functions                                      ]
 --[-------------------------------------------------------]
 --@brief
---  Update function called by C++
-function Update()
+--  Backups all scene renderer settings
+function BackupSceneRendererSettings()
+	-- Clear the previous scene renderer backup
+	sceneRendererPassSettingsBackup = {};
+
+	-- Loop through all scene renderer passes
+	for i=0,PL.GetApplication():GetSceneRendererTool():GetNumOfPasses() do
+		local pass = PL.GetApplication():GetSceneRendererTool():GetPassByIndex(i)
+		if pass ~= nil then
+			sceneRendererPassSettingsBackup[pass.Name] = pass:ToString()
+		end
+	end
+end
+
+--@brief
+--  Restores all scene renderer settings
+function RestoreSceneRendererSettings()
+	-- Loop through the scene renderer passes backup
+	for key, value in pairs(sceneRendererPassSettingsBackup) do
+		local pass = PL.GetApplication():GetSceneRendererTool():GetPassByName(key)
+		if pass ~= nil then
+			pass:FromString(value)
+		end
+	end
+end
+
+--@brief
+--  Called by C++ when the script should initialize itself
+function OnStartPlayback()
+	-- Backup all scene renderer settings
+	BackupSceneRendererSettings()
+end
+
+--@brief
+--  Called by C++ when the script should update itself
+function OnUpdate()
 	-- Get the scaled time difference
 	local timeDiff = PL.Timing.GetTimeDifference()*timeScale
 
@@ -39,6 +74,13 @@ function Update()
 end
 
 --@brief
+--  Called by C++ when the script should stop itself
+function OnStopPlayback()
+	-- Restore all scene renderer settings
+	RestoreSceneRendererSettings()
+end
+
+--@brief
 --  Makes the provided state to the currently used one
 --
 --@param[in] newState
@@ -47,8 +89,8 @@ end
 --@return
 --  State text or nil
 function SetState(newState)
-	-- Set the initial state settings
-	this:SetInitialSettings()
+	-- Restore all scene renderer settings
+	RestoreSceneRendererSettings()
 
 	-- Set the new state
 	state = newState

@@ -26,8 +26,6 @@
 #include <PLCore/Script/Script.h>
 #include <PLCore/Script/FuncScriptPtr.h>
 #include <PLCore/Script/ScriptManager.h>
-#include <PLScene/Compositing/SceneRenderer.h>
-#include <PLScene/Scene/SPScene.h>
 #include "Application.h"
 #include "Interaction.h"
 #include "MakingOf.h"
@@ -38,46 +36,12 @@
 //[-------------------------------------------------------]
 using namespace PLGeneral;
 using namespace PLCore;
-using namespace PLRenderer;
-using namespace PLScene;
 
 
 //[-------------------------------------------------------]
 //[ RTTI interface                                        ]
 //[-------------------------------------------------------]
 pl_implement_class(MakingOf)
-
-
-//[-------------------------------------------------------]
-//[ Public RTTI methods                                   ]
-//[-------------------------------------------------------]
-/**
-*  @brief
-*    Sets the initial state settings
-*/
-void MakingOf::SetInitialSettings()
-{
-	// Get the painter
-	SurfacePainter *pPainter = m_pInteraction->GetApplication().GetPainter();
-	if (pPainter && pPainter->IsInstanceOf("PLScene::SPScene")) {
-		// Get the default scene renderer
-		SceneRenderer *pSceneRenderer = static_cast<SPScene*>(pPainter)->GetDefaultSceneRenderer();
-		if (pSceneRenderer) {
-			// Loop through all scene renderer passes
-			for (uint32 i=0; i<m_lstInitialSceneRendererPassSettings.GetNumOfElements(); i++) {
-				// Get the settings
-				const SSettings &sSettings = m_lstInitialSceneRendererPassSettings[i];
-
-				// Get the scene renderer pass
-				SceneRendererPass *pSceneRendererPass = pSceneRenderer->GetByName(sSettings.sName);
-				if (pSceneRendererPass) {
-					// Set values
-					pSceneRendererPass->FromString(sSettings.sValues);
-				}
-			}
-		}
-	}
-}
 
 
 //[-------------------------------------------------------]
@@ -126,30 +90,6 @@ void MakingOf::StartPlayback(const String &sScriptFilename)
 	// Stop the previous playback
 	StopPlayback();
 
-	{ // Backup the initial scene renderer settings
-		m_lstInitialSceneRendererPassSettings.Clear();
-
-		// Get the painter
-		SurfacePainter *pPainter = m_pInteraction->GetApplication().GetPainter();
-		if (pPainter && pPainter->IsInstanceOf("PLScene::SPScene")) {
-			// Get the default scene renderer
-			SceneRenderer *pSceneRenderer = static_cast<SPScene*>(pPainter)->GetDefaultSceneRenderer();
-			if (pSceneRenderer) {
-				// Loop through all scene renderer passes
-				for (uint32 i=0; i<pSceneRenderer->GetNumOfElements(); i++) {
-					// Get the scene renderer pass
-					SceneRendererPass *pSceneRendererPass = pSceneRenderer->GetByIndex(i);
-
-					// Backup the current scene renderer pass settings
-					SSettings sSettings;
-					sSettings.sName   = pSceneRendererPass->GetName();
-					sSettings.sValues = pSceneRendererPass->ToString();
-					m_lstInitialSceneRendererPassSettings.Add(sSettings);
-				}
-			}
-		}
-	}
-
 	// Playback is now enabled
 	m_bPlaying = true;
 
@@ -169,6 +109,9 @@ void MakingOf::StartPlayback(const String &sScriptFilename)
 			// Just half the timeout for the internal release - else we would have to wait to long to test the demo
 			m_pScript->SetGlobalVariable("timeScale", Var<float>(2.0f));
 		#endif
+
+		// Call the initialize script function
+		FuncScriptPtr<void>(m_pScript, "OnStartPlayback").Call(Params<void>());
 	}
 }
 
@@ -189,8 +132,8 @@ void MakingOf::StopPlayback()
 {
 	// Is playback currently enabled?
 	if (m_bPlaying) {
-		// Set the initial state settings
-		SetInitialSettings();
+		// Call the stop script function
+		FuncScriptPtr<void>(m_pScript, "OnStopPlayback").Call(Params<void>());
 
 		// Playback is no longer enabled
 		m_bPlaying = false;
@@ -206,6 +149,6 @@ void MakingOf::Update()
 	// Playback a script?
 	if (m_bPlaying && m_pScript) {
 		// Call the update script function
-		FuncScriptPtr<void>(m_pScript, "Update").Call(Params<void>());
+		FuncScriptPtr<void>(m_pScript, "OnUpdate").Call(Params<void>());
 	}
 }

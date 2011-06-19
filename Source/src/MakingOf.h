@@ -54,22 +54,9 @@ class MakingOf : public PLCore::Object {
 	//[ RTTI interface                                        ]
 	//[-------------------------------------------------------]
 	pl_class(pl_rtti_export, MakingOf, "", PLCore::Object, "Making of interaction component")
-		// Methods
-		pl_method_0(SetInitialSettings,	pl_ret_type(void),	"Sets the initial state settings",	"")
 		// Signals
 		pl_signal_0(SignalPlaybackFinished,	"Playback has been finished",	"")
 	pl_class_end
-
-
-	//[-------------------------------------------------------]
-	//[ Public RTTI methods                                   ]
-	//[-------------------------------------------------------]
-	public:
-		/**
-		*  @brief
-		*    Sets the initial state settings
-		*/
-		void SetInitialSettings();
 
 
 	//[-------------------------------------------------------]
@@ -135,13 +122,6 @@ class MakingOf : public PLCore::Object {
 		Interaction		*m_pInteraction;	/**< Owner interaction, always valid! */
 		bool			 m_bPlaying;		/**< Is playback currently enabled? */
 		PLCore::Script	*m_pScript;			/**< The used script, can be a null pointer */
-		class SSettings {
-			public:
-				PLGeneral::String sName;	// Scene renderer pass name
-				PLGeneral::String sValues;	// Values as string
-				bool operator ==(const SSettings &sSettings) { return false; }	// No implementation required
-		};
-		PLGeneral::Array<SSettings>	 m_lstInitialSceneRendererPassSettings;	/**< Initial scene renderer pass settings */
 
 
 };
