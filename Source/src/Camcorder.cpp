@@ -55,7 +55,8 @@ pl_implement_class(Camcorder)
 *    Constructor
 */
 Camcorder::Camcorder(Application &cApplication) :
-	EventHandlerAnimationStop(&Camcorder::OnAnimationStop, this),
+	CamcorderDirectory(this),
+	SlotOnAnimationStop(this),
 	m_pApplication(&cApplication),
 	m_bRecording(false),
 	m_bPlaying(false),
@@ -104,11 +105,11 @@ void Camcorder::StartRecord(const String &sName)
 
 			{ // Add position and rotation keyframe record modifiers to the camera scene node
 				// Position
-				const String sPositionChunkFilename = "Data/Camcorder/" + sName + "_Position.chunk";
+				const String sPositionChunkFilename = CamcorderDirectory.Get() + sName + "_Position.chunk";
 				pCameraSceneNode->AddModifier("SNMPositionKeyframeRecord", "Keys=\"" + sPositionChunkFilename + "\" CoordinateSystem=\"Parent\"");	// "Parent" because we're using portals!
 
 				// Rotation
-				const String sRotationChunkFilename = "Data/Camcorder/" + sName + "_Rotation.chunk";
+				const String sRotationChunkFilename = CamcorderDirectory.Get() + sName + "_Rotation.chunk";
 				pCameraSceneNode->AddModifier("SNMRotationKeyframeRecord", "Keys=\"" + sRotationChunkFilename + '\"');
 			}
 
@@ -204,7 +205,7 @@ void Camcorder::StopRecord()
 			cDocument.LinkEndChild(*pCamcorderElement);
 
 			// Get the filename
-			const String sFilename = "Data/Camcorder/" + m_sRecordName + ".cam";
+			const String sFilename = CamcorderDirectory.Get() + m_sRecordName + ".cam";
 
 			// Save config
 			cDocument.Save(sFilename);
@@ -234,7 +235,7 @@ void Camcorder::StartPlayback(const String &sName)
 		SceneNode *pCameraSceneNode = reinterpret_cast<SceneNode*>(m_pApplication->GetCamera());
 		if (pCameraSceneNode) {
 			// Get the filename
-			const String sFilename = "Data/Camcorder/" + sName + ".cam";
+			const String sFilename = CamcorderDirectory.Get() + sName + ".cam";
 
 			// Load XML document
 			XmlDocument cDocument;
@@ -289,7 +290,7 @@ void Camcorder::StartPlayback(const String &sName)
 
 									// Connect the event handler
 									if (pSNMPositionKeyframeAnimation)
-										pSNMPositionKeyframeAnimation->GetAnimation().EventStop.Connect(EventHandlerAnimationStop);
+										pSNMPositionKeyframeAnimation->GetAnimation().EventStop.Connect(SlotOnAnimationStop);
 								}
 							}
 						}
@@ -310,7 +311,7 @@ void Camcorder::StartPlayback(const String &sName)
 
 									// Connect the event handler
 									if (pSNMRotationKeyframeAnimation)
-										pSNMRotationKeyframeAnimation->GetAnimation().EventStop.Connect(EventHandlerAnimationStop);
+										pSNMRotationKeyframeAnimation->GetAnimation().EventStop.Connect(SlotOnAnimationStop);
 								}
 							}
 						}

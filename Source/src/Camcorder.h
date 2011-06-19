@@ -28,7 +28,6 @@
 //[-------------------------------------------------------]
 //[ Includes                                              ]
 //[-------------------------------------------------------]
-#include <PLCore/Base/Object.h>
 #include <PLScene/Scene/SceneNodeHandler.h>
 
 
@@ -55,6 +54,8 @@ class Camcorder : public PLCore::Object {
 	//[ RTTI interface                                        ]
 	//[-------------------------------------------------------]
 	pl_class(pl_rtti_export, Camcorder, "", PLCore::Object, "Camcorder interaction component")
+		// Attributes
+		pl_attribute(CamcorderDirectory,	PLGeneral::String,	"Data/Camcorder/",	ReadWrite,	DirectValue,	"Default directory for the camcorder files",	"")
 		// Methods
 		pl_method_1(StartRecord,	pl_ret_type(void),	const PLGeneral::String&,	"Starts the record, record name as first parameter (if empty string, no recording can be started). The currently used application camera will be recorded. If playback is currently enabled, the playback will be stopped at once.",	"")
 		pl_method_0(IsRecording,	pl_ret_type(bool),								"Returns whether or not recording is currently active. Returns 'true' if recording is currently active, else 'false'.",																													"")
@@ -65,6 +66,8 @@ class Camcorder : public PLCore::Object {
 		pl_method_0(Update,			pl_ret_type(void),								"Updates the camcorder component",																																																		"")
 		// Signals
 		pl_signal_0(SignalPlaybackFinished,	"Playback has been finished",	"")
+		// Slots
+		pl_slot_0(OnAnimationStop,	"Called when one of the keyframe animations has been stopped",	"")
 	pl_class_end
 
 
@@ -179,13 +182,6 @@ class Camcorder : public PLCore::Object {
 		*    Called when one of the keyframe animations has been stopped
 		*/
 		void OnAnimationStop();
-
-
-	//[-------------------------------------------------------]
-	//[ Private event handlers                                ]
-	//[-------------------------------------------------------]
-	private:
-		PLCore::EventHandler<> EventHandlerAnimationStop;
 
 
 	//[-------------------------------------------------------]

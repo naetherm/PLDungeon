@@ -88,14 +88,6 @@ Application = {
 					if dancingSkeletonSceneNode ~= nil then
 						dancingSkeletonSceneNode:AddModifier("PLScene::SNMMeshAnimation", "Name='Skeleton animation'")
 					end
-
-					-- [TODO] Disabled because skinning currently is performed on the CPU (no multithreading, too) and this mesh has a lot of vertices...
-					-- Add the second dancing skeleton
-				--	dancingSkeletonSceneNode = tavernSceneContainer:Create("PLScene::SNMesh", "Doerholt_DancingSkeleton", "Flags='CastShadow|ReceiveShadow' Position='5.5 -1.38 1.0' Rotation='0 180 0' Scale='0.02 0.02 0.02' Mesh='Data/Meshes/Doerholt_DancingSkeleton.mesh' StaticMesh='0'")
-				--	if dancingSkeletonSceneNode ~= then
-				--		-- [TODO] "Skeleton animation_2" instead of "Skeleton animation" because the name was changed due name conflicts within the skeleton manager... not good, rethink this...
-				--		dancingSkeletonSceneNode:AddModifier("PLScene::SNMMeshAnimation", "Name='Skeleton animation_2'")
-				--	end
 				end
 			end
 		end
@@ -108,7 +100,7 @@ Application = {
 		--  Updates the application script component
 		function this.Update()
 			-- Update the instance of the interaction script component class
-			_interaction:Update()
+			_interaction.Update()
 
 			-- Get the ingame GUI component
 			local ingameGui = cppApplication:GetIngameGui()

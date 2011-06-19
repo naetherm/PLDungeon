@@ -355,7 +355,7 @@ MakingOf = {
 		--  Starts/restarts the playback
 		function this.StartPlayback()
 			-- Stop the previous playback
-			this:StopPlayback()
+			this.StopPlayback()
 
 			-- Playback is now enabled
 			_playing		= true

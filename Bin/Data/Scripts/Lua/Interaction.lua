@@ -2,6 +2,7 @@
 --[ Includes                                              ]
 --[-------------------------------------------------------]
 require("Data/Scripts/Lua/GUI")			-- GUI script component class
+require("Data/Scripts/Lua/PLGui")		-- PLGui script helper class
 require("Data/Scripts/Lua/MakingOf")	-- Making of script component class
 
 
@@ -141,10 +142,10 @@ Interaction = {
 			UpdateOldFilm()
 
 			-- Update the instance of the GUI script component class
-			_gui:Update()
+			_gui.Update()
 
 			-- Update the instance of the making of script component class
-			_makingOf:Update()
+			_makingOf.Update()
 		end
 
 		--@brief
@@ -164,7 +165,7 @@ Interaction = {
 				camcorder:StopPlayback()
 
 				-- Stop the making of playback
-				_makingOf:StopPlayback()
+				_makingOf.StopPlayback()
 
 				-- Set the new mode
 				_mode = newMode
@@ -251,7 +252,7 @@ Interaction = {
 					-- Start the making of?
 					elseif _mode == Interaction.Mode.MAKINGOF then
 						-- Start the playback
-						_makingOf:StartPlayback()
+						_makingOf.StartPlayback()
 					end
 				end
 			end
@@ -266,10 +267,9 @@ Interaction = {
 		--  Modifier keys pressed
 		function this.OnKeyDown(key, modifiers)
 			-- Lua does not support switch/case statements, so we just use a Lua table (using if/else in here would be somewhat extreme)
-			-- [TODO] Define GUI key constants
 			local action = {
 				-- Toggle menu visibility
-				[0x1B] = function()	-- PLGUIKEY_ESCAPE
+				[PLGui.Key.ESCAPE] = function()
 					-- Get the ingame GUI component
 					local ingameGui = cppApplication:GetIngameGui()
 
@@ -288,37 +288,37 @@ Interaction = {
 				end,
 
 				-- Walk mode
-				[0x31] = function()	-- PLGUIKEY_1
+				[PLGui.Key.ONE] = function()
 					this.OnSetMode(Interaction.Mode.WALK, true)
 				end,
 
 				-- Free mode
-				[0x32] = function()	-- PLGUIKEY_2
+				[PLGui.Key.TWO] = function()
 					this.OnSetMode(Interaction.Mode.FREE, true)
 				end,
 
 				-- Ghost mode
-				[0x33] = function()	-- PLGUIKEY_3
+				[PLGui.Key.THREE] = function()
 					this.OnSetMode(Interaction.Mode.GHOST, true)
 				end,
 
 				-- Movie mode
-				[0x34] = function()	-- PLGUIKEY_4
+				[PLGui.Key.FOUR] = function()
 					this.OnSetMode(Interaction.Mode.MOVIE, true)
 				end,
 
 				-- Making of mode
-				[0x35] = function()	-- PLGUIKEY_5
+				[PLGui.Key.FIVE] = function()
 					this.OnSetMode(Interaction.Mode.MAKINGOF, true)
 				end,
 
 				-- Make a screenshot from the current render target
-				[0x7B] = function()	-- PLGUIKEY_F12
+				[PLGui.Key.F12] = function()
 					cppApplication:GetScreenshotTool():SaveScreenshot(cppApplication:GetScreenshotTool():GetScreenshotFilename("jpg"))
 				end,
 
 				-- Toggle camcorder recording
-				[0x52] = function()	-- PLGUIKEY_R
+				[PLGui.Key.R] = function()
 					-- This key is only allowed in the internal release as well as only if not movie nor making of mode...
 					if cppApplication:IsInternalRelease() and _mode ~= Interaction.Mode.MOVIE and _mode ~= Interaction.Mode.MAKINGOF then
 						-- Get the camcorder component
@@ -334,7 +334,7 @@ Interaction = {
 				end,
 
 				-- Toggle camcorder playback
-				[0x50] = function()	-- PLGUIKEY_P
+				[PLGui.Key.P] = function()
 					-- This key is only allowed in the internal release as well as only if not movie nor making of mode...
 					if cppApplication:IsInternalRelease() and _mode ~= Interaction.Mode.MOVIE and _mode ~= Interaction.Mode.MAKINGOF then
 						-- Get the camcorder component
