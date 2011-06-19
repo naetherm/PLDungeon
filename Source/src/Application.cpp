@@ -27,6 +27,7 @@
 #include <PLGeneral/Tools/Timing.h>
 #include <PLGeneral/System/System.h>
 #include <PLCore/Base/Class.h>
+#include <PLCore/Script/Script.h>
 #include <PLCore/Tools/Localization.h>
 #include <PLCore/Tools/LoadableManager.h>
 #include <PLGui/Gui/Gui.h>
@@ -64,14 +65,6 @@ using namespace PLPhysics;
 //[ RTTI interface                                        ]
 //[-------------------------------------------------------]
 pl_implement_class(Application)
-
-
-//[-------------------------------------------------------]
-//[ Public static data                                    ]
-//[-------------------------------------------------------]
-// A helper to be able to toggle between 'choose scene file at start' and 'load
-// default scene at start' (quite comfortable if you make many experiments :)
-const String Application::DefaultScene = "Data/Scenes/Dungeon.scene";
 
 
 //[-------------------------------------------------------]
@@ -253,14 +246,12 @@ void Application::OnInit()
 	// Call base implementation
 	ScriptApplication::OnInit();
 
-	// Scene filename given?
+	// Scene filename given as command line parameter?
 	String sSceneFilename = m_cCommandLine.GetValue("Filename");
 	if (!sSceneFilename.GetLength()) {
-		// Load a default scene on start?
-		if (DefaultScene.GetLength()) {
-			// Set the default scene
-			sSceneFilename = DefaultScene;
-		}
+		// Ask the script for a scene filename
+		if (m_pScript)
+			sSceneFilename = m_pScript->GetGlobalVariable("SceneFilename");
 	}
 
 	// Is there a scene name given?

@@ -10,7 +10,8 @@ require("Data/Scripts/Lua/Application")	-- Application script component class
 --[-------------------------------------------------------]
 --[ Global variables                                      ]
 --[-------------------------------------------------------]
-application = nil	-- An instance of the application script component class
+SceneFilename	= "Data/Scenes/Dungeon.scene"	-- Filename of the scene to use, the C++ application framework will load it (this filename will be ignored if the program was started with a scene filename within the command line parameters)
+application		= nil							-- An instance of the application script component class
 
 
 --[-------------------------------------------------------]
