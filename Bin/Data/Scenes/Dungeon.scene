@@ -2399,7 +2399,7 @@
             </Node>
             <Node Class="PLScene::SNCellPortal" Name="CellPortalTo_kanal3" Position="5.327755 -0.484938 1.113840" Rotation="52.501518 60.183270 138.336319" TargetCell="Parent.kanal3" Vertices="-0.979092 1.268787 0.565279 0.979093 1.268787 -0.565279 0.979093 -1.375263 -0.565279 -0.979090 -1.375263 0.565279" />
             <Node Class="PLScene::SNMesh" Name="Spiederweb015" Mesh="Data\Meshes\Dungeon\WineCellar_Spiederweb.mesh" Position="7.089649 -0.755479 1.885090" Rotation="116.930260 -39.810108 16.849901" Scale="5.686801 2.084867 3.691611" Flags="CastShadow|ReceiveShadow" />
-            <Node Class="PLScene::SNSphereFog" Name="SNSphereFog005" Position="2.739193 -7.204220 -5.581264" Volumetricy="1.0" Range="20" Color="0.01 0.1 0.0">
+            <Node Class="PLScene::SNSphereFog" Name="SNSphereFog005" Position="2.739193 -7.204220 -5.581264" Volumetricy="1.0" Range="10" Color="0.01 0.1 0.0">
                 <Modifier Class="PLScene::SNMPositionRandomAnimation" Speed="0.6" Radius="0.18" />
                 <Modifier Class="PLSound::SNMSound" Sound="Data\Sounds\freesound_Wind.ogg" Volume="0.7" ReferenceDistance="10" RolloffFactor="4" />
             </Node>
