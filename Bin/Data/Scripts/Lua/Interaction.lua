@@ -368,6 +368,27 @@ Interaction = {
 		--@brief
 		--  Slot function is called by C++ after a scene has been loaded
 		function this.OnSceneLoadingFinished()
+			-- Get the main window of the application
+			local widget = cppApplication:GetMainWindow()
+			if widget ~= nil then
+				-- Use the script function "OnKeyDown" as slot and connect it with the RTTI "SignalKeyDown"-signal of our RTTI widget class instance
+				widget.SignalKeyDown.Connect(this.OnKeyDown)
+				local contentWidget = widget:GetContentWidget()
+				if contentWidget ~= widget then
+					-- [TODO] Linux: Currently we need to listen to the content widget key signals as well ("focus follows mouse"-topic)
+					contentWidget.SignalKeyDown.Connect(this.OnKeyDown)
+
+					-- Use the script function "OnMouseMove" as slot and connect it with the RTTI "SignalMouseMove"-signal of our RTTI widget class instance
+					contentWidget.SignalMouseMove.Connect(this.OnMouseMove)
+
+					-- Use the script function "OnMouseButtonDown" as slot and connect it with the RTTI "SignalMouseButtonDown"-signal of our RTTI widget class instance
+					contentWidget.SignalMouseButtonDown.Connect(this.OnMouseButtonDown)
+
+					-- Use the script function "OnMouseButtonUp" as slot and connect it with the RTTI "SignalMouseButtonUp"-signal of our RTTI widget class instance
+					contentWidget.SignalMouseButtonUp.Connect(this.OnMouseButtonUp)
+				end
+			end
+
 			-- Get the scene container
 			local scene = cppApplication:GetScene()
 			if scene ~= nil then
@@ -451,27 +472,6 @@ Interaction = {
 		--[-------------------------------------------------------]
 		--[ Public class constructor implementation               ]
 		--[-------------------------------------------------------]
-		-- Get the main window of the application
-		local widget = cppApplication:GetMainWindow()
-		if widget ~= nil then
-			-- Use the script function "OnKeyDown" as slot and connect it with the RTTI "SignalKeyDown"-signal of our RTTI widget class instance
-			widget.SignalKeyDown.Connect(this.OnKeyDown)
-			local contentWidget = widget:GetContentWidget()
-			if contentWidget ~= widget then
-				-- [TODO] Linux: Currently we need to listen to the content widget key signals as well ("focus follows mouse"-topic)
-				contentWidget.SignalKeyDown.Connect(this.OnKeyDown)
-
-				-- Use the script function "OnMouseMove" as slot and connect it with the RTTI "SignalMouseMove"-signal of our RTTI widget class instance
-				contentWidget.SignalMouseMove.Connect(this.OnMouseMove)
-
-				-- Use the script function "OnMouseButtonDown" as slot and connect it with the RTTI "SignalMouseButtonDown"-signal of our RTTI widget class instance
-				contentWidget.SignalMouseButtonDown.Connect(this.OnMouseButtonDown)
-
-				-- Use the script function "OnMouseButtonUp" as slot and connect it with the RTTI "SignalMouseButtonUp"-signal of our RTTI widget class instance
-				contentWidget.SignalMouseButtonUp.Connect(this.OnMouseButtonUp)
-			end
-		end
-
 		-- Use the script function "OnSceneLoadingFinished" as slot and connect it with the RTTI "SignalSceneLoadingFinished"-signal of our RTTI application class instance
 		cppApplication.SignalSceneLoadingFinished.Connect(this.OnSceneLoadingFinished)
 
