@@ -249,10 +249,16 @@ Interaction = {
 							camcorder:StartPlayback("Movie")
 						end
 
+						-- Show the mouse cursor
+						SetMouseVisible(true)
+
 					-- Start the making of?
 					elseif _mode == Interaction.Mode.MAKINGOF then
 						-- Start the playback
 						_makingOf.StartPlayback()
+
+						-- Show the mouse cursor
+						SetMouseVisible(true)
 					end
 				end
 			end
@@ -431,7 +437,8 @@ Interaction = {
 		--@param[in] pos
 		--  Mouse position within the window
 		function this.OnMouseMove(pos)
-			if _leftMouseButtonDown then
+			-- If left mouse button down and not movie or making of mode...
+			if _leftMouseButtonDown and _mode ~= Interaction.Mode.MOVIE and _mode ~= Interaction.Mode.MAKINGOF then
 				-- Hide the mouse cursor - we don't want to have one during look around
 				SetMouseVisible(false)
 			end
