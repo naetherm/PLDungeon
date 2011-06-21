@@ -2,7 +2,7 @@
 --[ Includes                                              ]
 --[-------------------------------------------------------]
 require("Data/Scripts/Lua/GUI")			-- GUI script component class
-require("Data/Scripts/Lua/PLGui")		-- PLGui script helper class
+require("Data/Scripts/Lua/PLGui")		-- PLGui script helper class (don't forget to use "PLGui.Init()")
 require("Data/Scripts/Lua/MakingOf")	-- Making of script component class
 
 
@@ -490,6 +490,9 @@ Interaction = {
 
 		-- By default, the mouse cursor is visible
 		SetMouseVisible(true)
+
+		-- Initialize the PLGui script helper class
+		PLGui.Init()
 
 
 		-- Return the created class instance
