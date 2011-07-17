@@ -11,7 +11,7 @@
 # 3. Search in standard directories (e.g. /usr/lib, /usr/local/lib, /usr/include, /usr/local/include)
 #
 # Includes are searched in subdirectory Include/ first (for installed SDKs on Windows), then using the PixelLight source
-# layout, e.g. PLBase/PLGeneral/include.
+# layout, e.g. Base/PLGeneral/include.
 #
 # Libraries are searched using a suffix "D" for debug builds, if that is not found, the search is repeated without the
 # suffix (allowing for debug builds using a release version of the PixelLight libraries)
@@ -81,30 +81,30 @@ macro(_pixellight_find_lib varname header library basepath)
 endmacro(_pixellight_find_lib varname header library basepath)
 
 
-# PLBase
+# Base
 
 # PLGeneral
-_pixellight_find_lib(PL_PLGENERAL PLGeneral/PLGeneral.h PLGeneral PLBase/PLGeneral/include)
+_pixellight_find_lib(PL_PLGENERAL PLGeneral/PLGeneral.h PLGeneral Base/PLGeneral/include)
 #message("PLGeneral include: ${PL_PLGENERAL_INCLUDE_DIR}")
 #message("PLGeneral library: ${PL_PLGENERAL_LIBRARY}")
 
 # PLCore
-_pixellight_find_lib(PL_PLCORE PLCore/PLCore.h PLCore PLBase/PLCore/include)
+_pixellight_find_lib(PL_PLCORE PLCore/PLCore.h PLCore Base/PLCore/include)
 #message("PLCore include: ${PL_PLCORE_INCLUDE_DIR}")
 #message("PLCore library: ${PL_PLCORE_LIBRARY}")
 
 # PLGraphics
-_pixellight_find_lib(PL_PLGRAPHICS PLGraphics/PLGraphics.h PLGraphics PLBase/PLGraphics/include)
+_pixellight_find_lib(PL_PLGRAPHICS PLGraphics/PLGraphics.h PLGraphics Base/PLGraphics/include)
 #message("PLGraphics include: ${PL_PLGRAPHICS_INCLUDE_DIR}")
 #message("PLGraphics library: ${PL_PLGRAPHICS_LIBRARY}")
 
 # PLMath
-_pixellight_find_lib(PL_PLMATH PLMath/PLMath.h PLMath PLBase/PLMath/include)
+_pixellight_find_lib(PL_PLMATH PLMath/PLMath.h PLMath Base/PLMath/include)
 #message("PLMath include: ${PL_PLMATH_INCLUDE_DIR}")
 #message("PLMath library: ${PL_PLMATH_LIBRARY}")
 
 # PLDatabase
-_pixellight_find_lib(PL_PLDATABASE PLDatabase/PLDatabase.h PLDatabase PLBase/PLDatabase/include)
+_pixellight_find_lib(PL_PLDATABASE PLDatabase/PLDatabase.h PLDatabase Base/PLDatabase/include)
 #message("PLDatabase include: ${PL_PLDATABASE_INCLUDE_DIR}")
 #message("PLDatabase library: ${PL_PLDATABASE_LIBRARY}")
 

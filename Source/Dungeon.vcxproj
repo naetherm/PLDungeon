@@ -123,7 +123,7 @@
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <Optimization>Disabled</Optimization>
-      <AdditionalIncludeDirectories>src/;../../pixellight/PLBase/PLGeneral/include/;../../pixellight/PLBase/PLCore/include/;../../pixellight/PLBase/PLMath/include/;../../pixellight/PLBase/PLGraphics/include/;../../pixellight/PLBase/PLGui/include/;../../pixellight/PLPlugins/PLXmlText/include/;../../pixellight/PLBase/PLRenderer/include/;../../pixellight/PLBase/PLMesh/include/;../../pixellight/PLBase/PLScene/include/;../../pixellight/PLBase/PLPhysics/include/;../../pixellight/PLBase/PLEngine/include/;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>src/;../../pixellight/Base/PLGeneral/include/;../../pixellight/Base/PLCore/include/;../../pixellight/Base/PLMath/include/;../../pixellight/Base/PLGraphics/include/;../../pixellight/Base/PLGui/include/;../../pixellight/Plugins/PLXmlText/include/;../../pixellight/Base/PLRenderer/include/;../../pixellight/Base/PLMesh/include/;../../pixellight/Base/PLScene/include/;../../pixellight/Base/PLPhysics/include/;../../pixellight/Base/PLEngine/include/;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;INTERNALRELEASE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <MinimalRebuild>false</MinimalRebuild>
       <ExceptionHandling>
@@ -159,7 +159,7 @@
     </Midl>
     <ClCompile>
       <Optimization>Disabled</Optimization>
-      <AdditionalIncludeDirectories>src/;../../pixellight/PLBase/PLGeneral/include/;../../pixellight/PLBase/PLCore/include/;../../pixellight/PLBase/PLMath/include/;../../pixellight/PLBase/PLGraphics/include/;../../pixellight/PLBase/PLGui/include/;../../pixellight/PLPlugins/PLXmlText/include/;../../pixellight/PLBase/PLRenderer/include/;../../pixellight/PLBase/PLMesh/include/;../../pixellight/PLBase/PLScene/include/;../../pixellight/PLBase/PLPhysics/include/;../../pixellight/PLBase/PLEngine/include/;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>src/;../../pixellight/Base/PLGeneral/include/;../../pixellight/Base/PLCore/include/;../../pixellight/Base/PLMath/include/;../../pixellight/Base/PLGraphics/include/;../../pixellight/Base/PLGui/include/;../../pixellight/Plugins/PLXmlText/include/;../../pixellight/Base/PLRenderer/include/;../../pixellight/Base/PLMesh/include/;../../pixellight/Base/PLScene/include/;../../pixellight/Base/PLPhysics/include/;../../pixellight/Base/PLEngine/include/;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN32;WIN64;_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <MinimalRebuild>true</MinimalRebuild>
       <ExceptionHandling>
@@ -196,7 +196,7 @@
       <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
       <OmitFramePointers>true</OmitFramePointers>
       <WholeProgramOptimization>true</WholeProgramOptimization>
-      <AdditionalIncludeDirectories>src/;../../pixellight/PLBase/PLGeneral/include/;../../pixellight/PLBase/PLCore/include/;../../pixellight/PLBase/PLMath/include/;../../pixellight/PLBase/PLGraphics/include/;../../pixellight/PLBase/PLGui/include/;../../pixellight/PLPlugins/PLXmlText/include/;../../pixellight/PLBase/PLRenderer/include/;../../pixellight/PLBase/PLMesh/include/;../../pixellight/PLBase/PLScene/include/;../../pixellight/PLBase/PLPhysics/include/;../../pixellight/PLBase/PLEngine/include/;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>src/;../../pixellight/Base/PLGeneral/include/;../../pixellight/Base/PLCore/include/;../../pixellight/Base/PLMath/include/;../../pixellight/Base/PLGraphics/include/;../../pixellight/Base/PLGui/include/;../../pixellight/Plugins/PLXmlText/include/;../../pixellight/Base/PLRenderer/include/;../../pixellight/Base/PLMesh/include/;../../pixellight/Base/PLScene/include/;../../pixellight/Base/PLPhysics/include/;../../pixellight/Base/PLEngine/include/;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <StringPooling>true</StringPooling>
       <MinimalRebuild>false</MinimalRebuild>
@@ -242,7 +242,7 @@
       <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
       <OmitFramePointers>true</OmitFramePointers>
       <WholeProgramOptimization>true</WholeProgramOptimization>
-      <AdditionalIncludeDirectories>src/;../../pixellight/PLBase/PLGeneral/include/;../../pixellight/PLBase/PLCore/include/;../../pixellight/PLBase/PLMath/include/;../../pixellight/PLBase/PLGraphics/include/;../../pixellight/PLBase/PLGui/include/;../../pixellight/PLPlugins/PLXmlText/include/;../../pixellight/PLBase/PLRenderer/include/;../../pixellight/PLBase/PLMesh/include/;../../pixellight/PLBase/PLScene/include/;../../pixellight/PLBase/PLPhysics/include/;../../pixellight/PLBase/PLEngine/include/;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>src/;../../pixellight/Base/PLGeneral/include/;../../pixellight/Base/PLCore/include/;../../pixellight/Base/PLMath/include/;../../pixellight/Base/PLGraphics/include/;../../pixellight/Base/PLGui/include/;../../pixellight/Plugins/PLXmlText/include/;../../pixellight/Base/PLRenderer/include/;../../pixellight/Base/PLMesh/include/;../../pixellight/Base/PLScene/include/;../../pixellight/Base/PLPhysics/include/;../../pixellight/Base/PLEngine/include/;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN32;WIN64;NDEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <StringPooling>true</StringPooling>
       <MinimalRebuild>true</MinimalRebuild>
@@ -281,7 +281,7 @@
       <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
       <OmitFramePointers>true</OmitFramePointers>
       <WholeProgramOptimization>true</WholeProgramOptimization>
-      <AdditionalIncludeDirectories>src/;../../pixellight/PLBase/PLGeneral/include/;../../pixellight/PLBase/PLCore/include/;../../pixellight/PLBase/PLMath/include/;../../pixellight/PLBase/PLGraphics/include/;../../pixellight/PLBase/PLGui/include/;../../pixellight/PLPlugins/PLXmlText/include/;../../pixellight/PLBase/PLRenderer/include/;../../pixellight/PLBase/PLMesh/include/;../../pixellight/PLBase/PLScene/include/;../../pixellight/PLBase/PLPhysics/include/;../../pixellight/PLBase/PLEngine/include/;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>src/;../../pixellight/Base/PLGeneral/include/;../../pixellight/Base/PLCore/include/;../../pixellight/Base/PLMath/include/;../../pixellight/Base/PLGraphics/include/;../../pixellight/Base/PLGui/include/;../../pixellight/Plugins/PLXmlText/include/;../../pixellight/Base/PLRenderer/include/;../../pixellight/Base/PLMesh/include/;../../pixellight/Base/PLScene/include/;../../pixellight/Base/PLPhysics/include/;../../pixellight/Base/PLEngine/include/;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;INTERNALRELEASE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <StringPooling>true</StringPooling>
       <MinimalRebuild>true</MinimalRebuild>
@@ -326,7 +326,7 @@
       <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
       <OmitFramePointers>true</OmitFramePointers>
       <WholeProgramOptimization>true</WholeProgramOptimization>
-      <AdditionalIncludeDirectories>../../pixellight/PLBase/PLGeneral/include/;../../pixellight/PLBase/PLCore/include/;../../pixellight/PLBase/PLMath/include/;../../pixellight/PLBase/PLGraphics/include/;../../pixellight/PLBase/PLGui/include/;../../pixellight/PLPlugins/PLXmlText/include/;../../pixellight/PLBase/PLRenderer/include/;../../pixellight/PLBase/PLMesh/include/;../../pixellight/PLBase/PLScene/include/;../../pixellight/PLBase/PLPhysics/include/;../../pixellight/PLBase/PLEngine/include/;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>../../pixellight/Base/PLGeneral/include/;../../pixellight/Base/PLCore/include/;../../pixellight/Base/PLMath/include/;../../pixellight/Base/PLGraphics/include/;../../pixellight/Base/PLGui/include/;../../pixellight/Plugins/PLXmlText/include/;../../pixellight/Base/PLRenderer/include/;../../pixellight/Base/PLMesh/include/;../../pixellight/Base/PLScene/include/;../../pixellight/Base/PLPhysics/include/;../../pixellight/Base/PLEngine/include/;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN32;WIN64;NDEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <StringPooling>true</StringPooling>
       <MinimalRebuild>true</MinimalRebuild>
