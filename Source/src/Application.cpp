@@ -23,11 +23,11 @@
 //[-------------------------------------------------------]
 //[ Includes                                              ]
 //[-------------------------------------------------------]
-#include <PLGeneral/File/Url.h>
-#include <PLGeneral/Tools/Timing.h>
-#include <PLGeneral/System/System.h>
+#include <PLCore/File/Url.h>
 #include <PLCore/Base/Class.h>
 #include <PLCore/Script/Script.h>
+#include <PLCore/System/System.h>
+#include <PLCore/Tools/Timing.h>
 #include <PLCore/Tools/Localization.h>
 #include <PLCore/Tools/LoadableManager.h>
 #include <PLGui/Gui/Gui.h>
@@ -51,7 +51,6 @@
 //[-------------------------------------------------------]
 //[ Namespace                                             ]
 //[-------------------------------------------------------]
-using namespace PLGeneral;
 using namespace PLCore;
 using namespace PLMath;
 using namespace PLGui;

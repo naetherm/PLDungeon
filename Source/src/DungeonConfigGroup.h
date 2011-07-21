@@ -110,11 +110,11 @@ class DungeonConfig : public DungeonConfigGroup {
 	//[-------------------------------------------------------]
 	pl_class(pl_rtti_export, DungeonConfig, "", DungeonConfigGroup, "Dungeon configuration class")
 		// Attributes
-		pl_attribute(SoundAPI,			PLGeneral::String,	"PLSoundOpenAL::SoundManager",	ReadWrite,	DirectValue,	"Name of the sound API to use",	"")
+		pl_attribute(SoundAPI,			PLCore::String,	"PLSoundOpenAL::SoundManager",	ReadWrite,	DirectValue,	"Name of the sound API to use",	"")
 	#ifdef INTERNALRELEASE
-		pl_attribute(EditModeEnabled,	bool,				true,							ReadWrite,	DirectValue,	"Edit mode enabled?",			"")
+		pl_attribute(EditModeEnabled,	bool,			true,							ReadWrite,	DirectValue,	"Edit mode enabled?",			"")
 	#else
-		pl_attribute(EditModeEnabled,	bool,				false,							ReadWrite,	DirectValue,	"Edit mode enabled?",			"")
+		pl_attribute(EditModeEnabled,	bool,			false,							ReadWrite,	DirectValue,	"Edit mode enabled?",			"")
 	#endif
 		// Constructors
 		pl_constructor_0(DefaultConstructor,	"Default constructor",	"")

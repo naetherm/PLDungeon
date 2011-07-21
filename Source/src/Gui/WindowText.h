@@ -76,7 +76,7 @@ class WindowText : public WindowBase {
 		*  @param[in] sFilename
 		*    Filename of XML file
 		*/
-		void Load(const PLGeneral::String &sFilename);
+		void Load(const PLCore::String &sFilename);
 
 
 	//[-------------------------------------------------------]

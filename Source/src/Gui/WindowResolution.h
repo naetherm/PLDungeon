@@ -98,7 +98,7 @@ class WindowResolution : public WindowBase {
 		virtual void OnDraw(PLGui::Graphics &cGraphics);
 		virtual void OnMouseMove(const PLMath::Vector2i &vPos);
 		virtual void OnMouseLeave();
-		virtual void OnMouseButtonDown(PLGeneral::uint32 nButton, const PLMath::Vector2i &vPos);
+		virtual void OnMouseButtonDown(PLCore::uint32 nButton, const PLMath::Vector2i &vPos);
 
 
 	//[-------------------------------------------------------]
@@ -134,16 +134,16 @@ class WindowResolution : public WindowBase {
 	//[-------------------------------------------------------]
 	private:
 		// Child widgets and data
-		Application										*m_pApplication;		/**< Pointer to application */
-		PLGui::Slider									*m_pSlider;				/**< Slider for adjusting the brightness */
-		PLGui::Font										*m_pFont;				/**< Text font, always valid! */
-		PLGeneral::List<const PLRenderer::DisplayMode*>	 m_lstDisplayModes;		/**< Available display modes */
-		PLGeneral::List<PLGeneral::String>				 m_lstDisplayModeNames;	/**< Available display modes as strings */
-		PLGraphics::Color4								 m_cColorText;			/**< Text color */
-		PLGraphics::Color4								 m_cColorSelected;		/**< Selected text color */
-		PLGeneral::uint32								 m_nWidthButton1;		/**< Width of button "Fullscreen" */
-		PLGeneral::uint32								 m_nWidthButton2;		/**< Width of button "Change Mode" */
-		int												 m_nSelectedButton;		/**< Selected button */
+		Application									 *m_pApplication;			/**< Pointer to application */
+		PLGui::Slider								 *m_pSlider;				/**< Slider for adjusting the brightness */
+		PLGui::Font									 *m_pFont;					/**< Text font, always valid! */
+		PLCore::List<const PLRenderer::DisplayMode*>  m_lstDisplayModes;		/**< Available display modes */
+		PLCore::List<PLCore::String>				  m_lstDisplayModeNames;	/**< Available display modes as strings */
+		PLGraphics::Color4							  m_cColorText;				/**< Text color */
+		PLGraphics::Color4							  m_cColorSelected;			/**< Selected text color */
+		PLCore::uint32								  m_nWidthButton1;			/**< Width of button "Fullscreen" */
+		PLCore::uint32								  m_nWidthButton2;			/**< Width of button "Change Mode" */
+		int											  m_nSelectedButton;		/**< Selected button */
 
 
 };

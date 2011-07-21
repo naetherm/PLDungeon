@@ -23,7 +23,7 @@
 //[-------------------------------------------------------]
 //[ Includes                                              ]
 //[-------------------------------------------------------]
-#include <PLGeneral/Tools/Timing.h>
+#include <PLCore/Tools/Timing.h>
 #include <PLScene/Scene/SceneNode.h>
 #include <PLScene/Scene/SceneContext.h>
 #include "SNMPositionRandomAnimation.h"
@@ -32,7 +32,7 @@
 //[-------------------------------------------------------]
 //[ Namespace                                             ]
 //[-------------------------------------------------------]
-using namespace PLGeneral;
+using namespace PLCore;
 using namespace PLMath;
 using namespace PLScene;
 

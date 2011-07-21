@@ -47,10 +47,9 @@ endif()
 ##################################################
 add_include_directories(
 	src
-	${PL_PLGENERAL_INCLUDE_DIR}
+	${PL_PLCORE_INCLUDE_DIR}
 	${PL_PLMATH_INCLUDE_DIR}
 	${PL_PLGRAPHICS_INCLUDE_DIR}
-	${PL_PLCORE_INCLUDE_DIR}
 	${PL_PLGUI_INCLUDE_DIR}
 	${PL_PLXMLTEXT_INCLUDE_DIR}
 	${PL_PLENGINE_INCLUDE_DIR}
@@ -65,10 +64,9 @@ add_include_directories(
 ## Additional libraries
 ##################################################
 add_libs(
-	${PL_PLGENERAL_LIBRARY}
+	${PL_PLCORE_LIBRARY}
 	${PL_PLMATH_LIBRARY}
 	${PL_PLGRAPHICS_LIBRARY}
-	${PL_PLCORE_LIBRARY}
 	${PL_PLGUI_LIBRARY}
 	${PL_PLXMLTEXT_LIBRARY}
 	${PL_PLINPUT_LIBRARY}

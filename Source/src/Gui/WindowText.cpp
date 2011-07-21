@@ -32,7 +32,7 @@
 //[-------------------------------------------------------]
 //[ Namespace                                             ]
 //[-------------------------------------------------------]
-using namespace PLGeneral;
+using namespace PLCore;
 using namespace PLGraphics;
 using namespace PLMath;
 using namespace PLGui;

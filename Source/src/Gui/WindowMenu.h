@@ -101,7 +101,7 @@ class WindowMenu : public WindowBase {
 		virtual void OnDraw(PLGui::Graphics &cGraphics);
 		virtual void OnMouseMove(const PLMath::Vector2i &vPos);
 		virtual void OnMouseLeave();
-		virtual void OnMouseButtonDown(PLGeneral::uint32 nButton, const PLMath::Vector2i &vPos);
+		virtual void OnMouseButtonDown(PLCore::uint32 nButton, const PLMath::Vector2i &vPos);
 
 
 	//[-------------------------------------------------------]
@@ -133,8 +133,8 @@ class WindowMenu : public WindowBase {
 		PLGraphics::Color4	 m_cColorText;		/**< Text color */
 		PLGraphics::Color4	 m_cColorSelected;	/**< Selected color */
 		int					 m_nSelected;		/**< Currently selected menu item */
-		PLGeneral::uint32	 m_nTitleHeight;	/**< Height of title text */
-		PLGeneral::uint32	 m_nTextHeight;		/**< Height of text */
+		PLCore::uint32		 m_nTitleHeight;	/**< Height of title text */
+		PLCore::uint32	 	 m_nTextHeight;		/**< Height of text */
 
 
 };

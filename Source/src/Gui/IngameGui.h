@@ -64,17 +64,17 @@ class IngameGui : public PLCore::Object {
 	//[-------------------------------------------------------]
 	pl_class(pl_rtti_export, IngameGui, "", PLCore::Object, "Ingame GUI interaction component")
 		// Methods
-		pl_method_0(Update,			pl_ret_type(void),								"Updates the ingame GUI component",																							"")
-		pl_method_0(Hide,			pl_ret_type(void),								"Hides all GUI elements",																									"")
-		pl_method_0(IsGuiShown,		pl_ret_type(bool),								"Returns 'true' if currently at least one GUI element is shown, else 'false'",												"")
-		pl_method_0(IsMenuShown,	pl_ret_type(bool),								"Returns whether or not the menu is currently shown. Returns 'true' if the menu is currently shown, else 'false'.",			"")
-		pl_method_1(ShowMenu,		pl_ret_type(void),	bool,						"Shows/hides the menu, 'true' as first parameter to show the menu, else 'false'",											"")
-		pl_method_1(ShowHelpText,	pl_ret_type(void),	const PLGeneral::String&,	"Display a help text window, name of help text (\"name.xml\" is loaded, \"\" to hide the help text) as first parameter",	"")
+		pl_method_0(Update,			pl_ret_type(void),							"Updates the ingame GUI component",																							"")
+		pl_method_0(Hide,			pl_ret_type(void),							"Hides all GUI elements",																									"")
+		pl_method_0(IsGuiShown,		pl_ret_type(bool),							"Returns 'true' if currently at least one GUI element is shown, else 'false'",												"")
+		pl_method_0(IsMenuShown,	pl_ret_type(bool),							"Returns whether or not the menu is currently shown. Returns 'true' if the menu is currently shown, else 'false'.",			"")
+		pl_method_1(ShowMenu,		pl_ret_type(void),	bool,					"Shows/hides the menu, 'true' as first parameter to show the menu, else 'false'",											"")
+		pl_method_1(ShowHelpText,	pl_ret_type(void),	const PLCore::String&,	"Display a help text window, name of help text (\"name.xml\" is loaded, \"\" to hide the help text) as first parameter",	"")
 		// Slots
-		pl_slot_1(OnMenu,		int,														"Called when a menu item has been selected, selected menu item as first parameter",												"")
-		pl_slot_2(OnResolution,	const PLRenderer::DisplayMode*,	bool,						"Called when the resolution slider was changed, new display mode as first parameter, new fullscreen mode as second parameter",	"")
-		pl_slot_0(OnFocus,																	"Called when an ingame window has got the focus",																				"")
-		pl_slot_2(OnMouseDown,	PLGeneral::uint32,				const PLMath::Vector2i&,	"Called when a mouse button was pressed, mouse button as first parameter, mouse position as second parameter",					"")
+		pl_slot_1(OnMenu,		int,													"Called when a menu item has been selected, selected menu item as first parameter",												"")
+		pl_slot_2(OnResolution,	const PLRenderer::DisplayMode*,	bool,					"Called when the resolution slider was changed, new display mode as first parameter, new fullscreen mode as second parameter",	"")
+		pl_slot_0(OnFocus,																"Called when an ingame window has got the focus",																				"")
+		pl_slot_2(OnMouseDown,	PLCore::uint32,				const PLMath::Vector2i&,	"Called when a mouse button was pressed, mouse button as first parameter, mouse position as second parameter",					"")
 	pl_class_end
 
 
@@ -152,7 +152,7 @@ class IngameGui : public PLCore::Object {
 		*  @param[in] sName
 		*    Name of help text ("name.xml" is loaded, "" to hide the help text)
 		*/
-		void ShowHelpText(const PLGeneral::String &sGroup);
+		void ShowHelpText(const PLCore::String &sGroup);
 
 
 	//[-------------------------------------------------------]
@@ -194,7 +194,7 @@ class IngameGui : public PLCore::Object {
 		*  @param[in] vPos
 		*    Mouse position
 		*/
-		void OnMouseDown(PLGeneral::uint32 nButton, const PLMath::Vector2i &vPos);
+		void OnMouseDown(PLCore::uint32 nButton, const PLMath::Vector2i &vPos);
 
 
 	//[-------------------------------------------------------]
