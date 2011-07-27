@@ -352,7 +352,7 @@ void Application::OnCreateRootScene()
 //[-------------------------------------------------------]
 //[ Public virtual PLEngine::BasicSceneApplication functions ]
 //[-------------------------------------------------------]
-bool Application::LoadScene(String sFilename)
+bool Application::LoadScene(const String &sFilename)
 {
 	// Reset the current load progress
 	m_fLoadProgress = 0.0f;

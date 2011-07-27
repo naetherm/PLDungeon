@@ -98,18 +98,18 @@ class WindowMenu : public WindowBase {
 	//[ Protected virtual PLGui::Widget functions             ]
 	//[-------------------------------------------------------]
 	protected:
-		virtual void OnDraw(PLGui::Graphics &cGraphics);
-		virtual void OnMouseMove(const PLMath::Vector2i &vPos);
-		virtual void OnMouseLeave();
-		virtual void OnMouseButtonDown(PLCore::uint32 nButton, const PLMath::Vector2i &vPos);
+		virtual void OnDraw(PLGui::Graphics &cGraphics) override;
+		virtual void OnMouseMove(const PLMath::Vector2i &vPos) override;
+		virtual void OnMouseLeave() override;
+		virtual void OnMouseButtonDown(PLCore::uint32 nButton, const PLMath::Vector2i &vPos) override;
 
 
 	//[-------------------------------------------------------]
 	//[ Protected virtual WindowBase functions                ]
 	//[-------------------------------------------------------]
 	protected:
-		virtual void OnSetBlend(bool bBlend);
-		virtual void OnBlend(float fBlend);
+		virtual void OnSetBlend(bool bBlend) override;
+		virtual void OnBlend(float fBlend) override;
 
 
 	//[-------------------------------------------------------]

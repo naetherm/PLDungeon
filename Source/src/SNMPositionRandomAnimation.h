@@ -84,7 +84,7 @@ class SNMPositionRandomAnimation : public PLScene::SNMTransform {
 	//[ Protected virtual PLScene::SceneNodeModifier functions]
 	//[-------------------------------------------------------]
 	protected:
-		virtual void OnActivate(bool bActivate);
+		virtual void OnActivate(bool bActivate) override;
 
 
 	//[-------------------------------------------------------]

@@ -156,30 +156,30 @@ class Application : public PLEngine::ScriptApplication {
 	//[ Protected virtual PLCore::ConsoleApplication functions ]
 	//[-------------------------------------------------------]
 	protected:
-		virtual void OnInitLog();
-		virtual void OnInit();
-		virtual void OnDeInit();
+		virtual void OnInitLog() override;
+		virtual void OnInit() override;
+		virtual void OnDeInit() override;
 
 
 	//[-------------------------------------------------------]
 	//[ Protected virtual PLEngine::SceneApplication functions ]
 	//[-------------------------------------------------------]
 	protected:
-		virtual void OnCreateRootScene();
+		virtual void OnCreateRootScene() override;
 
 
 	//[-------------------------------------------------------]
 	//[ Public virtual PLEngine::BasicSceneApplication functions ]
 	//[-------------------------------------------------------]
 	public:
-		virtual bool LoadScene(PLCore::String sFilename);
+		virtual bool LoadScene(const PLCore::String &sFilename) override;
 
 
 	//[-------------------------------------------------------]
 	//[ Private virtual PLEngine::BasicSceneApplication functions ]
 	//[-------------------------------------------------------]
 	private:
-		virtual void OnCreateScene(PLScene::SceneContainer &cContainer);
+		virtual void OnCreateScene(PLScene::SceneContainer &cContainer) override;
 
 
 	//[-------------------------------------------------------]

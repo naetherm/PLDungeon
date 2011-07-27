@@ -83,7 +83,7 @@ class WindowText : public WindowBase {
 	//[ Protected virtual WindowBase functions                ]
 	//[-------------------------------------------------------]
 	protected:
-		virtual void OnBlend(float fBlend);
+		virtual void OnBlend(float fBlend) override;
 
 
 	//[-------------------------------------------------------]
