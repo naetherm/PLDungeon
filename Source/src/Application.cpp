@@ -40,11 +40,11 @@
 #include <PLScene/Scene/SceneContext.h>
 #include <PLScene/Scene/SceneContainer.h>
 #include <PLScene/Scene/SceneNodeModifier.h>
-#include <PLScene/Scene/SceneNodes/Console/SNConsoleBase.h>
 #include <PLPhysics/Body.h>
 #include <PLPhysics/SceneNodeModifiers/SNMPhysicsBodyBox.h>
-#include <PLPhysics/SceneNodes/SNPhysicsMouseInteraction.h>
 #include <PLEngine/Gui/RenderWindow.h>
+#include <PLEngine/Compositing/Console/SNConsoleBase.h>
+#include <PLEngine/Controller/SNPhysicsMouseInteraction.h>
 #include "Application.h"
 
 
@@ -193,7 +193,7 @@ void Application::UpdateMousePickingPullAnimation()
 	if (pSceneContainer) {
 		// Get the "PLPhysics::SNPhysicsMouseInteraction" instance
 		SceneNode *pSceneNode = pSceneContainer->GetByName("Container.SNPhysicsMouseInteraction");
-		if (pSceneNode && pSceneNode->IsInstanceOf("PLPhysics::SNPhysicsMouseInteraction")) {
+		if (pSceneNode && pSceneNode->IsInstanceOf("PLEngine::SNPhysicsMouseInteraction")) {
 			SNPhysicsMouseInteraction *pSNPhysicsMouseInteraction = static_cast<SNPhysicsMouseInteraction*>(pSceneNode);
 
 			// Get the currently set camera scene node
@@ -319,14 +319,14 @@ void Application::OnCreateRootScene()
 			}
 
 			// Create scene node for engine information
-			SceneNode *pSceneNode = pRootContainer->Create("PLScene::SNEngineInformation");
+			SceneNode *pSceneNode = pRootContainer->Create("PLEngine::SNEngineInformation");
 			if (pSceneNode)
 				pSceneNode->SetActive(m_bEditModeEnabled);
 
 			// Create console scene node - using the console command 'timescale <value>' we
 			// can change the scene time (slowdown or accelerate)
-			pSceneNode = pRootContainer->Create("PLScene::SNConsole");
-			if (pSceneNode && pSceneNode->GetClass()->IsDerivedFrom("PLScene::SNConsoleBase")) {
+			pSceneNode = pRootContainer->Create("PLEngine::SNConsole");
+			if (pSceneNode && pSceneNode->GetClass()->IsDerivedFrom("PLEngine::SNConsoleBase")) {
 				SNConsoleBase *pConsole = static_cast<SNConsoleBase*>(pSceneNode);
 
 				// Register default commands

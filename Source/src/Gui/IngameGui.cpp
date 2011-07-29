@@ -27,8 +27,8 @@
 #include <PLGui/Gui/Gui.h>
 #include <PLGui/Gui/Screen.h>
 #include <PLScene/Scene/SceneContainer.h>
-#include <PLScene/Scene/SceneNodes/Gui/SNGui.h>
 #include <PLEngine/Gui/RenderWindow.h>
+#include <PLEngine/Compositing/Gui/SNGui.h>
 #include "Application.h"
 #include "Gui/WindowMenu.h"
 #include "Gui/WindowText.h"
@@ -76,7 +76,7 @@ IngameGui::IngameGui(Application &cApplication) :
 	SceneContainer *pSceneContainer = m_pApplication->GetRootScene();
 	if (pSceneContainer) {
 		// Create 'ingame'-GUI scene node
-		SNGui *pGuiSceneNode = static_cast<SNGui*>(pSceneContainer->Create("PLScene::SNGui", "GUI"));
+		SNGui *pGuiSceneNode = static_cast<SNGui*>(pSceneContainer->Create("PLEngine::SNGui", "GUI"));
 		if (pGuiSceneNode) {
 			m_pIngameGui = pGuiSceneNode->GetGui();
 			if (m_pIngameGui) {
