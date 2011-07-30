@@ -269,8 +269,8 @@ Interaction = {
 			-- Get the input controller of the application
 			local inputController = cppApplication:GetInputController()
 			if inputController ~= nil then
-				-- Use the script function "OnControl" as slot and connect it with the RTTI "OnControl"-signal of our RTTI controller class instance
-				inputController.OnControl.Connect(this.OnControl)
+				-- Use the script function "OnControl" as slot and connect it with the RTTI "SignalOnControl"-signal of our RTTI controller class instance
+				inputController.SignalOnControl.Connect(this.OnControl)
 			end
 
 			-- Get the scene container
