@@ -2,7 +2,6 @@
 --[ Includes                                              ]
 --[-------------------------------------------------------]
 require("Data/Scripts/Lua/GUI")			-- GUI script component class
-require("Data/Scripts/Lua/PLGui")		-- PLGui script helper class (don't forget to use "PLGui.Init()")
 require("Data/Scripts/Lua/MakingOf")	-- Making of script component class
 
 
@@ -265,134 +264,13 @@ Interaction = {
 		end
 
 		--@brief
-		--  Slot function is called by C++ when a key is pressed down
-		--
-		--@param[in] nKey
-		--  Pressed key
-		--@param[in] nModifiers
-		--  Modifier keys pressed
-		function this.OnKeyDown(key, modifiers)
-			-- Lua does not support switch/case statements, so we just use a Lua table (using if/else in here would be somewhat extreme)
-			local action = {
-				-- Toggle menu visibility
-				[PLGui.Key.ESCAPE] = function()
-					-- Get the ingame GUI component
-					local ingameGui = cppApplication:GetIngameGui()
-
-					-- Toggle menu visibility
-					if ingameGui:IsGuiShown() then
-						ingameGui:Hide()
-					else
-						-- Toggle menu visibility
-						ingameGui:ShowMenu(not ingameGui:IsMenuShown())
-
-						-- Show the mouse cursor?
-						if ingameGui:IsMenuShown() then
-							SetMouseVisible(true)
-						end
-					end
-				end,
-
-				-- Walk mode
-				[PLGui.Key.ONE] = function()
-					this.OnSetMode(Interaction.Mode.WALK, true)
-				end,
-
-				-- Free mode
-				[PLGui.Key.TWO] = function()
-					this.OnSetMode(Interaction.Mode.FREE, true)
-				end,
-
-				-- Ghost mode
-				[PLGui.Key.THREE] = function()
-					this.OnSetMode(Interaction.Mode.GHOST, true)
-				end,
-
-				-- Movie mode
-				[PLGui.Key.FOUR] = function()
-					this.OnSetMode(Interaction.Mode.MOVIE, true)
-				end,
-
-				-- Making of mode
-				[PLGui.Key.FIVE] = function()
-					this.OnSetMode(Interaction.Mode.MAKINGOF, true)
-				end,
-
-				-- Make a screenshot from the current render target
-				[PLGui.Key.F12] = function()
-					cppApplication:GetScreenshotTool():SaveScreenshot(cppApplication:GetScreenshotTool():GetScreenshotFilename("jpg"))
-				end,
-
-				-- Toggle camcorder recording
-				[PLGui.Key.R] = function()
-					-- This key is only allowed in the internal release as well as only if not movie nor making of mode...
-					if cppApplication:IsInternalRelease() and _mode ~= Interaction.Mode.MOVIE and _mode ~= Interaction.Mode.MAKINGOF then
-						-- Get the camcorder component
-						local camcorder = cppApplication:GetCamcorder()
-
-						-- Toggle camcorder recording
-						if camcorder:IsRecording() then
-							camcorder:StopRecord()
-						else
-							camcorder:StartRecord("Test")
-						end
-					end
-				end,
-
-				-- Toggle camcorder playback
-				[PLGui.Key.P] = function()
-					-- This key is only allowed in the internal release as well as only if not movie nor making of mode...
-					if cppApplication:IsInternalRelease() and _mode ~= Interaction.Mode.MOVIE and _mode ~= Interaction.Mode.MAKINGOF then
-						-- Get the camcorder component
-						local camcorder = cppApplication:GetCamcorder()
-
-						-- Toggle camcorder playback
-						if camcorder:IsPlaying() then
-							-- Stop the playback
-							camcorder:StopPlayback()
-
-							-- Restore previously set mode
-							this.OnSetMode(_modeBackup, false)
-						else
-							-- Backup the current set mode
-							_modeBackup = _mode
-
-							-- Set to ghost mode
-							this.OnSetMode(Interaction.Mode.GHOST, false)
-
-							-- Start the playback
-							camcorder:StartPlayback("Test")
-						end
-					end
-				end,
-			}
-
-			-- Execute the "kind of" switch/case statement
-			action[key]()
-		end
-
-		--@brief
 		--  Slot function is called by C++ after a scene has been loaded
 		function this.OnSceneLoadingFinished()
-			-- Get the main window of the application
-			local widget = cppApplication:GetMainWindow()
-			if widget ~= nil then
-				-- Use the script function "OnKeyDown" as slot and connect it with the RTTI "SignalKeyDown"-signal of our RTTI widget class instance
-				widget.SignalKeyDown.Connect(this.OnKeyDown)
-				local contentWidget = widget:GetContentWidget()
-				if contentWidget ~= widget then
-					-- [TODO] Linux: Currently we need to listen to the content widget key signals as well ("focus follows mouse"-topic)
-					contentWidget.SignalKeyDown.Connect(this.OnKeyDown)
-
-					-- Use the script function "OnMouseMove" as slot and connect it with the RTTI "SignalMouseMove"-signal of our RTTI widget class instance
-					contentWidget.SignalMouseMove.Connect(this.OnMouseMove)
-
-					-- Use the script function "OnMouseButtonDown" as slot and connect it with the RTTI "SignalMouseButtonDown"-signal of our RTTI widget class instance
-					contentWidget.SignalMouseButtonDown.Connect(this.OnMouseButtonDown)
-
-					-- Use the script function "OnMouseButtonUp" as slot and connect it with the RTTI "SignalMouseButtonUp"-signal of our RTTI widget class instance
-					contentWidget.SignalMouseButtonUp.Connect(this.OnMouseButtonUp)
-				end
+			-- Get the input controller of the application
+			local inputController = cppApplication:GetInputController()
+			if inputController ~= nil then
+				-- Use the script function "OnControl" as slot and connect it with the RTTI "OnControl"-signal of our RTTI controller class instance
+				inputController.OnControl.Connect(this.OnControl)
 			end
 
 			-- Get the scene container
@@ -432,47 +310,163 @@ Interaction = {
 		end
 
 		--@brief
-		--  Slot function is called by C++  when the mouse is moved
+		--  Slot function is called by C++ when a control event has occured
 		--
-		--@param[in] pos
-		--  Mouse position within the window
-		function this.OnMouseMove(pos)
-			-- If left mouse button down and not movie or making of mode...
-			if _leftMouseButtonDown and _mode ~= Interaction.Mode.MOVIE and _mode ~= Interaction.Mode.MAKINGOF then
-				-- Hide the mouse cursor - we don't want to have one during look around
-				SetMouseVisible(false)
-			end
-		end
+		--@param[in] control
+		--  Occured control
+		function this.OnControl(control)
+			-- Lua does not support switch/case statements, so we just use a Lua table (using if/else in here would be somewhat extreme)
+			local action = {
+				-- Toggle menu visibility
+				["Escape"] = function()
+					-- Was the button just hit?
+					if control:IsHit() then
+						-- Get the ingame GUI component
+						local ingameGui = cppApplication:GetIngameGui()
 
-		--@brief
-		--  Slot function is called by C++  when a mouse button is pressed
-		--
-		--@param[in] button
-		--  Mouse button that is pressed
-		--@param[in] pos
-		--  Mouse position within the window
-		function this.OnMouseButtonDown(button, pos)
-			-- Left mouse button
-			if button == 0 then
-				_leftMouseButtonDown = true
-			end
-		end
+						-- Toggle menu visibility
+						if ingameGui:IsGuiShown() then
+							ingameGui:Hide()
+						else
+							-- Toggle menu visibility
+							ingameGui:ShowMenu(not ingameGui:IsMenuShown())
 
-		--@brief
-		--  Slot function is called by C++  when a mouse button is released
-		--
-		--@param[in] button
-		--  Mouse button that is released
-		--@param[in] pos
-		--  Mouse position within the window
-		function this.OnMouseButtonUp(button, pos)
-			-- Left mouse button
-			if button == 0 then
-				_leftMouseButtonDown = false
+							-- Show the mouse cursor?
+							if ingameGui:IsMenuShown() then
+								SetMouseVisible(true)
+							end
+						end
+					end
+				end,
 
-				-- Show the mouse cursor
-				SetMouseVisible(true)
-			end
+				-- Walk mode
+				["1"] = function()
+					-- Was the button just hit?
+					if control:IsHit() then
+						this.OnSetMode(Interaction.Mode.WALK, true)
+					end
+				end,
+
+				-- Free mode
+				["2"] = function()
+					-- Was the button just hit?
+					if control:IsHit() then
+						this.OnSetMode(Interaction.Mode.FREE, true)
+					end
+				end,
+
+				-- Ghost mode
+				["3"] = function()
+					-- Was the button just hit?
+					if control:IsHit() then
+						this.OnSetMode(Interaction.Mode.GHOST, true)
+					end
+				end,
+
+				-- Movie mode
+				["4"] = function()
+					-- Was the button just hit?
+					if control:IsHit() then
+						this.OnSetMode(Interaction.Mode.MOVIE, true)
+					end
+				end,
+
+				-- Making of mode
+				["5"] = function()
+					-- Was the button just hit?
+					if control:IsHit() then
+						this.OnSetMode(Interaction.Mode.MAKINGOF, true)
+					end
+				end,
+
+				-- Make a screenshot from the current render target
+				["F12"] = function()
+					-- Was the button just hit?
+					if control:IsHit() then
+						cppApplication:GetScreenshotTool():SaveScreenshot(cppApplication:GetScreenshotTool():GetScreenshotFilename("jpg"))
+					end
+				end,
+
+				-- Toggle camcorder recording
+				["R"] = function()
+					-- Was the button just hit? This key is only allowed in the internal release as well as only if not movie nor making of mode...
+					if control:IsHit() and cppApplication:IsInternalRelease() and _mode ~= Interaction.Mode.MOVIE and _mode ~= Interaction.Mode.MAKINGOF then
+						-- Get the camcorder component
+						local camcorder = cppApplication:GetCamcorder()
+
+						-- Toggle camcorder recording
+						if camcorder:IsRecording() then
+							camcorder:StopRecord()
+						else
+							camcorder:StartRecord("Test")
+						end
+					end
+				end,
+
+				-- Toggle camcorder playback
+				["P"] = function()
+					-- Was the button just hit? This key is only allowed in the internal release as well as only if not movie nor making of mode...
+					if control:IsHit() and cppApplication:IsInternalRelease() and _mode ~= Interaction.Mode.MOVIE and _mode ~= Interaction.Mode.MAKINGOF then
+						-- Get the camcorder component
+						local camcorder = cppApplication:GetCamcorder()
+
+						-- Toggle camcorder playback
+						if camcorder:IsPlaying() then
+							-- Stop the playback
+							camcorder:StopPlayback()
+
+							-- Restore previously set mode
+							this.OnSetMode(_modeBackup, false)
+						else
+							-- Backup the current set mode
+							_modeBackup = _mode
+
+							-- Set to ghost mode
+							this.OnSetMode(Interaction.Mode.GHOST, false)
+
+							-- Start the playback
+							camcorder:StartPlayback("Test")
+						end
+					end
+				end,
+
+				-- Left mouse button
+				["MouseLeft"] = function()
+					-- Is the button currently pressed?
+					if control:IsPressed() then
+						_leftMouseButtonDown = true
+					else
+						-- Was the button previously pressed?
+						if _leftMouseButtonDown then
+							_leftMouseButtonDown = false
+
+							-- Show the mouse cursor
+							SetMouseVisible(true)
+						end
+					end
+				end,
+
+				-- Mouse x axis
+				["MouseX"] = function()
+					-- If left mouse button down and not movie or making of mode...
+					if _leftMouseButtonDown and _mode ~= Interaction.Mode.MOVIE and _mode ~= Interaction.Mode.MAKINGOF then
+						-- Hide the mouse cursor - we don't want to have one during look around
+						SetMouseVisible(false)
+					end
+				end,
+
+				-- Mouse y axis
+				["MouseY"] = function()
+					-- If left mouse button down and not movie or making of mode...
+					if _leftMouseButtonDown and _mode ~= Interaction.Mode.MOVIE and _mode ~= Interaction.Mode.MAKINGOF then
+						-- Hide the mouse cursor - we don't want to have one during look around
+						SetMouseVisible(false)
+					end
+				end,
+			}
+
+			-- Execute the "kind of" switch/case statement
+			action[control:GetName()]()
 		end
 
 
@@ -490,9 +484,6 @@ Interaction = {
 
 		-- By default, the mouse cursor is visible
 		SetMouseVisible(true)
-
-		-- Initialize the PLGui script helper class
-		PLGui.Init()
 
 
 		-- Return the created class instance
