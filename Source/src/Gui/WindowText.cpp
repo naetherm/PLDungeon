@@ -25,7 +25,7 @@
 //[-------------------------------------------------------]
 #include <PLGui/Gui/Gui.h>
 #include <PLGui/Gui/Screen.h>
-#include <PLXmlText/XmlText/XmlTextView.h>
+#include <PLGuiXmlText/XmlTextView.h>
 #include "Gui/WindowText.h"
 
 
@@ -36,7 +36,7 @@ using namespace PLCore;
 using namespace PLGraphics;
 using namespace PLMath;
 using namespace PLGui;
-using namespace PLXmlText;
+using namespace PLGuiXmlText;
 
 
 //[-------------------------------------------------------]

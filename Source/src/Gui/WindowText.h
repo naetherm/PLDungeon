@@ -34,7 +34,7 @@
 //[-------------------------------------------------------]
 //[ Forward declarations                                  ]
 //[-------------------------------------------------------]
-namespace PLXmlText {
+namespace PLGuiXmlText {
 	class XmlTextView;
 }
 
@@ -101,7 +101,7 @@ class WindowText : public WindowBase {
 	//[ Private data                                          ]
 	//[-------------------------------------------------------]
 	private:
-		PLXmlText::XmlTextView	*m_pXmlText;	/**< XmlText widget */
+		PLGuiXmlText::XmlTextView	*m_pXmlText;	/**< XmlText widget */
 
 
 };

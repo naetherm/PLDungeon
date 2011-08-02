@@ -123,7 +123,7 @@
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <Optimization>Disabled</Optimization>
-      <AdditionalIncludeDirectories>src/;../../pixellight/Base/PLCore/include/;../../pixellight/Base/PLMath/include/;../../pixellight/Base/PLGraphics/include/;../../pixellight/Base/PLGui/include/;../../pixellight/Plugins/PLXmlText/include/;../../pixellight/Base/PLRenderer/include/;../../pixellight/Base/PLMesh/include/;../../pixellight/Base/PLScene/include/;../../pixellight/Base/PLPhysics/include/;../../pixellight/Base/PLEngine/include/;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>src/;../../pixellight/Base/PLCore/include/;../../pixellight/Base/PLMath/include/;../../pixellight/Base/PLGraphics/include/;../../pixellight/Base/PLGui/include/;../../pixellight/Base/PLRenderer/include/;../../pixellight/Base/PLMesh/include/;../../pixellight/Base/PLScene/include/;../../pixellight/Base/PLPhysics/include/;../../pixellight/Base/PLEngine/include/;../../pixellight/Plugins/PLFrontendPLGui/include/;../../pixellight/Plugins/PLGuiXmlText/include/;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;INTERNALRELEASE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <MinimalRebuild>false</MinimalRebuild>
       <ExceptionHandling>
@@ -139,7 +139,7 @@
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>PLCoreD.lib;PLMathD.lib;PLGraphicsD.lib;PLGuiD.lib;PLXmlTextD.lib;PLRendererD.lib;PLMeshD.lib;PLSceneD.lib;PLPhysicsD.lib;PLEngineD.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>PLCoreD.lib;PLMathD.lib;PLGraphicsD.lib;PLGuiD.lib;PLGuiXmlTextD.lib;PLRendererD.lib;PLMeshD.lib;PLSceneD.lib;PLPhysicsD.lib;PLEngineD.lib;PLFrontendPLGuiD.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <OutputFile>$(OutDir)DungeonD.exe</OutputFile>
       <AdditionalLibraryDirectories>../../pixellight/Bin/Lib/;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -159,7 +159,7 @@
     </Midl>
     <ClCompile>
       <Optimization>Disabled</Optimization>
-      <AdditionalIncludeDirectories>src/;../../pixellight/Base/PLCore/include/;../../pixellight/Base/PLMath/include/;../../pixellight/Base/PLGraphics/include/;../../pixellight/Base/PLGui/include/;../../pixellight/Plugins/PLXmlText/include/;../../pixellight/Base/PLRenderer/include/;../../pixellight/Base/PLMesh/include/;../../pixellight/Base/PLScene/include/;../../pixellight/Base/PLPhysics/include/;../../pixellight/Base/PLEngine/include/;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>src/;../../pixellight/Base/PLCore/include/;../../pixellight/Base/PLMath/include/;../../pixellight/Base/PLGraphics/include/;../../pixellight/Base/PLGui/include/;../../pixellight/Base/PLRenderer/include/;../../pixellight/Base/PLMesh/include/;../../pixellight/Base/PLScene/include/;../../pixellight/Base/PLPhysics/include/;../../pixellight/Base/PLEngine/include/;../../pixellight/Plugins/PLFrontendPLGui/include/;../../pixellight/Plugins/PLGuiXmlText/include/;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN32;WIN64;_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <MinimalRebuild>true</MinimalRebuild>
       <ExceptionHandling>
@@ -174,7 +174,7 @@
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>PLCoreD64.lib;PLMathD64.lib;PLGraphicsD64.lib;PLGuiD64.lib;PLXmlTextD64.lib;PLRendererD64.lib;PLMeshD64.lib;PLSceneD64.lib;PLPhysicsD64.lib;PLEngineD64.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>PLCoreD64.lib;PLPLMathD64.lib;PLGraphicsD64.lib;PLGuiD64.lib;PLGuiXmlTextD64.lib;PLRendererD64.lib;PLMeshD64.lib;PLSceneD64.lib;PLPhysicsD64.lib;PLEngineD64.lib;PLFrontendPLGuiD64.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <OutputFile>$(OutDir)DungeonD64.exe</OutputFile>
       <AdditionalLibraryDirectories>../../pixellight/Bin/Lib/;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -196,7 +196,7 @@
       <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
       <OmitFramePointers>true</OmitFramePointers>
       <WholeProgramOptimization>true</WholeProgramOptimization>
-      <AdditionalIncludeDirectories>src/;../../pixellight/Base/PLCore/include/;../../pixellight/Base/PLMath/include/;../../pixellight/Base/PLGraphics/include/;../../pixellight/Base/PLGui/include/;../../pixellight/Plugins/PLXmlText/include/;../../pixellight/Base/PLRenderer/include/;../../pixellight/Base/PLMesh/include/;../../pixellight/Base/PLScene/include/;../../pixellight/Base/PLPhysics/include/;../../pixellight/Base/PLEngine/include/;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>src/;../../pixellight/Base/PLCore/include/;../../pixellight/Base/PLMath/include/;../../pixellight/Base/PLGraphics/include/;../../pixellight/Base/PLGui/include/;../../pixellight/Base/PLRenderer/include/;../../pixellight/Base/PLMesh/include/;../../pixellight/Base/PLScene/include/;../../pixellight/Base/PLPhysics/include/;../../pixellight/Base/PLEngine/include/;../../pixellight/Plugins/PLFrontendPLGui/include/;../../pixellight/Plugins/PLGuiXmlText/include/;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <StringPooling>true</StringPooling>
       <MinimalRebuild>false</MinimalRebuild>
@@ -216,7 +216,7 @@
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>PLCore.lib;PLMath.lib;PLGraphics.lib;PLGui.lib;PLXmlText.lib;PLRenderer.lib;PLMesh.lib;PLScene.lib;PLPhysics.lib;PLEngine.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>PLCore.lib;PLMath.lib;PLGraphics.lib;PLGui.lib;PLGuiXmlText.lib;PLRenderer.lib;PLMesh.lib;PLScene.lib;PLPhysics.lib;PLEngine.lib;PLFrontendPLGui.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <OutputFile>$(OutDir)Dungeon.exe</OutputFile>
       <AdditionalLibraryDirectories>../../pixellight/Bin/Lib/;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <GenerateDebugInformation>false</GenerateDebugInformation>
@@ -242,7 +242,7 @@
       <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
       <OmitFramePointers>true</OmitFramePointers>
       <WholeProgramOptimization>true</WholeProgramOptimization>
-      <AdditionalIncludeDirectories>src/;../../pixellight/Base/PLCore/include/;../../pixellight/Base/PLMath/include/;../../pixellight/Base/PLGraphics/include/;../../pixellight/Base/PLGui/include/;../../pixellight/Plugins/PLXmlText/include/;../../pixellight/Base/PLRenderer/include/;../../pixellight/Base/PLMesh/include/;../../pixellight/Base/PLScene/include/;../../pixellight/Base/PLPhysics/include/;../../pixellight/Base/PLEngine/include/;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>src/;../../pixellight/Base/PLCore/include/;../../pixellight/Base/PLMath/include/;../../pixellight/Base/PLGraphics/include/;../../pixellight/Base/PLGui/include/;../../pixellight/Base/PLRenderer/include/;../../pixellight/Base/PLMesh/include/;../../pixellight/Base/PLScene/include/;../../pixellight/Base/PLPhysics/include/;../../pixellight/Base/PLEngine/include/;../../pixellight/Plugins/PLFrontendPLGui/include/;../../pixellight/Plugins/PLGuiXmlText/include/;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN32;WIN64;NDEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <StringPooling>true</StringPooling>
       <MinimalRebuild>true</MinimalRebuild>
@@ -258,7 +258,7 @@
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>PLCore64.lib;PLMath64.lib;PLGraphics64.lib;PLGui64.lib;PLXmlText64.lib;PLRenderer64.lib;PLMesh64.lib;PLScene64.lib;PLPhysics64.lib;PLEngine64.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>PLCore64.lib;PLMath64.lib;PLGraphics64.lib;PLGui64.lib;PLGuiXmlText64.lib;PLRenderer64.lib;PLMesh64.lib;PLScene64.lib;PLPhysics64.lib;PLEngine64.lib;PLFrontendPLGui64.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <OutputFile>$(OutDir)Dungeon64.exe</OutputFile>
       <AdditionalLibraryDirectories>../../pixellight/Bin/Lib/;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <GenerateDebugInformation>false</GenerateDebugInformation>
@@ -281,7 +281,7 @@
       <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
       <OmitFramePointers>true</OmitFramePointers>
       <WholeProgramOptimization>true</WholeProgramOptimization>
-      <AdditionalIncludeDirectories>src/;../../pixellight/Base/PLCore/include/;../../pixellight/Base/PLMath/include/;../../pixellight/Base/PLGraphics/include/;../../pixellight/Base/PLGui/include/;../../pixellight/Plugins/PLXmlText/include/;../../pixellight/Base/PLRenderer/include/;../../pixellight/Base/PLMesh/include/;../../pixellight/Base/PLScene/include/;../../pixellight/Base/PLPhysics/include/;../../pixellight/Base/PLEngine/include/;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>src/;../../pixellight/Base/PLCore/include/;../../pixellight/Base/PLMath/include/;../../pixellight/Base/PLGraphics/include/;../../pixellight/Base/PLGui/include/;../../pixellight/Base/PLRenderer/include/;../../pixellight/Base/PLMesh/include/;../../pixellight/Base/PLScene/include/;../../pixellight/Base/PLPhysics/include/;../../pixellight/Base/PLEngine/include/;../../pixellight/Plugins/PLFrontendPLGui/include/;../../pixellight/Plugins/PLGuiXmlText/include/;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;INTERNALRELEASE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <StringPooling>true</StringPooling>
       <MinimalRebuild>true</MinimalRebuild>
@@ -300,7 +300,7 @@
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>PLCore.lib;PLMath.lib;PLGraphics.lib;PLGui.lib;PLXmlText.lib;PLRenderer.lib;PLMesh.lib;PLScene.lib;PLPhysics.lib;PLEngine.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>PLCore.lib;PLMath.lib;PLGraphics.lib;PLGui.lib;PLGuiXmlText.lib;PLRenderer.lib;PLMesh.lib;PLScene.lib;PLPhysics.lib;PLEngine.lib;PLFrontendPLGui.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <OutputFile>$(OutDir)DungeonInternal.exe</OutputFile>
       <AdditionalLibraryDirectories>../../pixellight/Bin/Lib/;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <GenerateDebugInformation>false</GenerateDebugInformation>
@@ -326,7 +326,7 @@
       <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
       <OmitFramePointers>true</OmitFramePointers>
       <WholeProgramOptimization>true</WholeProgramOptimization>
-      <AdditionalIncludeDirectories>../../pixellight/Base/PLCore/include/;../../pixellight/Base/PLMath/include/;../../pixellight/Base/PLGraphics/include/;../../pixellight/Base/PLGui/include/;../../pixellight/Plugins/PLXmlText/include/;../../pixellight/Base/PLRenderer/include/;../../pixellight/Base/PLMesh/include/;../../pixellight/Base/PLScene/include/;../../pixellight/Base/PLPhysics/include/;../../pixellight/Base/PLEngine/include/;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>../../pixellight/Base/PLCore/include/;../../pixellight/Base/PLMath/include/;../../pixellight/Base/PLGraphics/include/;../../pixellight/Base/PLGui/include/;../../pixellight/Base/PLRenderer/include/;../../pixellight/Base/PLMesh/include/;../../pixellight/Base/PLScene/include/;../../pixellight/Base/PLPhysics/include/;../../pixellight/Base/PLEngine/include/;../../pixellight/Plugins/PLFrontendPLGui/include/;../../pixellight/Plugins/PLGuiXmlText/include/;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN32;WIN64;NDEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <StringPooling>true</StringPooling>
       <MinimalRebuild>true</MinimalRebuild>
@@ -342,7 +342,7 @@
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>PLCore64.lib;PLMath64.lib;PLGraphics64.lib;PLGui64.lib;PLXmlText64.lib;PLRenderer64.lib;PLMesh64.lib;PLScene64.lib;PLPhysics64.lib;PLEngine64.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>PLCore64.lib;PLPLMath64.lib;PLGraphics64.lib;PLGui64.lib;PLGuiXmlText64.lib;PLRenderer64.lib;PLMesh64.lib;PLScene64.lib;PLPhysics64.lib;PLEngine64.lib;PLFrontendPLGui64.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <OutputFile>$(OutDir)Dungeon64.exe</OutputFile>
       <AdditionalLibraryDirectories>../../pixellight/Bin/Lib/;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <GenerateDebugInformation>false</GenerateDebugInformation>

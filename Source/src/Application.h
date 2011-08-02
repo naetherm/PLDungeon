@@ -56,6 +56,8 @@ class Application : public PLEngine::ScriptApplication {
 	//[ RTTI interface                                        ]
 	//[-------------------------------------------------------]
 	pl_class(pl_rtti_export, Application, "", PLEngine::ScriptApplication, "Application class")
+		// Constructors
+		pl_constructor_1(ParameterConstructor,	PLCore::Frontend&,	"Parameter constructor. Frontend this application instance is running in as first parameter.",	"")
 		// Methods
 		pl_method_0(IsExpertMode,						pl_ret_type(bool),					"Returns whether or not the application runs within the expert mode. Returns 'true' if the application runs within the expert mode, else 'false' (no additional help texts).",															"")
 		pl_method_0(IsRepeatMode,						pl_ret_type(bool),					"Returns whether or not the application runs within the repeat mode. Returns 'true' if the application runs within the repeat mode (\"movie -> making of -> movie\" instead of \"movie -> making of -> interactive\"), else 'false'.",	"")
@@ -77,8 +79,11 @@ class Application : public PLEngine::ScriptApplication {
 		/**
 		*  @brief
 		*    Constructor
+		*
+		*  @param[in] cFrontend
+		*    Frontend this application instance is running in
 		*/
-		Application();
+		Application(PLCore::Frontend &cFrontend);
 
 		/**
 		*  @brief
@@ -153,7 +158,7 @@ class Application : public PLEngine::ScriptApplication {
 
 
 	//[-------------------------------------------------------]
-	//[ Protected virtual PLCore::ConsoleApplication functions ]
+	//[ Protected virtual PLCore::CoreApplication functions   ]
 	//[-------------------------------------------------------]
 	protected:
 		virtual void OnInitLog() override;
@@ -162,21 +167,21 @@ class Application : public PLEngine::ScriptApplication {
 
 
 	//[-------------------------------------------------------]
-	//[ Protected virtual PLEngine::SceneApplication functions ]
+	//[ Protected virtual PLScene::SceneApplication functions ]
 	//[-------------------------------------------------------]
 	protected:
 		virtual void OnCreateRootScene() override;
 
 
 	//[-------------------------------------------------------]
-	//[ Public virtual PLEngine::BasicSceneApplication functions ]
+	//[ Public virtual PLEngine::EngineApplication functions  ]
 	//[-------------------------------------------------------]
 	public:
 		virtual bool LoadScene(const PLCore::String &sFilename) override;
 
 
 	//[-------------------------------------------------------]
-	//[ Private virtual PLEngine::BasicSceneApplication functions ]
+	//[ Private virtual PLEngine::EngineApplication functions ]
 	//[-------------------------------------------------------]
 	private:
 		virtual void OnCreateScene(PLScene::SceneContainer &cContainer) override;

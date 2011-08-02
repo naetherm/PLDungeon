@@ -27,8 +27,8 @@
 #include <PLGui/Gui/Gui.h>
 #include <PLGui/Gui/Screen.h>
 #include <PLScene/Scene/SceneContainer.h>
-#include <PLEngine/Gui/RenderWindow.h>
-#include <PLEngine/Compositing/Gui/SNGui.h>
+//#include <PLEngine/Gui/RenderWindow.h>	// [TODO]
+#include <PLFrontendPLGui/Compositing/SNGui.h>
 #include "Application.h"
 #include "Gui/WindowMenu.h"
 #include "Gui/WindowText.h"
@@ -46,6 +46,7 @@ using namespace PLGui;
 using namespace PLRenderer;
 using namespace PLScene;
 using namespace PLEngine;
+using namespace PLFrontendPLGui;
 
 
 //[-------------------------------------------------------]
@@ -72,11 +73,12 @@ IngameGui::IngameGui(Application &cApplication) :
 	m_pText(nullptr),
 	m_pResolution(nullptr)
 {
+	/*
 	// Get scene container
 	SceneContainer *pSceneContainer = m_pApplication->GetRootScene();
 	if (pSceneContainer) {
 		// Create 'ingame'-GUI scene node
-		SNGui *pGuiSceneNode = static_cast<SNGui*>(pSceneContainer->Create("PLEngine::SNGui", "GUI"));
+		SNGui *pGuiSceneNode = static_cast<SNGui*>(pSceneContainer->Create("PLFrontendPLGui::SNGui", "GUI"));
 		if (pGuiSceneNode) {
 			m_pIngameGui = pGuiSceneNode->GetGui();
 			if (m_pIngameGui) {
@@ -115,7 +117,9 @@ IngameGui::IngameGui(Application &cApplication) :
 			}
 		}
 	}
-
+	*/
+	// [TODO] PLFrontend update
+	/*
 	// Get the main window
 	Widget *pWidget = m_pApplication->GetMainWindow();
 	if (pWidget) {
@@ -125,6 +129,7 @@ IngameGui::IngameGui(Application &cApplication) :
 		// Connect event handler
 		pContentWidget->SignalMouseButtonDown.Connect(SlotOnMouseDown);
 	}
+	*/
 }
 
 /**
@@ -308,6 +313,8 @@ void IngameGui::OnMenu(int nCommand)
 */
 void IngameGui::OnResolution(const DisplayMode *pMode, bool bFullscreen)
 {
+	// [TODO] PLFrontend update
+	/*
 	// Get main frame
 	RenderWindow *pFrame = static_cast<RenderWindow*>(m_pApplication->GetMainWindow());
 	if (pFrame) {
@@ -333,6 +340,7 @@ void IngameGui::OnResolution(const DisplayMode *pMode, bool bFullscreen)
 			}
 		}
 	}
+	*/
 }
 
 /**

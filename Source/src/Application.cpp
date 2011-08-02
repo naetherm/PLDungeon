@@ -42,7 +42,7 @@
 #include <PLScene/Scene/SceneNodeModifier.h>
 #include <PLPhysics/Body.h>
 #include <PLPhysics/SceneNodeModifiers/SNMPhysicsBodyBox.h>
-#include <PLEngine/Gui/RenderWindow.h>
+//#include <PLEngine/Gui/RenderWindow.h> // [TODO]
 #include <PLEngine/Compositing/Console/SNConsoleBase.h>
 #include <PLEngine/Controller/SNPhysicsMouseInteraction.h>
 #include "Application.h"
@@ -73,7 +73,7 @@ pl_implement_class(Application)
 *  @brief
 *    Constructor
 */
-Application::Application() : ScriptApplication("Data/Scripts/Lua/Main.lua", "Dungeon", PLT("PixelLight dungeon demo"), System::GetInstance()->GetDataDirName("PixelLight")),
+Application::Application(Frontend &cFrontend) : ScriptApplication(cFrontend, "Data/Scripts/Lua/Main.lua", "Dungeon", PLT("PixelLight dungeon demo"), System::GetInstance()->GetDataDirName("PixelLight")),
 	SlotOnLoadProgress(this),
 	m_pIngameGui(nullptr),
 	m_pCamcorder(new Camcorder(*this)),
@@ -171,8 +171,8 @@ void Application::OnLoadProgress(float fLoadProgress)
 	if ((fLoadProgress-m_fLoadProgress) >= 0.01f) {
 		m_fLoadProgress = fLoadProgress;
 
-		// Call the 'update'-function so we can see the progress within the load screen
-		Update();
+		// Redraw & ping the frontend
+		GetFrontend().RedrawAndPing();
 	}
 }
 
@@ -187,7 +187,7 @@ void Application::UpdateMousePickingPullAnimation()
 
 	// Update the mouse picking pull animation
 	m_fMousePickingPullAnimation += fTimeDiff*5;
-
+	/*
 	// Get the scene
 	SceneContainer *pSceneContainer = GetScene();
 	if (pSceneContainer) {
@@ -207,6 +207,7 @@ void Application::UpdateMousePickingPullAnimation()
 					if (!pSceneNodeModifier)
 						pSceneNodeModifier = pCameraSceneNode->AddModifier("PLPostProcessEffects::SNMPostProcessPull");
 					if (pSceneNodeModifier) {
+						// [TODO] PLFrontend update
 						// Get the main window of the application
 						Widget *pWidget = GetMainWindow();
 						if (pWidget && pWidget->GetContentWidget()) {
@@ -222,11 +223,12 @@ void Application::UpdateMousePickingPullAnimation()
 			}
 		}
 	}
+	*/
 }
 
 
 //[-------------------------------------------------------]
-//[ Protected virtual PLCore::ConsoleApplication functions ]
+//[ Protected virtual PLCore::CoreApplication functions   ]
 //[-------------------------------------------------------]
 void Application::OnInitLog()
 {
@@ -287,7 +289,7 @@ void Application::OnDeInit()
 
 
 //[-------------------------------------------------------]
-//[ Protected virtual PLEngine::SceneApplication functions ]
+//[ Protected virtual PLScene::SceneApplication functions ]
 //[-------------------------------------------------------]
 void Application::OnCreateRootScene()
 {
@@ -330,13 +332,10 @@ void Application::OnCreateRootScene()
 				SNConsoleBase *pConsole = static_cast<SNConsoleBase*>(pSceneNode);
 
 				// Register default commands
-				pConsole->RegisterCommand(0,	"quit",			"",	"",	Functor<void, ConsoleCommand &>(&ScriptApplication::ConsoleCommandQuit, this));
-				pConsole->RegisterCommand(0,	"exit",			"",	"",	Functor<void, ConsoleCommand &>(&ScriptApplication::ConsoleCommandQuit, this));
-				pConsole->RegisterCommand(0,	"bye",			"",	"",	Functor<void, ConsoleCommand &>(&ScriptApplication::ConsoleCommandQuit, this));
-				pConsole->RegisterCommand(0,	"logout",		"",	"",	Functor<void, ConsoleCommand &>(&ScriptApplication::ConsoleCommandQuit, this));
-
-				// Edit commands
-				pConsole->RegisterCommand(1,	"editdialog",	"",	"",	Functor<void, ConsoleCommand &>(&ScriptApplication::ConsoleCommandEditDialog, this));
+				pConsole->RegisterCommand(0,	"quit",			"",	"",	Functor<void, ConsoleCommand &>(&EngineApplication::ConsoleCommandQuit, this));
+				pConsole->RegisterCommand(0,	"exit",			"",	"",	Functor<void, ConsoleCommand &>(&EngineApplication::ConsoleCommandQuit, this));
+				pConsole->RegisterCommand(0,	"bye",			"",	"",	Functor<void, ConsoleCommand &>(&EngineApplication::ConsoleCommandQuit, this));
+				pConsole->RegisterCommand(0,	"logout",		"",	"",	Functor<void, ConsoleCommand &>(&EngineApplication::ConsoleCommandQuit, this));
 
 				// Set active state
 				pConsole->SetActive(m_bEditModeEnabled);
@@ -350,7 +349,7 @@ void Application::OnCreateRootScene()
 
 
 //[-------------------------------------------------------]
-//[ Public virtual PLEngine::BasicSceneApplication functions ]
+//[ Public virtual PLEngine::EngineApplication functions  ]
 //[-------------------------------------------------------]
 bool Application::LoadScene(const String &sFilename)
 {
@@ -390,7 +389,7 @@ bool Application::LoadScene(const String &sFilename)
 
 
 //[-------------------------------------------------------]
-//[ Private virtual PLEngine::BasicSceneApplication functions ]
+//[ Private virtual PLEngine::EngineApplication functions ]
 //[-------------------------------------------------------]
 void Application::OnCreateScene(SceneContainer &cContainer)
 {
