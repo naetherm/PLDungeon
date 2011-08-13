@@ -24,7 +24,7 @@ find_package(PixelLight)
 add_sources(
     src/Main.cpp
     src/Application.cpp
-    src/DungeonConfigGroup.cpp
+    src/Config.cpp
     src/SNMLightRandomAnimation.cpp
     src/SNMPositionRandomAnimation.cpp
     src/Gui/IngameGui.cpp

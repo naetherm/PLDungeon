@@ -142,8 +142,12 @@ bool Application::IsInternalRelease() const
 *  @brief
 *    Returns the ingame GUI interaction component instance
 */
-IngameGui &Application::GetIngameGui() const
+IngameGui &Application::GetIngameGui()
 {
+	// Create the ingame GUI component right now?
+	if (!m_pIngameGui)
+		m_pIngameGui = new IngameGui(*this);
+
 	// When this method is used, the pointer is valid
 	return *m_pIngameGui;
 }
@@ -241,9 +245,6 @@ void Application::OnInitLog()
 
 void Application::OnInit()
 {
-	// Create the ingame GUI component
-	m_pIngameGui = new IngameGui(*this);
-
 	// Call base implementation
 	ScriptApplication::OnInit();
 

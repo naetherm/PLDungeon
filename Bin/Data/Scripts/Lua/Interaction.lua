@@ -119,16 +119,14 @@ Interaction = {
 				visible = true
 			end
 
-			-- [TODO] PLFrontend update
-			-- Get the main window of the application
-			-- local widget = cppApplication:GetMainWindow()
-			-- if widget ~= nil then
-				-- Set mouse cursor visibility
-			-- 	widget:GetGui():SetMouseVisible(visible)
+			-- Get the frontend the application is running in
+			local frontend = cppApplication:GetFrontend()
 
-				-- Trap mouse inside the content widget when the mouse cursor is invisible
-			-- 	widget:GetContentWidget():SetTrapMouse(not visible)
-			-- end
+			-- Set mouse cursor visibility
+			frontend:SetMouseVisible(visible)
+
+			-- Trap mouse inside the content widget when the mouse cursor is invisible
+			frontend:SetTrapMouse(not visible)
 		end
 
 

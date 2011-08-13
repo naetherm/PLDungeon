@@ -1,5 +1,5 @@
 /*********************************************************\
- *  File: DungeonConfigGroup.cpp                         *
+ *  File: Config.cpp                                     *
  *
  *  Copyright (C) 2002-2011 The PixelLight Team (http://www.pixellight.org/)
  *
@@ -23,7 +23,7 @@
 //[-------------------------------------------------------]
 //[ Includes                                              ]
 //[-------------------------------------------------------]
-#include "DungeonConfigGroup.h"
+#include "Config.h"
 
 
 //[-------------------------------------------------------]

@@ -359,7 +359,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="src\Application.cpp" />
-    <ClCompile Include="src\DungeonConfigGroup.cpp" />
+    <ClCompile Include="src\Config.cpp" />
     <ClCompile Include="src\Main.cpp" />
     <ClCompile Include="src\SNMLightRandomAnimation.cpp" />
     <ClCompile Include="src\SNMPositionRandomAnimation.cpp" />
@@ -371,7 +371,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Application.h" />
-    <ClInclude Include="src\DungeonConfigGroup.h" />
+    <ClInclude Include="src\Config.h" />
     <ClInclude Include="src\SNMLightRandomAnimation.h" />
     <ClInclude Include="src\SNMPositionRandomAnimation.h" />
     <ClInclude Include="src\Gui\IngameGui.h" />

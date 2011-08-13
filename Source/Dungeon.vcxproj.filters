@@ -43,7 +43,7 @@
     <ClCompile Include="src\SNMPositionRandomAnimation.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\DungeonConfigGroup.cpp">
+    <ClCompile Include="src\Config.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -73,7 +73,7 @@
     <ClInclude Include="src\SNMPositionRandomAnimation.h">
       <Filter>Source Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\DungeonConfigGroup.h">
+    <ClInclude Include="src\Config.h">
       <Filter>Source Files</Filter>
     </ClInclude>
   </ItemGroup>

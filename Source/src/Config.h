@@ -1,5 +1,5 @@
 /*********************************************************\
- *  File: DungeonConfigGroup.h                           *
+ *  File: Config.h                                       *
  *
  *  Copyright (C) 2002-2011 The PixelLight Team (http://www.pixellight.org/)
  *
@@ -20,8 +20,8 @@
 \*********************************************************/
 
 
-#ifndef __DUNGEON_CONFIGGROUP_H__
-#define __DUNGEON_CONFIGGROUP_H__
+#ifndef __DUNGEON_CONFIG_H__
+#define __DUNGEON_CONFIG_H__
 #pragma once
 
 
@@ -167,4 +167,4 @@ class DungeonConfig : public DungeonConfigGroup {
 };
 
 
-#endif // __DUNGEON_CONFIGGROUP_H__
+#endif // __DUNGEON_CONFIG_H__

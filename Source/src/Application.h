@@ -125,7 +125,7 @@ class Application : public PLEngine::ScriptApplication {
 		*  @return
 		*    The ingame GUI interaction component instance, never a null pointer
 		*/
-		IngameGui &GetIngameGui() const;
+		IngameGui &GetIngameGui();
 
 		/**
 		*  @brief
