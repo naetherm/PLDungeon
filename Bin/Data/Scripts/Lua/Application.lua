@@ -1,7 +1,7 @@
 --[-------------------------------------------------------]
 --[ Includes                                              ]
 --[-------------------------------------------------------]
-require("Data/Scripts/Lua/Interaction")	-- Interaction script component class
+require "Interaction"	-- Interaction script component class
 
 
 --[-------------------------------------------------------]

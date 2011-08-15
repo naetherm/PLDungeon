@@ -12,7 +12,7 @@
     <Node Class="PLScene::SNKeyValue" Name="ClearColorKey" Key="ClearColor" Value="0.000000 0.000000 0.000000" />
     <Node Class="PLScene::SNKeyValue" Name="StartCameraKey" Key="StartCamera" Value="Container.WineCellar.FreeCamera" />
     <Node Class="PLEngine::SNLoadScreen" Name="LoadScreen" Images="1" ImageX="0.0" ImageY="0.0" ImageWidth="1.0" ImageHeight="1.0" BarY="0.9" />
-    <Container Class="PLPhysics::SCPhysicsWorld" Name="Container" Flags="CastShadow" CacheDirectory="_Cache/PLPhysicsNewton">
+    <Container Class="PLPhysics::SCPhysicsWorld" Name="Container" Flags="CastShadow" CacheDirectory="../_Cache/PLPhysicsNewton">
         <Container Class="PLScene::SCCell" Name="kanal6" Position="25.331247 -2.872280 9.676379" Flags="CastShadow">
             <Node Class="PLScene::SNCamera" Name="FreeCamera3" Position="1.034378 0.898957 0.436414" Rotation="22.230949 -9.269333 2.497507" FOV="58.852940" ZNear="0.100000" ZFar="50.000000">
                 <Modifier Class="PLEngine::SNMLookController" />

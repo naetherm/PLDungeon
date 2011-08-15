@@ -1,8 +1,8 @@
 --[-------------------------------------------------------]
 --[ Includes                                              ]
 --[-------------------------------------------------------]
-require("Data/Scripts/Lua/GUI")			-- GUI script component class
-require("Data/Scripts/Lua/MakingOf")	-- Making of script component class
+require "GUI"		-- GUI script component class
+require "MakingOf"	-- Making of script component class
 
 
 --[-------------------------------------------------------]

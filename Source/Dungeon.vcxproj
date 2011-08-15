@@ -83,20 +83,20 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup>
     <_ProjectFileVersion>10.0.31118.1</_ProjectFileVersion>
-    <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">build/debug\</OutDir>
-    <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">build/debug\</IntDir>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">build/debug_x86\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">build/debug_x86\</IntDir>
     <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</LinkIncremental>
-    <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">build/debug64\</OutDir>
-    <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">build/debug64\</IntDir>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">build/debug_x64\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">build/debug_x64\</IntDir>
     <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</LinkIncremental>
-    <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">build/release\</OutDir>
-    <IntDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">build/release\</IntDir>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">build/release_x86\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">build/release_x86\</IntDir>
     <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</LinkIncremental>
-    <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|x64'">build/release64\</OutDir>
-    <IntDir Condition="'$(Configuration)|$(Platform)'=='Release|x64'">build/release64\</IntDir>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|x64'">build/release_x64\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Release|x64'">build/release_x64\</IntDir>
     <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</LinkIncremental>
-    <OutDir Condition="'$(Configuration)|$(Platform)'=='InternalRelease|Win32'">build/internalrelease\</OutDir>
-    <IntDir Condition="'$(Configuration)|$(Platform)'=='InternalRelease|Win32'">build/internalrelease\</IntDir>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='InternalRelease|Win32'">build/release_x86_internal\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='InternalRelease|Win32'">build/release_x86_internal\</IntDir>
     <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='InternalRelease|Win32'">false</LinkIncremental>
     <OutDir Condition="'$(Configuration)|$(Platform)'=='InternalRelease|x64'">$(Platform)\$(Configuration)\</OutDir>
     <IntDir Condition="'$(Configuration)|$(Platform)'=='InternalRelease|x64'">$(Platform)\$(Configuration)\</IntDir>
@@ -141,7 +141,7 @@
     <Link>
       <AdditionalDependencies>PLCoreD.lib;PLMathD.lib;PLGraphicsD.lib;PLGuiD.lib;PLGuiXmlTextD.lib;PLRendererD.lib;PLMeshD.lib;PLSceneD.lib;PLPhysicsD.lib;PLEngineD.lib;PLFrontendPLGuiD.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <OutputFile>$(OutDir)DungeonD.exe</OutputFile>
-      <AdditionalLibraryDirectories>../../pixellight/Bin/Lib/;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>../../pixellight/Bin/Lib/x86/;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <ProgramDatabaseFile>$(OutDir)DungeonD.pdb</ProgramDatabaseFile>
       <SubSystem>Windows</SubSystem>
@@ -150,7 +150,7 @@
       <TargetMachine>MachineX86</TargetMachine>
     </Link>
     <PostBuildEvent>
-      <Command>copy build\debug\DungeonD.exe ..\Bin\</Command>
+      <Command>copy build\debug_x86\DungeonD.exe ..\Bin\x86\</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -161,7 +161,7 @@
       <Optimization>Disabled</Optimization>
       <AdditionalIncludeDirectories>src/;../../pixellight/Base/PLCore/include/;../../pixellight/Base/PLMath/include/;../../pixellight/Base/PLGraphics/include/;../../pixellight/Base/PLGui/include/;../../pixellight/Base/PLRenderer/include/;../../pixellight/Base/PLMesh/include/;../../pixellight/Base/PLScene/include/;../../pixellight/Base/PLPhysics/include/;../../pixellight/Base/PLEngine/include/;../../pixellight/Plugins/PLFrontendPLGui/include/;../../pixellight/Plugins/PLGuiXmlText/include/;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN32;WIN64;_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <MinimalRebuild>true</MinimalRebuild>
+      <MinimalRebuild>false</MinimalRebuild>
       <ExceptionHandling>
       </ExceptionHandling>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
@@ -172,20 +172,21 @@
       </PrecompiledHeader>
       <WarningLevel>Level4</WarningLevel>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>PLCoreD64.lib;PLPLMathD64.lib;PLGraphicsD64.lib;PLGuiD64.lib;PLGuiXmlTextD64.lib;PLRendererD64.lib;PLMeshD64.lib;PLSceneD64.lib;PLPhysicsD64.lib;PLEngineD64.lib;PLFrontendPLGuiD64.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <OutputFile>$(OutDir)DungeonD64.exe</OutputFile>
-      <AdditionalLibraryDirectories>../../pixellight/Bin/Lib/;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>PLCoreD.lib;PLPLMathD.lib;PLGraphicsD.lib;PLGuiD.lib;PLGuiXmlTextD.lib;PLRendererD.lib;PLMeshD.lib;PLSceneD.lib;PLPhysicsD.lib;PLEngineD.lib;PLFrontendPLGuiD.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <OutputFile>$(OutDir)DungeonD.exe</OutputFile>
+      <AdditionalLibraryDirectories>../../pixellight/Bin/Lib/x64/;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <ProgramDatabaseFile>$(OutDir)DungeonD64.pdb</ProgramDatabaseFile>
+      <ProgramDatabaseFile>$(OutDir)DungeonD.pdb</ProgramDatabaseFile>
       <SubSystem>Windows</SubSystem>
       <RandomizedBaseAddress>false</RandomizedBaseAddress>
       <DataExecutionPrevention>true</DataExecutionPrevention>
       <TargetMachine>MachineX64</TargetMachine>
     </Link>
     <PostBuildEvent>
-      <Command>copy build\debug64\DungeonD64.exe ..\Bin\</Command>
+      <Command>copy build\debug_x64\DungeonD.exe ..\Bin\x64\</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -218,7 +219,7 @@
     <Link>
       <AdditionalDependencies>PLCore.lib;PLMath.lib;PLGraphics.lib;PLGui.lib;PLGuiXmlText.lib;PLRenderer.lib;PLMesh.lib;PLScene.lib;PLPhysics.lib;PLEngine.lib;PLFrontendPLGui.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <OutputFile>$(OutDir)Dungeon.exe</OutputFile>
-      <AdditionalLibraryDirectories>../../pixellight/Bin/Lib/;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>../../pixellight/Bin/Lib/x86/;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <GenerateDebugInformation>false</GenerateDebugInformation>
       <SubSystem>Windows</SubSystem>
       <OptimizeReferences>true</OptimizeReferences>
@@ -229,7 +230,7 @@
       <TargetMachine>MachineX86</TargetMachine>
     </Link>
     <PostBuildEvent>
-      <Command>copy build\release\Dungeon.exe ..\Bin\</Command>
+      <Command>copy build\release_x86\Dungeon.exe ..\Bin\x86\</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -237,17 +238,16 @@
       <TargetEnvironment>X64</TargetEnvironment>
     </Midl>
     <ClCompile>
-      <Optimization>MaxSpeed</Optimization>
-      <InlineFunctionExpansion>OnlyExplicitInline</InlineFunctionExpansion>
+      <Optimization>Full</Optimization>
+      <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
       <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
       <OmitFramePointers>true</OmitFramePointers>
       <WholeProgramOptimization>true</WholeProgramOptimization>
       <AdditionalIncludeDirectories>src/;../../pixellight/Base/PLCore/include/;../../pixellight/Base/PLMath/include/;../../pixellight/Base/PLGraphics/include/;../../pixellight/Base/PLGui/include/;../../pixellight/Base/PLRenderer/include/;../../pixellight/Base/PLMesh/include/;../../pixellight/Base/PLScene/include/;../../pixellight/Base/PLPhysics/include/;../../pixellight/Base/PLEngine/include/;../../pixellight/Plugins/PLFrontendPLGui/include/;../../pixellight/Plugins/PLGuiXmlText/include/;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN32;WIN64;NDEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <StringPooling>true</StringPooling>
-      <MinimalRebuild>true</MinimalRebuild>
-      <ExceptionHandling>
-      </ExceptionHandling>
+      <MinimalRebuild>false</MinimalRebuild>
+      <ExceptionHandling>false</ExceptionHandling>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <ForceConformanceInForLoopScope>true</ForceConformanceInForLoopScope>
@@ -256,11 +256,17 @@
       </PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <BufferSecurityCheck>false</BufferSecurityCheck>
+      <EnableEnhancedInstructionSet>StreamingSIMDExtensions2</EnableEnhancedInstructionSet>
+      <FloatingPointModel>Fast</FloatingPointModel>
+      <FloatingPointExceptions>false</FloatingPointExceptions>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>PLCore64.lib;PLMath64.lib;PLGraphics64.lib;PLGui64.lib;PLGuiXmlText64.lib;PLRenderer64.lib;PLMesh64.lib;PLScene64.lib;PLPhysics64.lib;PLEngine64.lib;PLFrontendPLGui64.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <OutputFile>$(OutDir)Dungeon64.exe</OutputFile>
-      <AdditionalLibraryDirectories>../../pixellight/Bin/Lib/;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>PLCore.lib;PLMath.lib;PLGraphics.lib;PLGui.lib;PLGuiXmlText.lib;PLRenderer.lib;PLMesh.lib;PLScene.lib;PLPhysics.lib;PLEngine.lib;PLFrontendPLGui.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <OutputFile>$(OutDir)Dungeon.exe</OutputFile>
+      <AdditionalLibraryDirectories>../../pixellight/Bin/Lib/x64/;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <GenerateDebugInformation>false</GenerateDebugInformation>
       <SubSystem>Windows</SubSystem>
       <OptimizeReferences>true</OptimizeReferences>
@@ -270,7 +276,7 @@
       <TargetMachine>MachineX64</TargetMachine>
     </Link>
     <PostBuildEvent>
-      <Command>copy build\release64\Dungeon64.exe ..\Bin\</Command>
+      <Command>copy build\release_x64\Dungeon.exe ..\Bin\x64\</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='InternalRelease|Win32'">
@@ -302,7 +308,7 @@
     <Link>
       <AdditionalDependencies>PLCore.lib;PLMath.lib;PLGraphics.lib;PLGui.lib;PLGuiXmlText.lib;PLRenderer.lib;PLMesh.lib;PLScene.lib;PLPhysics.lib;PLEngine.lib;PLFrontendPLGui.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <OutputFile>$(OutDir)DungeonInternal.exe</OutputFile>
-      <AdditionalLibraryDirectories>../../pixellight/Bin/Lib/;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>../../pixellight/Bin/Lib/x86/;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <GenerateDebugInformation>false</GenerateDebugInformation>
       <SubSystem>Windows</SubSystem>
       <OptimizeReferences>true</OptimizeReferences>
@@ -313,7 +319,7 @@
       <TargetMachine>MachineX86</TargetMachine>
     </Link>
     <PostBuildEvent>
-      <Command>copy build\internalrelease\DungeonInternal.exe ..\Bin\</Command>
+      <Command>copy build\release_x86_internal\DungeonInternal.exe ..\Bin\x86\</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='InternalRelease|x64'">
@@ -321,17 +327,16 @@
       <TargetEnvironment>X64</TargetEnvironment>
     </Midl>
     <ClCompile>
-      <Optimization>MaxSpeed</Optimization>
-      <InlineFunctionExpansion>OnlyExplicitInline</InlineFunctionExpansion>
+      <Optimization>Full</Optimization>
+      <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
       <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
       <OmitFramePointers>true</OmitFramePointers>
       <WholeProgramOptimization>true</WholeProgramOptimization>
       <AdditionalIncludeDirectories>../../pixellight/Base/PLCore/include/;../../pixellight/Base/PLMath/include/;../../pixellight/Base/PLGraphics/include/;../../pixellight/Base/PLGui/include/;../../pixellight/Base/PLRenderer/include/;../../pixellight/Base/PLMesh/include/;../../pixellight/Base/PLScene/include/;../../pixellight/Base/PLPhysics/include/;../../pixellight/Base/PLEngine/include/;../../pixellight/Plugins/PLFrontendPLGui/include/;../../pixellight/Plugins/PLGuiXmlText/include/;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN32;WIN64;NDEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <StringPooling>true</StringPooling>
-      <MinimalRebuild>true</MinimalRebuild>
-      <ExceptionHandling>
-      </ExceptionHandling>
+      <MinimalRebuild>false</MinimalRebuild>
+      <ExceptionHandling>false</ExceptionHandling>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <ForceConformanceInForLoopScope>true</ForceConformanceInForLoopScope>
@@ -340,11 +345,17 @@
       </PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <BufferSecurityCheck>false</BufferSecurityCheck>
+      <EnableEnhancedInstructionSet>StreamingSIMDExtensions2</EnableEnhancedInstructionSet>
+      <FloatingPointModel>Fast</FloatingPointModel>
+      <FloatingPointExceptions>false</FloatingPointExceptions>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>PLCore64.lib;PLPLMath64.lib;PLGraphics64.lib;PLGui64.lib;PLGuiXmlText64.lib;PLRenderer64.lib;PLMesh64.lib;PLScene64.lib;PLPhysics64.lib;PLEngine64.lib;PLFrontendPLGui64.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <OutputFile>$(OutDir)Dungeon64.exe</OutputFile>
-      <AdditionalLibraryDirectories>../../pixellight/Bin/Lib/;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>PLCore.lib;PLPLMath.lib;PLGraphics.lib;PLGui.lib;PLGuiXmlText.lib;PLRenderer.lib;PLMesh.lib;PLScene.lib;PLPhysics.lib;PLEngine.lib;PLFrontendPLGui.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <OutputFile>$(OutDir)Dungeon.exe</OutputFile>
+      <AdditionalLibraryDirectories>../../pixellight/Bin/Lib/x64/;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <GenerateDebugInformation>false</GenerateDebugInformation>
       <SubSystem>Windows</SubSystem>
       <OptimizeReferences>true</OptimizeReferences>
@@ -354,7 +365,7 @@
       <TargetMachine>MachineX64</TargetMachine>
     </Link>
     <PostBuildEvent>
-      <Command>copy build\release64\Dungeon64.exe ..\Bin\</Command>
+      <Command>copy build\release_x64\Dungeon.exe ..\Bin\x64\</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>

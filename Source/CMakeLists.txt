@@ -149,7 +149,7 @@ set_project_properties(${target})
 
 # Executable
 add_custom_command(TARGET ${target}
-	COMMAND ${CMAKE_COMMAND} -E copy ${CMAKE_CURRENT_BINARY_DIR}/${target}${CMAKE_EXECUTABLE_SUFFIX} "${CMAKE_SOURCE_DIR}/Bin"
+	COMMAND ${CMAKE_COMMAND} -E copy ${CMAKE_CURRENT_BINARY_DIR}/${target}${CMAKE_EXECUTABLE_SUFFIX} "${CMAKE_SOURCE_DIR}/Bin/x86"
 )
 
 ##################################################

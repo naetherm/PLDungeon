@@ -2,9 +2,15 @@
 
 
 --[-------------------------------------------------------]
+--[ Tell Lua were to find the required files              ]
+--[-------------------------------------------------------]
+package.path = package.path .. ';../Data/Scripts/Lua/?.lua'	-- The path used by "require" to search for a Lua loader
+
+
+--[-------------------------------------------------------]
 --[ Includes                                              ]
 --[-------------------------------------------------------]
-require("Data/Scripts/Lua/Application")	-- Application script component class
+require "Application"	-- Application script component class
 
 
 --[-------------------------------------------------------]
