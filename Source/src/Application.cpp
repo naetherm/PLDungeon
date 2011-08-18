@@ -234,15 +234,6 @@ void Application::UpdateMousePickingPullAnimation()
 //[-------------------------------------------------------]
 //[ Protected virtual PLCore::CoreApplication functions   ]
 //[-------------------------------------------------------]
-void Application::OnInitLog()
-{
-	// Sets the current directory to the path of the application executable
-	GetApplicationContext().ChangeIntoAppDirectory();
-
-	// Call base implementation
-	ScriptApplication::OnInitLog();
-}
-
 void Application::OnInit()
 {
 	// Call base implementation
@@ -263,10 +254,6 @@ void Application::OnInit()
 
 		// Load scene
 		if (!LoadScene(sSceneFilename)) {
-			// Present the user an sweet 'ERROR!!!'-message
-			// [TODO] PLGui
-			// pWindow->GetGui()->MessageBox("Error", "Failed to load the given scene, the program will terminate now.\nHave a look into the log for detailed information.");
-
 			// Set exit code to error
 			Exit(1);
 		}

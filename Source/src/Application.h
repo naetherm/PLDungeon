@@ -161,7 +161,6 @@ class Application : public PLEngine::ScriptApplication {
 	//[ Protected virtual PLCore::CoreApplication functions   ]
 	//[-------------------------------------------------------]
 	protected:
-		virtual void OnInitLog() override;
 		virtual void OnInit() override;
 		virtual void OnDeInit() override;
 
