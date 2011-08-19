@@ -95,10 +95,7 @@ void WindowMenu::OnDraw(Graphics &cGraphics)
 	cGraphics.DrawText(*m_pFontText,  (m_nSelected == COMMAND_MAKINGOF 	 ? m_cColorSelected : m_cColorText),  Color4::Transparent, Vector2i(30, nY), "Making of"); nY += m_nTextHeight;
 	nY += m_nTitleHeight;
 		// "Resolution", "Help", "Exit"
-	// [TODO] Linux: Currently, resolution and fullscreen mode change are not ready for productive use - so just don't offer this option within the GUI
-	#ifdef WIN32
-		cGraphics.DrawText(*m_pFontText,  (m_nSelected == COMMAND_RESOLUTION ? m_cColorSelected : m_cColorText),  Color4::Transparent, Vector2i(30, nY), "Resolution"); nY += m_nTextHeight;
-	#endif
+	cGraphics.DrawText(*m_pFontText,  (m_nSelected == COMMAND_RESOLUTION ? m_cColorSelected : m_cColorText),  Color4::Transparent, Vector2i(30, nY), "Resolution"); nY += m_nTextHeight;
 	cGraphics.DrawText(*m_pFontText,  (m_nSelected == COMMAND_HELP		 ? m_cColorSelected : m_cColorText),  Color4::Transparent, Vector2i(30, nY), "About"); nY += m_nTextHeight;
 	cGraphics.DrawText(*m_pFontText,  (m_nSelected == COMMAND_EXIT		 ? m_cColorSelected : m_cColorText),  Color4::Transparent, Vector2i(30, nY), "Exit"); nY += m_nTextHeight;
 	nY += m_nTitleHeight;
@@ -123,11 +120,8 @@ void WindowMenu::OnMouseMove(const Vector2i &vPos)
 	if (vPos.y >= nY && vPos.y < nY + static_cast<int>(m_nTextHeight))	m_nSelected = COMMAND_MAKINGOF;
 	nY += m_nTextHeight;
 	nY += m_nTextHeight;
-	// [TODO] Linux: Currently, resolution and fullscreen mode change are not ready for productive use - so just don't offer this option within the GUI
-	#ifdef WIN32
-		if (vPos.y >= nY && vPos.y < nY + static_cast<int>(m_nTextHeight))	m_nSelected = COMMAND_RESOLUTION;
-		nY += m_nTitleHeight;
-	#endif
+	if (vPos.y >= nY && vPos.y < nY + static_cast<int>(m_nTextHeight))	m_nSelected = COMMAND_RESOLUTION;
+	nY += m_nTitleHeight;
 	if (vPos.y >= nY && vPos.y < nY + static_cast<int>(m_nTextHeight))	m_nSelected = COMMAND_HELP;
 	nY += m_nTextHeight;
 	if (vPos.y >= nY && vPos.y < nY + static_cast<int>(m_nTextHeight))	m_nSelected = COMMAND_EXIT;

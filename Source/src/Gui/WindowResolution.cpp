@@ -29,7 +29,6 @@
 #include <PLGui/Widgets/Controls/Slider.h>
 #include <PLRenderer/RendererContext.h>
 #include <PLRenderer/Renderer/Renderer.h>
-// #include <PLEngine/Gui/RenderWindow.h>// [TODO]
 #include "Application.h"
 #include "Gui/WindowResolution.h"
 
@@ -88,10 +87,7 @@ WindowResolution::WindowResolution(Application *pApplication, Widget *pParent) :
 	if (m_pApplication->GetRendererContext()) {
 		Renderer &cRenderer = m_pApplication->GetRendererContext()->GetRenderer();
 
-		// [TODO] PLGui
 		// Get the display settings
-//		const int nDesktopBitsPerPixel		  = GetGui()->SystemGetDesktopSettings(PLGui::Gui::SettingBitsPerPixel);
-//		const int nDesktopVerticalRefreshRate = GetGui()->SystemGetDesktopSettings(PLGui::Gui::SettingVerticalRefreshRate);
 		const int nDesktopBitsPerPixel		  = 32;
 		const int nDesktopVerticalRefreshRate = 60;
 
@@ -165,17 +161,8 @@ void WindowResolution::OnDraw(Graphics &cGraphics)
 	uint32 nTextHeight = cGraphics.GetTextHeight(*m_pFont, sChangeMode);
 	cGraphics.DrawText(*m_pFont, (m_nSelectedButton == 1 ? m_cColorSelected : m_cColorText), Color4::Transparent, Vector2i(GetSize().x/4-m_nWidthButton1/2, 60+nTextHeight/2), sChangeMode);
 
-	// [TODO] PLFrontend update
-	bool bFullscreen = false;
-	/*
-	// Get current fullscreen mode
-	Widget *pWidget = m_pApplication->GetMainWindow();
-	if (pWidget && pWidget->IsInstanceOf("PLEngine::RenderWindow"))
-		bFullscreen = static_cast<RenderWindow*>(pWidget)->IsFullscreen();
-	*/
-
 	// Display fullscreen mode
-	String sFullscreen = (bFullscreen ? "Switch to window" : "Switch to fullscreen");
+	String sFullscreen = (m_pApplication->GetFrontend().IsFullscreen() ? "Switch to window" : "Switch to fullscreen");
 	m_nWidthButton2 = cGraphics.GetTextWidth(*m_pFont, sFullscreen);
 	nTextHeight = cGraphics.GetTextHeight(*m_pFont, sFullscreen);
 	cGraphics.DrawText(*m_pFont, (m_nSelectedButton == 2 ? m_cColorSelected : m_cColorText), Color4::Transparent, Vector2i(GetSize().x/4*3-m_nWidthButton2/2, 60+nTextHeight/2), sFullscreen);
@@ -211,19 +198,13 @@ void WindowResolution::OnMouseButtonDown(uint32 nButton, const Vector2i &vPos)
 {
 	if (nButton == 0 && m_nSelectedButton > 0) {
 		// Get selected display mode
-		int nIndex = m_pSlider->GetValue();
+		const int nIndex = m_pSlider->GetValue();
 		const DisplayMode *pDisplayMode = m_lstDisplayModes[nIndex];
 
 		// Change mode
 		if (pDisplayMode) {
 			// Get current fullscreen mode
-			bool bFullscreen = false;
-			// [TODO] PLFrontend update
-			/*
-			Widget *pWidget = m_pApplication->GetMainWindow();
-			if (pWidget && pWidget->IsInstanceOf("PLEngine::RenderWindow"))
-				bFullscreen = static_cast<RenderWindow*>(pWidget)->IsFullscreen();
-			*/
+			const bool bFullscreen = m_pApplication->GetFrontend().IsFullscreen();
 
 			// Call ResolutionChanged-signal
 			SignalResolutionChanged(pDisplayMode, (m_nSelectedButton == 2 ? !bFullscreen : bFullscreen));

@@ -26,8 +26,9 @@
 #include <PLCore/Tools/Timing.h>
 #include <PLGui/Gui/Gui.h>
 #include <PLGui/Gui/Screen.h>
+#include <PLGui/Widgets/Windows/Window.h>
+#include <PLRenderer/Renderer/Types.h>
 #include <PLScene/Scene/SceneContainer.h>
-//#include <PLEngine/Gui/RenderWindow.h>	// [TODO]
 #include <PLFrontendPLGui/Compositing/SNGui.h>
 #include "Application.h"
 #include "Gui/WindowMenu.h"
@@ -73,7 +74,6 @@ IngameGui::IngameGui(Application &cApplication) :
 	m_pText(nullptr),
 	m_pResolution(nullptr)
 {
-	/*
 	// Get scene container
 	SceneContainer *pSceneContainer = m_pApplication->GetRootScene();
 	if (pSceneContainer) {
@@ -117,7 +117,7 @@ IngameGui::IngameGui(Application &cApplication) :
 			}
 		}
 	}
-	*/
+
 	// [TODO] PLFrontend update
 	/*
 	// Get the main window
@@ -229,7 +229,7 @@ void IngameGui::ShowHelpText(const String &sName)
 		m_pResolution->SetBlend(false);
 
 		// Load help text
-		m_pText->Load("Data/HelpTexts/" + sName + ".xml");
+		m_pText->Load("../Data/HelpTexts/" + sName + ".xml");
 
 		// Show help text
 		m_pText->SetBlend(true);
@@ -313,34 +313,34 @@ void IngameGui::OnMenu(int nCommand)
 */
 void IngameGui::OnResolution(const DisplayMode *pMode, bool bFullscreen)
 {
-	// [TODO] PLFrontend update
-	/*
-	// Get main frame
-	RenderWindow *pFrame = static_cast<RenderWindow*>(m_pApplication->GetMainWindow());
-	if (pFrame) {
-		// Fullscreen mode change?
-		if (pFrame->IsFullscreen() != bFullscreen) {
-			// Set new fullscreen mode state, changes other display mode settings on the fly, too
-			pFrame->SetFullscreen(bFullscreen);
-		} else {
-			// Set new display mode
-			pFrame->SetDisplayMode(*pMode);
-		}
+	// Get the frontend instance
+	Frontend &cFrontend = m_pApplication->GetFrontend();
 
-		{ // Update the configuration
-			// Write fullscreen state back to the configuration
-			m_pApplication->GetConfig().SetVar("PLEngine::RendererConfig", "Fullscreen", bFullscreen);
+	// Fullscreen mode change?
+	if (cFrontend.IsFullscreen() != bFullscreen) {
+		// Set new fullscreen mode state, changes other display mode settings on the fly, too
+		cFrontend.SetFullscreen(bFullscreen);
+	} else {
+		// Set new display mode
+		// [TODO] PLFrontend update
+//		cFrontend.SetDisplayMode(*pMode);
+	}
 
-			// Write down display mode information
-			if (pMode) {
-				m_pApplication->GetConfig().SetVar("PLEngine::RendererConfig", "DisplayWidth",     pMode->vSize.x);
-				m_pApplication->GetConfig().SetVar("PLEngine::RendererConfig", "DisplayHeight",    pMode->vSize.y);
-				m_pApplication->GetConfig().SetVar("PLEngine::RendererConfig", "DisplayColorBits", pMode->nColorBits);
-				m_pApplication->GetConfig().SetVar("PLEngine::RendererConfig", "DisplayFrequency", pMode->nFrequency);
-			}
+	{ // Update the configuration
+		// Get the config instance
+		Config &cConfig = m_pApplication->GetConfig();
+
+		// Write fullscreen state back to the configuration
+		cConfig.SetVar("PLEngine::RendererConfig", "Fullscreen", bFullscreen);
+
+		// Write down display mode information
+		if (pMode) {
+			cConfig.SetVar("PLEngine::RendererConfig", "DisplayWidth",     pMode->vSize.x);
+			cConfig.SetVar("PLEngine::RendererConfig", "DisplayHeight",    pMode->vSize.y);
+			cConfig.SetVar("PLEngine::RendererConfig", "DisplayColorBits", pMode->nColorBits);
+			cConfig.SetVar("PLEngine::RendererConfig", "DisplayFrequency", pMode->nFrequency);
 		}
 	}
-	*/
 }
 
 /**
