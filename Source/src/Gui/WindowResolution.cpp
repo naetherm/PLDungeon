@@ -228,8 +228,8 @@ void WindowResolution::OnSetBlend(bool bBlend)
 
 		// Get current display mode
 		PLCore::Config &cConfig = m_pApplication->GetConfig();
-		const uint32 nCurrentDisplayWidth  = cConfig.GetVarInt("PLEngine::RendererConfig", "DisplayWidth");
-		const uint32 nCurrentDisplayHeight = cConfig.GetVarInt("PLEngine::RendererConfig", "DisplayHeight");
+		const uint32 nCurrentDisplayWidth  = cConfig.GetVarInt("PLRenderer::Config", "DisplayWidth");
+		const uint32 nCurrentDisplayHeight = cConfig.GetVarInt("PLRenderer::Config", "DisplayHeight");
 
 		// Get the index of the currently selected display mode
 		uint32 nIndex = 0;

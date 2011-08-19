@@ -316,30 +316,29 @@ void IngameGui::OnResolution(const DisplayMode *pMode, bool bFullscreen)
 	// Get the frontend instance
 	Frontend &cFrontend = m_pApplication->GetFrontend();
 
+	{ // Update the configuration
+		// Get the config instance
+		Config &cConfig = m_pApplication->GetConfig();
+
+		// Write fullscreen state back to the configuration
+		cConfig.SetVar("PLRenderer::Config", "Fullscreen", bFullscreen);
+
+		// Write down display mode information
+		if (pMode) {
+			cConfig.SetVar("PLRenderer::Config", "DisplayWidth",     pMode->vSize.x);
+			cConfig.SetVar("PLRenderer::Config", "DisplayHeight",    pMode->vSize.y);
+			cConfig.SetVar("PLRenderer::Config", "DisplayColorBits", pMode->nColorBits);
+			cConfig.SetVar("PLRenderer::Config", "DisplayFrequency", pMode->nFrequency);
+		}
+	}
+
 	// Fullscreen mode change?
 	if (cFrontend.IsFullscreen() != bFullscreen) {
 		// Set new fullscreen mode state, changes other display mode settings on the fly, too
 		cFrontend.SetFullscreen(bFullscreen);
 	} else {
 		// Set new display mode
-		// [TODO] PLFrontend update
-//		cFrontend.SetDisplayMode(*pMode);
-	}
-
-	{ // Update the configuration
-		// Get the config instance
-		Config &cConfig = m_pApplication->GetConfig();
-
-		// Write fullscreen state back to the configuration
-		cConfig.SetVar("PLEngine::RendererConfig", "Fullscreen", bFullscreen);
-
-		// Write down display mode information
-		if (pMode) {
-			cConfig.SetVar("PLEngine::RendererConfig", "DisplayWidth",     pMode->vSize.x);
-			cConfig.SetVar("PLEngine::RendererConfig", "DisplayHeight",    pMode->vSize.y);
-			cConfig.SetVar("PLEngine::RendererConfig", "DisplayColorBits", pMode->nColorBits);
-			cConfig.SetVar("PLEngine::RendererConfig", "DisplayFrequency", pMode->nFrequency);
-		}
+		cFrontend.RefreshFullscreen();
 	}
 }
 
