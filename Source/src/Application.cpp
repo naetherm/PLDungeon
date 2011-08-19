@@ -42,7 +42,6 @@
 #include <PLScene/Scene/SceneNodeModifier.h>
 #include <PLPhysics/Body.h>
 #include <PLPhysics/SceneNodeModifiers/SNMPhysicsBodyBox.h>
-//#include <PLEngine/Gui/RenderWindow.h> // [TODO]
 #include <PLEngine/Compositing/Console/SNConsoleBase.h>
 #include <PLEngine/Controller/SNPhysicsMouseInteraction.h>
 #include "Application.h"
@@ -74,10 +73,8 @@ pl_implement_class(Application)
 *    Constructor
 */
 Application::Application(Frontend &cFrontend) : ScriptApplication(cFrontend, "Data/Scripts/Lua/Main.lua", "Dungeon", PLT("PixelLight dungeon demo"), System::GetInstance()->GetDataDirName("PixelLight")),
-	SlotOnLoadProgress(this),
 	m_pIngameGui(nullptr),
 	m_pCamcorder(new Camcorder(*this)),
-	m_fLoadProgress(0.0f),
 	m_fMousePickingPullAnimation(0.0f)
 {
 	// The demo is published as a simple archive, so, put the log and configuration files in the same directory the executable is
@@ -167,21 +164,6 @@ Camcorder &Application::GetCamcorder() const
 //[-------------------------------------------------------]
 /**
 *  @brief
-*    Called on load progress
-*/
-void Application::OnLoadProgress(float fLoadProgress)
-{
-	// Time for an update?
-	if ((fLoadProgress-m_fLoadProgress) >= 0.01f) {
-		m_fLoadProgress = fLoadProgress;
-
-		// Redraw & ping the frontend
-		GetFrontend().RedrawAndPing();
-	}
-}
-
-/**
-*  @brief
 *    Updates the mouse picking pull animation
 */
 void Application::UpdateMousePickingPullAnimation()
@@ -191,7 +173,7 @@ void Application::UpdateMousePickingPullAnimation()
 
 	// Update the mouse picking pull animation
 	m_fMousePickingPullAnimation += fTimeDiff*5;
-	/*
+
 	// Get the scene
 	SceneContainer *pSceneContainer = GetScene();
 	if (pSceneContainer) {
@@ -211,14 +193,9 @@ void Application::UpdateMousePickingPullAnimation()
 					if (!pSceneNodeModifier)
 						pSceneNodeModifier = pCameraSceneNode->AddModifier("PLPostProcessEffects::SNMPostProcessPull");
 					if (pSceneNodeModifier) {
-						// [TODO] PLFrontend update
-						// Get the main window of the application
-						Widget *pWidget = GetMainWindow();
-						if (pWidget && pWidget->GetContentWidget()) {
-							pSceneNodeModifier->SetAttribute("WarpPoint",	  String::Format("%d %d", vMousePos.x, pWidget->GetContentWidget()->GetSize().y-vMousePos.y));
-							pSceneNodeModifier->SetAttribute("WarpScale",	  -5.0f  + Math::Sin(m_fMousePickingPullAnimation)*Math::Cos(m_fMousePickingPullAnimation/4)*10.0f);
-							pSceneNodeModifier->SetAttribute("WarpDimension", 150.0f + Math::Cos(m_fMousePickingPullAnimation)*Math::Sin(m_fMousePickingPullAnimation/6)*60.0f);
-						}
+						pSceneNodeModifier->SetAttribute("WarpPoint",	  String::Format("%d %d", vMousePos.x, GetFrontend().GetHeight()-vMousePos.y));
+						pSceneNodeModifier->SetAttribute("WarpScale",	  -5.0f  + Math::Sin(m_fMousePickingPullAnimation)*Math::Cos(m_fMousePickingPullAnimation/4)*10.0f);
+						pSceneNodeModifier->SetAttribute("WarpDimension", 150.0f + Math::Cos(m_fMousePickingPullAnimation)*Math::Sin(m_fMousePickingPullAnimation/6)*60.0f);
 					}
 				} else {
 					// Remove "PLPostProcessEffects::SNMPostProcessPull" modifier
@@ -227,7 +204,6 @@ void Application::UpdateMousePickingPullAnimation()
 			}
 		}
 	}
-	*/
 }
 
 
@@ -300,10 +276,6 @@ void Application::OnCreateRootScene()
 				// Protect this important container!
 				pSceneContainer->SetProtected(true);
 
-				// Connect event handler
-				if (pSceneContainerNode->IsInstanceOf("PLScene::SceneContainer"))
-					static_cast<SceneContainer*>(pSceneContainerNode)->SignalLoadProgress.Connect(SlotOnLoadProgress);
-
 				// Create the 'concrete scene'
 				OnCreateScene(*pSceneContainer);
 			}
@@ -341,9 +313,6 @@ void Application::OnCreateRootScene()
 //[-------------------------------------------------------]
 bool Application::LoadScene(const String &sFilename)
 {
-	// Reset the current load progress
-	m_fLoadProgress = 0.0f;
-
 	// Call base implementation
 	const bool bResult = ScriptApplication::LoadScene(sFilename);
 

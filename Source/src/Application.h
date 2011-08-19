@@ -67,8 +67,6 @@ class Application : public PLEngine::ScriptApplication {
 		pl_method_0(UpdateMousePickingPullAnimation,	pl_ret_type(void),					"Updates the mouse picking pull animation",																																																"")
 		// Signals
 		pl_signal_2(SignalSetMode,	PLCore::uint32,	bool,	"Signal indicating that a new interaction mode has been chosen, mode index as first parameter(0 = Walk mode, 1 = Free mode, 2 = Ghost mode, 3 = Movie mode, 4 = Making of mode), 'true' as second parameter to show mode changed text",	"")
-		// Slots
-		pl_slot_1(OnLoadProgress,	float,	"Called on load progress, load progress (0.0-1.0) as first parameter",	"")
 	pl_class_end
 
 
@@ -143,15 +141,6 @@ class Application : public PLEngine::ScriptApplication {
 	private:
 		/**
 		*  @brief
-		*    Called on load progress
-		*
-		*  @param[in] fLoadProgress
-		*    Load progress (0.0-1.0)
-		*/
-		void OnLoadProgress(float fLoadProgress);
-
-		/**
-		*  @brief
 		*    Updates the mouse picking pull animation
 		*/
 		void UpdateMousePickingPullAnimation();
@@ -192,7 +181,6 @@ class Application : public PLEngine::ScriptApplication {
 	private:
 		IngameGui			*m_pIngameGui;					/**< Ingame GUI interaction component instance, always valid! */
 		PLEngine::Camcorder	*m_pCamcorder;					/**< Camcorder interaction component instance, always valid! */
-		float				 m_fLoadProgress;				/**< Load progress */
 		float				 m_fMousePickingPullAnimation;	/**< Mouse picking pull animation */
 
 

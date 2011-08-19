@@ -25,6 +25,7 @@ Application = {
 		--[-------------------------------------------------------]
 		local this 			= {}									-- A private class attribute -> Emulates the C++ "this"-pointer by using a Lua table
 		local _interaction 	= Interaction.new(cppApplication, this)	-- An instance of the interaction script component class
+		local _loadProgress = 0										-- Current load progress (0.0-1.0)
 
 
 		--[-------------------------------------------------------]
@@ -140,6 +141,21 @@ Application = {
 		end
 
 		--@brief
+		--  Called on load progress
+		--
+		--@param[in] progress
+		--  Load progress (0.0-1.0)
+		function this.OnLoadProgress(progress)
+			-- Time for an update? (we don't want to redraw & ping the frontend each time a single tiny scene node was loaded *performance*)
+			if (progress - _loadProgress) >= 0.01 then
+				_loadProgress = progress;
+
+				-- Redraw & ping the frontend
+				cppApplication:GetFrontend():RedrawAndPing()
+			end
+		end
+
+		--@brief
 		--  Slot function is called by C++ after a scene has been loaded
 		function this.OnSceneLoadingFinished()
 			-- Configurate the scene renderer
@@ -225,6 +241,9 @@ Application = {
 
 		-- Use the script function "OnSceneLoadingFinished" as slot and connect it with the RTTI "SignalSceneLoadingFinished"-signal of our RTTI application class instance
 		cppApplication.SignalSceneLoadingFinished.Connect(this.OnSceneLoadingFinished)
+
+		-- Use the script function "OnLoadProgress" as slot and connect it with the RTTI "SignalLoadProgress"-signal of our RTTI scene container class instance
+		cppApplication:GetScene().SignalLoadProgress.Connect(this.OnLoadProgress)
 
 
 		-- Return the created class instance
