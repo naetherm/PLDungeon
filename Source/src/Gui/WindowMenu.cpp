@@ -165,6 +165,9 @@ void WindowMenu::OnBlend(float fBlend)
 	// Update position and transparency
 	SetPos(Vector2i(static_cast<int>((fBlend-1.0f)*GetSize().x), GetPos().y));
 	SetTransparency(AlphaTransparency, Color4(0.0f, 0.0f, 0.0f, fBlend));
+
+	// Show/hide the widget depending on the blend state
+	SetVisible(fBlend > 0.0f);
 }
 
 

@@ -95,7 +95,6 @@ IngameGui::IngameGui(Application &cApplication) :
 				m_pMenu = new WindowMenu(m_pIngameGui->GetRootWidget());
 				m_pMenu->SetPos(Vector2i(-200, 99));
 				m_pMenu->SetSize(Vector2i(160, 570));
-				m_pMenu->SetVisible(true);
 				m_pMenu->SetBlend(false);
 
 				// Create XmlText window
@@ -103,13 +102,11 @@ IngameGui::IngameGui(Application &cApplication) :
 				m_pText->SetBackgroundColor(Color4::Transparent);
 				m_pText->SetPos(Vector2i(1030, 100));
 				m_pText->SetSize(Vector2i(825, 570));
-				m_pText->SetVisible(true);
 
 				// Create resolution window
 				m_pResolution = new WindowResolution(m_pApplication, m_pIngameGui->GetRootWidget());
 				m_pResolution->SetPos(Vector2i(220, 345));
 				m_pResolution->SetSize(Vector2i(m_pIngameGui->GetDefaultScreen()->GetSize().x - 240, 100));
-				m_pResolution->SetVisible(false);
 
 				// Connect signals
 				m_pMenu->SignalCommand.Connect(SlotOnMenu);

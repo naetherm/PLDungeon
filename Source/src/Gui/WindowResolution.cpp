@@ -259,6 +259,8 @@ void WindowResolution::OnBlend(float fBlend)
 {
 	// Set blending
 	SetTransparency(AlphaTransparency, Color4(0.0f, 0.0f, 0.0f, fBlend));
+
+	// Show/hide the widget depending on the blend state
 	SetVisible(fBlend > 0.0f);
 }
 

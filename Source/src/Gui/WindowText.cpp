@@ -93,6 +93,9 @@ void WindowText::OnBlend(float fBlend)
 		SetPos(Vector2i(pScreen->GetSize().x - static_cast<int>(fBlend*GetSize().x), (pScreen->GetSize().y-GetSize().y)/2));
 		SetTransparency(PLGui::AlphaTransparency, Color4(0.0f, 0.0f, 0.0f, fBlend));
 	}
+
+	// Show/hide the widget depending on the blend state
+	SetVisible(fBlend > 0.0f);
 }
 
 
