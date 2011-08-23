@@ -71,10 +71,9 @@ class IngameGui : public PLCore::Object {
 		pl_method_1(ShowMenu,		pl_ret_type(void),	bool,					"Shows/hides the menu, 'true' as first parameter to show the menu, else 'false'",											"")
 		pl_method_1(ShowHelpText,	pl_ret_type(void),	const PLCore::String&,	"Display a help text window, name of help text (\"name.xml\" is loaded, \"\" to hide the help text) as first parameter",	"")
 		// Slots
-		pl_slot_1(OnMenu,		int,													"Called when a menu item has been selected, selected menu item as first parameter",												"")
-		pl_slot_2(OnResolution,	const PLRenderer::DisplayMode*,	bool,					"Called when the resolution slider was changed, new display mode as first parameter, new fullscreen mode as second parameter",	"")
-		pl_slot_0(OnFocus,																"Called when an ingame window has got the focus",																				"")
-		pl_slot_2(OnMouseDown,	PLCore::uint32,				const PLMath::Vector2i&,	"Called when a mouse button was pressed, mouse button as first parameter, mouse position as second parameter",					"")
+		pl_slot_1(OnMenu,				int,														"Called when a menu item has been selected, selected menu item as first parameter",												"")
+		pl_slot_2(OnResolution,			const PLRenderer::DisplayMode*,	bool,						"Called when the resolution slider was changed, new display mode as first parameter, new fullscreen mode as second parameter",	"")
+		pl_slot_2(OnMouseButtonDown,	PLCore::uint32,					const PLMath::Vector2i&,	"Mouse button is pressed, mouse button and mouse position within the widget as parameters",										"")
 	pl_class_end
 
 
@@ -181,20 +180,14 @@ class IngameGui : public PLCore::Object {
 
 		/**
 		*  @brief
-		*    Called when an ingame window has got the focus
-		*/
-		void OnFocus();
-
-		/**
-		*  @brief
-		*    Called when a mouse button was pressed
+		*    Called when a mouse button is pressed
 		*
 		*  @param[in] nButton
-		*    Mouse button
+		*    Mouse button that is pressed
 		*  @param[in] vPos
-		*    Mouse position
+		*    Mouse position within the widget
 		*/
-		void OnMouseDown(PLCore::uint32 nButton, const PLMath::Vector2i &vPos);
+		void OnMouseButtonDown(PLCore::uint32 nButton, const PLMath::Vector2i &vPos);
 
 
 	//[-------------------------------------------------------]
@@ -203,7 +196,6 @@ class IngameGui : public PLCore::Object {
 	private:
 		Application			*m_pApplication;	/**< Owner application, always valid! */
 		PLGui::Gui			*m_pIngameGui;		/**< Ingame GUI */
-		PLGui::Widget		*m_pFocusWindow;	/**< Window that holds the focus */
 		WindowMenu			*m_pMenu;			/**< Main menu */
 		WindowText			*m_pText;			/**< Text window */
 		WindowResolution	*m_pResolution;		/**< Resolution options */

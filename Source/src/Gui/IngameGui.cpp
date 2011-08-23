@@ -26,7 +26,6 @@
 #include <PLCore/Tools/Timing.h>
 #include <PLGui/Gui/Gui.h>
 #include <PLGui/Gui/Screen.h>
-#include <PLGui/Widgets/Windows/Window.h>
 #include <PLRenderer/Renderer/Types.h>
 #include <PLScene/Scene/SceneContainer.h>
 #include <PLFrontendPLGui/Compositing/SNGui.h>
@@ -66,8 +65,7 @@ pl_implement_class(IngameGui)
 IngameGui::IngameGui(Application &cApplication) :
 	SlotOnMenu(this),
 	SlotOnResolution(this),
-	SlotOnFocus(this),
-	SlotOnMouseDown(this),
+	SlotOnMouseButtonDown(this),
 	m_pApplication(&cApplication),
 	m_pIngameGui(nullptr),
 	m_pMenu(nullptr),
@@ -85,26 +83,27 @@ IngameGui::IngameGui(Application &cApplication) :
 				// Setup ingame GUI
 				m_pIngameGui->SetMouseVisible(false);
 
-				// Create a window that holds the focus
-				m_pFocusWindow = new Window(m_pIngameGui->GetRootWidget());
-				m_pFocusWindow->SetVisible(false);
-				m_pFocusWindow->SetFocus();
-				m_pFocusWindow->SignalLooseFocus.Connect(SlotOnFocus);
+				// Create the root widget
+				Widget *pRoot = new Widget(m_pIngameGui->GetRootWidget());
+				pRoot->SetBackgroundColor(Color4::Transparent);
+				pRoot->SetSize(m_pIngameGui->GetDefaultScreen()->GetSize());
+				pRoot->SignalMouseButtonDown.Connect(SlotOnMouseButtonDown);
+				pRoot->SetVisible(true);
 
 				// Create menu window
-				m_pMenu = new WindowMenu(m_pIngameGui->GetRootWidget());
+				m_pMenu = new WindowMenu(pRoot);
 				m_pMenu->SetPos(Vector2i(-200, 99));
 				m_pMenu->SetSize(Vector2i(160, 570));
 				m_pMenu->SetBlend(false);
 
 				// Create XmlText window
-				m_pText = new WindowText(m_pIngameGui->GetRootWidget());
+				m_pText = new WindowText(pRoot);
 				m_pText->SetBackgroundColor(Color4::Transparent);
 				m_pText->SetPos(Vector2i(1030, 100));
 				m_pText->SetSize(Vector2i(825, 570));
 
 				// Create resolution window
-				m_pResolution = new WindowResolution(m_pApplication, m_pIngameGui->GetRootWidget());
+				m_pResolution = new WindowResolution(m_pApplication, pRoot);
 				m_pResolution->SetPos(Vector2i(220, 345));
 				m_pResolution->SetSize(Vector2i(m_pIngameGui->GetDefaultScreen()->GetSize().x - 240, 100));
 
@@ -114,19 +113,6 @@ IngameGui::IngameGui(Application &cApplication) :
 			}
 		}
 	}
-
-	// [TODO] PLFrontend update
-	/*
-	// Get the main window
-	Widget *pWidget = m_pApplication->GetMainWindow();
-	if (pWidget) {
-		// We're working within the inner part of the window
-		Widget *pContentWidget = pWidget->GetContentWidget();
-
-		// Connect event handler
-		pContentWidget->SignalMouseButtonDown.Connect(SlotOnMouseDown);
-	}
-	*/
 }
 
 /**
@@ -222,7 +208,7 @@ void IngameGui::ShowHelpText(const String &sName)
 {
 	// Show or hide window?
 	if (sName.GetLength()) {
-		// Hide windows
+		// Hide resolution
 		m_pResolution->SetBlend(false);
 
 		// Load help text
@@ -288,6 +274,9 @@ void IngameGui::OnMenu(int nCommand)
 			break;
 
 		case WindowMenu::COMMAND_RESOLUTION:
+			// Hide help text
+			m_pText->SetBlend(false);
+
 			// Adjust resolution
 			m_pResolution->SetBlend(!m_pResolution->GetBlend());
 			break;
@@ -341,24 +330,10 @@ void IngameGui::OnResolution(const DisplayMode *pMode, bool bFullscreen)
 
 /**
 *  @brief
-*    Called when an ingame window has got the focus
+*    Called when a mouse button is pressed
 */
-void IngameGui::OnFocus()
+void IngameGui::OnMouseButtonDown(uint32 nButton, const Vector2i &vPos)
 {
-	// Reset focus to our dummy
-	m_pFocusWindow->SetFocus();
-}
-
-/**
-*  @brief
-*    Called when a mouse button was pressed
-*/
-void IngameGui::OnMouseDown(uint32 nButton, const Vector2i &vPos)
-{
-	// Left mouse button
-	if (nButton == 0) {
-		// Close help text
-		if (m_pText->GetBlend())
-			ShowHelpText("");
-	}
+	// Hide all GUI elements
+	Hide();
 }
