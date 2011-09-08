@@ -236,6 +236,23 @@ endif()
 if(WIN32)
 	include(${CMAKE_SOURCE_DIR}/cmake/Platforms/WindowsMSVC.cmake)
 elseif(LINUX)
-	include(${CMAKE_SOURCE_DIR}/cmake/Platforms/LinuxGCC.cmake)
-endif()
+	# Common settings
+	include(${CMAKE_SOURCE_DIR}/cmake/Platforms/LinuxCommon.cmake)
 
+	# Android NDK ("CMAKE_CXX_COMPILER_ID" matches also "GNU", so this test must come first)
+	if(ANDROID)
+		include(${CMAKE_SOURCE_DIR}/cmake/Platforms/LinuxNDK.cmake)
+
+	# GCC
+	elseif("${CMAKE_CXX_COMPILER_ID}" MATCHES "GNU")
+		include(${CMAKE_SOURCE_DIR}/cmake/Platforms/LinuxGCC.cmake)
+
+	# Clang
+	elseif("${CMAKE_CXX_COMPILER_ID}" MATCHES "Clang")
+		include(${CMAKE_SOURCE_DIR}/cmake/Platforms/LinuxClang.cmake)
+
+	# ?
+	else()
+		message(FATAL_ERROR "Unsupported compiler, use GNU, Clang or NDK")
+	endif()
+endif()
