@@ -317,7 +317,7 @@ Interaction = {
 			-- Lua does not support switch/case statements, so we just use a Lua table (using if/else in here would be somewhat extreme)
 			local action = {
 				-- Toggle menu visibility
-				["Escape"] = function()
+				["KeyboardEscape"] = function()
 					-- Was the button just hit?
 					if control:IsHit() then
 						-- Get the ingame GUI component
@@ -339,7 +339,7 @@ Interaction = {
 				end,
 
 				-- Walk mode
-				["1"] = function()
+				["Keyboard1"] = function()
 					-- Was the button just hit?
 					if control:IsHit() then
 						this.OnSetMode(Interaction.Mode.WALK, true)
@@ -347,7 +347,7 @@ Interaction = {
 				end,
 
 				-- Free mode
-				["2"] = function()
+				["Keyboard2"] = function()
 					-- Was the button just hit?
 					if control:IsHit() then
 						this.OnSetMode(Interaction.Mode.FREE, true)
@@ -355,7 +355,7 @@ Interaction = {
 				end,
 
 				-- Ghost mode
-				["3"] = function()
+				["Keyboard3"] = function()
 					-- Was the button just hit?
 					if control:IsHit() then
 						this.OnSetMode(Interaction.Mode.GHOST, true)
@@ -363,7 +363,7 @@ Interaction = {
 				end,
 
 				-- Movie mode
-				["4"] = function()
+				["Keyboard4"] = function()
 					-- Was the button just hit?
 					if control:IsHit() then
 						this.OnSetMode(Interaction.Mode.MOVIE, true)
@@ -371,7 +371,7 @@ Interaction = {
 				end,
 
 				-- Making of mode
-				["5"] = function()
+				["Keyboard5"] = function()
 					-- Was the button just hit?
 					if control:IsHit() then
 						this.OnSetMode(Interaction.Mode.MAKINGOF, true)
@@ -379,7 +379,7 @@ Interaction = {
 				end,
 
 				-- Make a screenshot from the current render target
-				["F12"] = function()
+				["KeyboardF12"] = function()
 					-- Was the button just hit?
 					if control:IsHit() then
 						cppApplication:GetScreenshotTool():SaveScreenshot(cppApplication:GetScreenshotTool():GetScreenshotFilename("jpg"))
@@ -387,7 +387,7 @@ Interaction = {
 				end,
 
 				-- Toggle camcorder recording
-				["R"] = function()
+				["KeyboardR"] = function()
 					-- Was the button just hit? This key is only allowed in the internal release as well as only if not movie nor making of mode...
 					if control:IsHit() and cppApplication:IsInternalRelease() and _mode ~= Interaction.Mode.MOVIE and _mode ~= Interaction.Mode.MAKINGOF then
 						-- Get the camcorder component
@@ -403,7 +403,7 @@ Interaction = {
 				end,
 
 				-- Toggle camcorder playback
-				["P"] = function()
+				["KeyboardP"] = function()
 					-- Was the button just hit? This key is only allowed in the internal release as well as only if not movie nor making of mode...
 					if control:IsHit() and cppApplication:IsInternalRelease() and _mode ~= Interaction.Mode.MOVIE and _mode ~= Interaction.Mode.MAKINGOF then
 						-- Get the camcorder component
