@@ -1,4 +1,4 @@
-PixelLight dungeon demo 1.3
+PixelLight dungeon demo 1.4
 	Copyright © 2002-2011 by The PixelLight Team
 
 
@@ -59,16 +59,11 @@ Sounds from
 
 
 == Versions ==
-- 1.0
-	- Initial release
-- 1.1	
-	- Added Imrod model (http://www.parkparkin.com/personal_art/imrod.htm) by Dmitry Parkin (http://www.parkparkin.com)
-	- Usage of LATC2 and LATC1 high quality normal map and luminance map compression
-	- Added blur post process effect when the ingame GUI is visible
-	- Added pull post process effect when using the mouse to interact with physics objects
-	- Added old film post process effect blended in at certain parts of the scene
-	- Performance improvements
-- 1.2
+- 1.4 (not yet released)
+	- Using PixelLight 0.9.9-R1
+- 1.3 (released on 22 June 2011)
+	- The application logic is now implemented within the Lua script language (see "Data/Scripts/Lua"-directory)
+- 1.2 (released on 05 April 2011)
 	- Mesh optimizations
 	- Performance improvements
 	- Added more scene decoration
@@ -80,11 +75,18 @@ Sounds from
 	- The dungeon demo has now own options within "Dungeon.cfg"
 	- Fixed some problems with the GLSL shaders when using a NVIDIA graphics card
 	- Added cave with heavy demon model from Nick Zuccarello (http://www.sharecg.com/v/49629/browse/5/3D-Model/UDK-HeavyDemon-Static/Skeletal-Mesh-Example-Files) and plant models from "Irishlostboy" (http://www.sharecg.com/v/7317/gallery/5/3D-Model/foliage-pack-01)
-- 1.3
-	- The application logic is now implemented within the Lua script language (see "Data/Scripts/Lua"-directory)
+- 1.1 (released on 02 December 2010)
+	- Added Imrod model (http://www.parkparkin.com/personal_art/imrod.htm) by Dmitry Parkin (http://www.parkparkin.com)
+	- Usage of LATC2 and LATC1 high quality normal map and luminance map compression
+	- Added blur post process effect when the ingame GUI is visible
+	- Added pull post process effect when using the mouse to interact with physics objects
+	- Added old film post process effect blended in at certain parts of the scene
+	- Performance improvements
+- 1.0 (released on August 23, 2010 - together with the first public PixelLight release)
+	- Initial release
 
 
-== PixelLight core team ==
+== PixelLight Founders ==
 - Stefan Buschmann (sbusch, [SB], s.buschmann@pixellight.org, http://www.game-coder.de) - Lead developer and Admin
 - Christian Ofenberg (cofenberg, [CO], c.ofenberg@pixellight.org, http://www.ablazespace.de) - Lead developer and assisting artist
 - Jens Dörholt (j.doerholt@pixellight.org, http://www.3dimensionen.de) - Lead artist
