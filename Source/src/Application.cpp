@@ -212,6 +212,9 @@ void Application::UpdateMousePickingPullAnimation()
 //[-------------------------------------------------------]
 void Application::OnInit()
 {
+	// To be on the safe-side: Make the executable directory to the current directory
+	GetApplicationContext().ChangeIntoAppDirectory();
+
 	// Call base implementation
 	ScriptApplication::OnInit();
 
