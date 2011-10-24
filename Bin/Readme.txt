@@ -59,7 +59,7 @@ Sounds from
 
 
 == Versions ==
-- 1.4 (not yet released)
+- 1.4 (released on October 23, 2011)
 	- Using PixelLight 0.9.9-R1
 - 1.3 (released on 22 June 2011)
 	- The application logic is now implemented within the Lua script language (see "Data/Scripts/Lua"-directory)
