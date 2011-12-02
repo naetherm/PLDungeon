@@ -59,6 +59,9 @@ Sounds from
 
 
 == Versions ==
+- 1.5 (not yet released)
+	- Using PixelLight 0.9.10-R1
+	- The camera no longer spins around when reaching maximum up/down look
 - 1.4 (released on October 23, 2011)
 	- Using PixelLight 0.9.9-R1
 - 1.3 (released on 22 June 2011)

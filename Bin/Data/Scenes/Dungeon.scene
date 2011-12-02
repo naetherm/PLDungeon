@@ -15,8 +15,7 @@
     <Container Class="PLPhysics::SCPhysicsWorld" Name="Container" Flags="CastShadow" CacheDirectory="../_Cache/PLPhysicsNewton">
         <Container Class="PLScene::SCCell" Name="kanal6" Position="25.331247 -2.872280 9.676379" Flags="CastShadow">
             <Node Class="PLScene::SNCamera" Name="FreeCamera3" Position="1.034378 0.898957 0.436414" Rotation="22.230949 -9.269333 2.497507" FOV="58.852940" ZNear="0.100000" ZFar="50.000000">
-                <Modifier Class="PLEngine::SNMLookController" />
-                <Modifier Class="PLScene::SNMRotationFixRoll" />
+                <Modifier Class="PLEngine::SNMEgoLookController" />
                 <Modifier Class="PLEngine::SNMMoveController" />
             </Node>
             <Node Class="PLScene::SNMesh" Name="Tunnel7" Mesh="Data\Meshes\Dungeon\kanal6_Tunnel7.mesh" Position="-2.212967 0.091500 -1.334941" Rotation="0.000000 -30.153233 0.000000" Flags="CastShadow|ReceiveShadow">
@@ -668,8 +667,7 @@
             </Node>
             <Node Class="PLScene::SNPointLight" Name="DarkRedLight01" Position="-15.886187 2.362212 4.911551" Rotation="0.000000 -0.000017 0.000000" Flags="CastShadow|ReceiveShadow" Color="0.054902 0.258824 0.596078" Range="4.039580" />
             <Node Class="PLScene::SNCamera" Name="FreeCamera" Position="3.120754 1.695093 4.174544" Rotation="17.917210 -27.341093 7.382158" FOV="58.853085" ZNear="0.100000" ZFar="50.000000">
-                <Modifier Class="PLEngine::SNMLookController" />
-                <Modifier Class="PLScene::SNMRotationFixRoll" />
+                <Modifier Class="PLEngine::SNMEgoLookController" />
                 <Modifier Class="PLEngine::SNMMoveController" />
             </Node>
             <Node Class="PLScene::SNMesh" Name="DoorWoodMetal01" Mesh="Data\Meshes\Dungeon\WineCellar_DoorWoodMetal01.mesh" Position="4.359154 1.133949 3.802903" Flags="CastShadow|ReceiveShadow">
@@ -949,8 +947,7 @@
         </Container>
         <Container Class="PLScene::SCCell" Name="kanal5" Position="69.077385 -6.124077 -6.053885" Flags="CastShadow">
             <Node Class="PLScene::SNCamera" Name="FreeCamera2" Position="-3.529030 3.908048 1.069611" Rotation="18.291065 156.914429 4.677059" FOV="58.852940" ZNear="0.100000" ZFar="50.000000">
-                <Modifier Class="PLEngine::SNMLookController" />
-                <Modifier Class="PLScene::SNMRotationFixRoll" />
+                <Modifier Class="PLEngine::SNMEgoLookController" />
                 <Modifier Class="PLEngine::SNMMoveController" />
             </Node>
             <Node Class="PLScene::SNMesh" Name="Tunnel7Clone1" Mesh="Data\Meshes\Dungeon\kanal6_Tunnel7.mesh" Position="-1.830162 3.322282 -0.334871" Rotation="0.000000 -90.000000 0.000000" Flags="CastShadow|ReceiveShadow">
@@ -1109,8 +1106,7 @@
             <Node Class="PLScene::SNCamera" Name="WalkCamera" Position="-8.094563 1.934828 -12.695670" Rotation="27.488108 -16.364632 -0.000452" FOV="58.853085" ZNear="0.100000" ZFar="50.000000">
                 <Modifier Class="PLPhysics::SNMPhysicsBodyEllipsoid" Mass="65" Flags="NoRotation" Radius="0.2 0.8 0.2" PositionOffset="0.0 -0.6 0.0" />
                 <Modifier Class="PLPhysics::SNMPhysicsJointUpVector" />
-                <Modifier Class="PLEngine::SNMLookController" />
-                <Modifier Class="PLScene::SNMRotationFixRoll" />
+                <Modifier Class="PLEngine::SNMEgoLookController" />
                 <Modifier Class="PLEngine::SNMPhysicsCharacterController" />
                 <Modifier Class="PLCompositing::SNMPostProcessDepthOfField" BlurrinessCutoff="1" FarBlurDepth="30" />
             </Node>
@@ -1179,8 +1175,7 @@
                 <Modifier Class="PLPhysics::SNMPhysicsBodyMesh" />
             </Node>
             <Node Class="PLScene::SNCamera" Name="GhostCamera" Position="-6.702263 1.572146 -11.358827" Rotation="21.317146 -67.382545 0.000342" FOV="58.852940" ZFar="50.000000">
-                <Modifier Class="PLEngine::SNMLookController" />
-                <Modifier Class="PLScene::SNMRotationFixRoll" />
+                <Modifier Class="PLEngine::SNMEgoLookController" />
                 <Modifier Class="PLEngine::SNMMoveController" Speed="2" />
                 <Modifier Class="PLCompositing::SNMPostProcessDepthOfField" BlurrinessCutoff="1" FarBlurDepth="30" />
             </Node>
@@ -1232,8 +1227,7 @@
             </Node>
             <Node Class="PLScene::SNCamera" Name="FreeCamera" Position="-8.256596 0.826744 -8.658177" Rotation="56.777485 176.669891 -3.896157" FOV="58.853085" ZFar="50.000000">
                 <Modifier Class="PLPhysics::SNMPhysicsBodySphere" Mass="0.01" Radius="0.1" Flags="NoRotation|NoGravity" />
-                <Modifier Class="PLEngine::SNMLookController" />
-                <Modifier Class="PLScene::SNMRotationFixRoll" />
+                <Modifier Class="PLEngine::SNMEgoLookController" />
                 <Modifier Class="PLEngine::SNMPhysicsCharacterController" Flags="NoJump|YMovement" />
                 <Modifier Class="PLCompositing::SNMPostProcessDepthOfField" BlurrinessCutoff="1" FarBlurDepth="30" />
             </Node>
@@ -1796,8 +1790,7 @@
                 <Modifier Class="PLPhysics::SNMPhysicsBodyMesh" />
             </Node>
             <Node Class="PLScene::SNCamera" Name="FreeCamera" Position="0.716483 0.572478 -1.286474" Rotation="20.750429 42.755638 -3.352572" FOV="58.852940" ZNear="0.100000" ZFar="50.000000">
-                <Modifier Class="PLEngine::SNMLookController" />
-                <Modifier Class="PLScene::SNMRotationFixRoll" />
+                <Modifier Class="PLEngine::SNMEgoLookController" />
                 <Modifier Class="PLEngine::SNMMoveController" />
             </Node>
             <Node Class="PLScene::SNMesh" Name="Statue" Mesh="Data\Meshes\Dungeon\kanal5_Statue.mesh" Position="-1.210703 -0.161184 -0.195152" Flags="CastShadow|ReceiveShadow">
@@ -2390,8 +2383,7 @@
             </Node>
             <Node Class="PLScene::SNCellPortal" Name="CellPortalTo_WineCellar" Position="-2.236397 -0.248419 13.173470" Rotation="0.000000 -90.000000 0.000000" TargetCell="Parent.WineCellar" Vertices="-0.976446 1.309484 0.000000 -0.976446 -1.309484 0.000000 0.976446 -1.309484 0.000000 0.976446 1.309484 0.000000" />
             <Node Class="PLScene::SNCamera" Name="FreeCamera001" Position="-10.190975 -2.747677 -0.364357" Rotation="15.920724 30.989822 8.138294" FOV="58.853085" ZNear="0.100000" ZFar="50.000000">
-                <Modifier Class="PLEngine::SNMLookController" />
-                <Modifier Class="PLScene::SNMRotationFixRoll" />
+                <Modifier Class="PLEngine::SNMEgoLookController" />
                 <Modifier Class="PLEngine::SNMMoveController" />
             </Node>
             <Node Class="PLScene::SNMesh" Name="UglyStonePatch2" Mesh="Data\Meshes\Dungeon\kanal5_UglyStonePatch.mesh" Position="-12.362141 -4.459606 9.147484" Rotation="0.000001 90.000000 0.000000" Flags="CastShadow|ReceiveShadow">
