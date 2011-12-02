@@ -3,7 +3,7 @@
 	<Section X="0" Y="0" Width="825" Height="570" BgColor="Black" Alpha="0.5">
 		<Section X="15" Y="15" Width="800" Height="540">
 				<Text Font="Data/Fonts/arial.ttf" Color="White" FontSize="5"><Text Font="Data/Fonts/arialbd.ttf" bgcolor="green" Color="white" FontSize="18">
-				== PixelLight dungeon demo 1.4 ==
+				== PixelLight dungeon demo 1.5 ==
 				</Text>
 				<Style Font="Data/Fonts/arialbd.ttf" Color="white" FontSize="16">
 				<br></br>

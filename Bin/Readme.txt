@@ -1,4 +1,4 @@
-PixelLight dungeon demo 1.4
+PixelLight dungeon demo 1.5
 	Copyright © 2002-2011 by The PixelLight Team
 
 
