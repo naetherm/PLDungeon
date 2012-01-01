@@ -1,5 +1,5 @@
 PixelLight dungeon demo 1.5
-	Copyright © 2002-2011 by The PixelLight Team
+	Copyright © 2002-2012 by The PixelLight Team
 
 
 == Controls ==
