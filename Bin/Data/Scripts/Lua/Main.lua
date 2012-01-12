@@ -38,5 +38,7 @@ end
 --  Update function called by C++
 function OnUpdate()
 	-- Update the instance of the application script component class
-	application.Update()
+	if application ~= nil then
+		application.Update()
+	end
 end

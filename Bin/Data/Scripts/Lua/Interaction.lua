@@ -41,16 +41,16 @@ Interaction = {
 		--[-------------------------------------------------------]
 		--[ Private class attributes                              ]
 		--[-------------------------------------------------------]
-		local this						= {}						-- A private class attribute -> Emulates the C++ "this"-pointer by using a Lua table
-		local _gui						= GUI.new(cppApplication)	-- An instance of the GUI script component class
-		local _oldFilmPostProcess 		= 0							-- Old film post process effect factor (0 = not visible, 1 = fully visible)
-		local _mode						= Interaction.Mode.UNKNOWN	-- The current interaction mode
-		local _modeBackup				= Interaction.Mode.UNKNOWN	-- A mode backup, used for camcorder recording
-		local _walkCameraSceneNode		= nil						-- Walk camera scene node
-		local _freeCameraSceneNode		= nil						-- Free camera scene node
-		local _ghostCameraSceneNode		= nil						-- Ghost camera scene node
-		local _makingOfCameraSceneNode	= nil						-- Making of camera scene node
-		local _leftMouseButtonDown		= false						-- Is the left mouse button currently down?
+		local this						= {}										-- A private class attribute -> Emulates the C++ "this"-pointer by using a Lua table
+		local _gui						= GUI.new(cppApplication, luaApplication)	-- An instance of the GUI script component class
+		local _oldFilmPostProcess 		= 0											-- Old film post process effect factor (0 = not visible, 1 = fully visible)
+		local _mode						= Interaction.Mode.UNKNOWN					-- The current interaction mode
+		local _modeBackup				= Interaction.Mode.UNKNOWN					-- A mode backup, used for camcorder recording
+		local _walkCameraSceneNode		= nil										-- Walk camera scene node
+		local _freeCameraSceneNode		= nil										-- Free camera scene node
+		local _ghostCameraSceneNode		= nil										-- Ghost camera scene node
+		local _makingOfCameraSceneNode	= nil										-- Making of camera scene node
+		local _leftMouseButtonDown		= false										-- Is the left mouse button currently down?
 
 		-- An instance of the making of script component class, given slot function is called by Lua when the making of playback has been finished
 		local _makingOf = MakingOf.new(cppApplication, luaApplication,
@@ -115,7 +115,8 @@ Interaction = {
 		--  Shall the mouse cursor be visible?
 		local function SetMouseVisible(visible)
 			-- Do not hide the mouse cursor if the GUI is currently visible!
-			if cppApplication:GetIngameGui():IsGuiShown() then
+			local ingameGui = luaApplication.GetIngameGui()
+			if ingameGui ~= nil and ingameGui:IsGuiShown() then
 				visible = true
 			end
 
@@ -157,10 +158,12 @@ Interaction = {
 			-- Mode change?
 			if _mode ~= newMode then
 				-- Get the camcorder component
-				local camcorder = cppApplication:GetCamcorder()
+				local camcorder = luaApplication.GetCamcorder()
 
 				-- Stop the camcorder playback
-				camcorder:StopPlayback()
+				if camcorder ~= nil then
+					camcorder:StopPlayback()
+				end
 
 				-- Stop the making of playback
 				_makingOf.StopPlayback()
@@ -240,11 +243,13 @@ Interaction = {
 					-- Start the movie?
 					if _mode == Interaction.Mode.MOVIE then
 						-- Start the playback
-						if cppApplication.IsInternalRelease() then
-							-- Just a short movie for the internal release - else we would have to wait to long to test the demo
-							camcorder:StartPlayback("ShortMovie")
-						else
-							camcorder:StartPlayback("Movie")
+						if camcorder ~= nil then
+							if luaApplication.IsInternalRelease() then
+								-- Just a short movie for the internal release - else we would have to wait to long to test the demo
+								camcorder:StartPlayback("ShortMovie")
+							else
+								camcorder:StartPlayback("Movie")
+							end
 						end
 
 						-- Show the mouse cursor
@@ -292,7 +297,7 @@ Interaction = {
 			end
 
 			-- The offical release should always start with the movie mode
-			if cppApplication:IsInternalRelease() then
+			if luaApplication.IsInternalRelease() then
 				-- Internal release
 				this.OnSetMode(Interaction.Mode.WALK, false)
 			else
@@ -321,18 +326,19 @@ Interaction = {
 					-- Was the button just hit?
 					if control:IsHit() then
 						-- Get the ingame GUI component
-						local ingameGui = cppApplication:GetIngameGui()
-
-						-- Toggle menu visibility
-						if ingameGui:IsGuiShown() then
-							ingameGui:Hide()
-						else
+						local ingameGui = luaApplication.GetIngameGui()
+						if ingameGui ~= nil then
 							-- Toggle menu visibility
-							ingameGui:ShowMenu(not ingameGui:IsMenuShown())
+							if ingameGui:IsGuiShown() then
+								ingameGui:Hide()
+							else
+								-- Toggle menu visibility
+								ingameGui:ShowMenu(not ingameGui:IsMenuShown())
 
-							-- Show the mouse cursor?
-							if ingameGui:IsMenuShown() then
-								SetMouseVisible(true)
+								-- Show the mouse cursor?
+								if ingameGui:IsMenuShown() then
+									SetMouseVisible(true)
+								end
 							end
 						end
 					end
@@ -389,15 +395,16 @@ Interaction = {
 				-- Toggle camcorder recording
 				["KeyboardR"] = function()
 					-- Was the button just hit? This key is only allowed in the internal release as well as only if not movie nor making of mode...
-					if control:IsHit() and cppApplication:IsInternalRelease() and _mode ~= Interaction.Mode.MOVIE and _mode ~= Interaction.Mode.MAKINGOF then
+					if control:IsHit() and luaApplication.IsInternalRelease() and _mode ~= Interaction.Mode.MOVIE and _mode ~= Interaction.Mode.MAKINGOF then
 						-- Get the camcorder component
-						local camcorder = cppApplication:GetCamcorder()
-
-						-- Toggle camcorder recording
-						if camcorder:IsRecording() then
-							camcorder:StopRecord()
-						else
-							camcorder:StartRecord("Test")
+						local camcorder = luaApplication.GetCamcorder()
+						if camcorder ~= nil then
+							-- Toggle camcorder recording
+							if camcorder:IsRecording() then
+								camcorder:StopRecord()
+							else
+								camcorder:StartRecord("Test")
+							end
 						end
 					end
 				end,
@@ -405,26 +412,27 @@ Interaction = {
 				-- Toggle camcorder playback
 				["KeyboardP"] = function()
 					-- Was the button just hit? This key is only allowed in the internal release as well as only if not movie nor making of mode...
-					if control:IsHit() and cppApplication:IsInternalRelease() and _mode ~= Interaction.Mode.MOVIE and _mode ~= Interaction.Mode.MAKINGOF then
+					if control:IsHit() and luaApplication.IsInternalRelease() and _mode ~= Interaction.Mode.MOVIE and _mode ~= Interaction.Mode.MAKINGOF then
 						-- Get the camcorder component
-						local camcorder = cppApplication:GetCamcorder()
+						local camcorder = luaApplication.GetCamcorder()
+						if camcorder ~= nil then
+							-- Toggle camcorder playback
+							if camcorder:IsPlaying() then
+								-- Stop the playback
+								camcorder:StopPlayback()
 
-						-- Toggle camcorder playback
-						if camcorder:IsPlaying() then
-							-- Stop the playback
-							camcorder:StopPlayback()
+								-- Restore previously set mode
+								this.OnSetMode(_modeBackup, false)
+							else
+								-- Backup the current set mode
+								_modeBackup = _mode
 
-							-- Restore previously set mode
-							this.OnSetMode(_modeBackup, false)
-						else
-							-- Backup the current set mode
-							_modeBackup = _mode
+								-- Set to ghost mode
+								this.OnSetMode(Interaction.Mode.GHOST, false)
 
-							-- Set to ghost mode
-							this.OnSetMode(Interaction.Mode.GHOST, false)
-
-							-- Start the playback
-							camcorder:StartPlayback("Test")
+								-- Start the playback
+								camcorder:StartPlayback("Test")
+							end
 						end
 					end
 				end,
@@ -476,10 +484,15 @@ Interaction = {
 		cppApplication.SignalSceneLoadingFinished.Connect(this.OnSceneLoadingFinished)
 
 		-- Use the script function "OnSetMode" as slot and connect it with the RTTI "SignalSetMode"-signal of our RTTI application class instance
-		cppApplication.SignalSetMode.Connect(this.OnSetMode)
+		if cppApplication.SignalSetMode ~= nil then	-- Signal is implemented in the dungeon executable
+			cppApplication.SignalSetMode.Connect(this.OnSetMode)
+		end
 
 		-- Use the script function "OnMoviePlaybackFinished" as slot and connect it with the RTTI "SignalPlaybackFinished"-signal of our RTTI camcorder class instance
-		cppApplication:GetCamcorder().SignalPlaybackFinished.Connect(this.OnMoviePlaybackFinished)
+		local camcorder = luaApplication.GetCamcorder()
+		if camcorder ~= nil then
+			camcorder.SignalPlaybackFinished.Connect(this.OnMoviePlaybackFinished)
+		end
 
 		-- By default, the mouse cursor is visible
 		SetMouseVisible(true)

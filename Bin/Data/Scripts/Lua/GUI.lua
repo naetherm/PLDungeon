@@ -11,7 +11,9 @@ GUI = {
 	--
 	--@param[in] cppApplication
 	--  C++ RTTI application class instance
-	new = function(cppApplication)
+	--@param[in] luaApplication
+	--  Lua script application class instance
+	new = function(cppApplication, luaApplication)
 
 
 		--[-------------------------------------------------------]
@@ -31,7 +33,8 @@ GUI = {
 			local timeDiff = PL.Timing.GetTimeDifference()
 
 			-- Update the the GUI background blur depending on whether or not the ingame GUI is currently visible
-			if cppApplication:GetIngameGui():IsGuiShown() then
+			local ingameGui = luaApplication.GetIngameGui()
+			if ingameGui ~= nil and ingameGui:IsGuiShown() then
 				_backgroundBlur = _backgroundBlur + timeDiff
 				if _backgroundBlur > 1 then
 					_backgroundBlur = 1

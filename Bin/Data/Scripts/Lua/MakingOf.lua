@@ -414,7 +414,7 @@ MakingOf = {
 		--[-------------------------------------------------------]
 		--[ Public class constructor implementation               ]
 		--[-------------------------------------------------------]
-		if cppApplication:IsInternalRelease() then
+		if luaApplication.IsInternalRelease() then
 			-- Reduce the timeout for the internal release - else we would have to wait to long to test the demo
 			_timeScale = 20
 		end

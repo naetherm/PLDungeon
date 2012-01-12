@@ -23,7 +23,58 @@ Application = {
 		--[-------------------------------------------------------]
 		--[ Private class attributes                              ]
 		--[-------------------------------------------------------]
-		local this 			= {}									-- A private class attribute -> Emulates the C++ "this"-pointer by using a Lua table
+		local this = {}	-- A private class attribute -> Emulates the C++ "this"-pointer by using a Lua table
+
+
+		--[-------------------------------------------------------]
+		--[ Public class methods                                  ]
+		--[-------------------------------------------------------]
+		--@brief
+		--  Returns whether or not this is an internal release
+		--
+		--@return
+		--  'true' if this is an internal release, else 'false'
+		function this.IsInternalRelease()
+			-- The "IsInternalRelease()"-method is implemented within the dungeon executable
+			if cppApplication.IsInternalRelease ~= nil then
+				return cppApplication:IsInternalRelease()
+			else
+				return false
+			end
+		end
+
+		--@brief
+		--  Returns the camcorder instance, or nil in case there's no instance
+		--
+		--@return
+		--  Camcorder instance, or nil in case there's no instance
+		function this.GetCamcorder()
+			-- Get the camcorder component (method is implemented within the dungeon executable)
+			if cppApplication.GetCamcorder ~= nil then
+				return cppApplication:GetCamcorder()
+			else
+				return nil
+			end
+		end
+
+		--@brief
+		--  Returns the ingame GUI instance, or nil in case there's no instance
+		--
+		--@return
+		--  Ingame GUI instance, or nil in case there's no instance
+		function this.GetIngameGui()
+			-- Get the ingame GUI component (method is implemented within the dungeon executable)
+			if cppApplication.GetIngameGui ~= nil then
+				return cppApplication:GetIngameGui()
+			else
+				return nil
+			end
+		end
+
+
+		--[-------------------------------------------------------]
+		--[ Private class attributes                              ]
+		--[-------------------------------------------------------]
 		local _interaction 	= Interaction.new(cppApplication, this)	-- An instance of the interaction script component class
 		local _loadProgress = 0										-- Current load progress (0.0-1.0)
 
@@ -104,7 +155,7 @@ Application = {
 			_interaction.Update()
 
 			-- Get the ingame GUI component
-			local ingameGui = cppApplication:GetIngameGui()
+			local ingameGui = this.GetIngameGui()
 			if ingameGui ~= nil then
 				-- Get the currently set camera scene node
 				local cameraSceneNode = cppApplication:GetCamera()
@@ -118,10 +169,15 @@ Application = {
 			end
 
 			-- Update the camcorder
-			cppApplication:GetCamcorder():Update()
+			local camcorder = this.GetCamcorder()
+			if camcorder ~= nil then
+				camcorder:Update()
+			end
 
-			-- Update the mouse picking pull animation
-			cppApplication:UpdateMousePickingPullAnimation()
+			-- Update the mouse picking pull animation (implemented in the dungeon executable)
+			if cppApplication.UpdateMousePickingPullAnimation ~= nil then
+				cppApplication:UpdateMousePickingPullAnimation()
+			end
 		end
 
 		--@brief
