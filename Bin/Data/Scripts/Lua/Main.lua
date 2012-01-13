@@ -7,8 +7,7 @@
 -- Set the path used by "require" to search for a Lua loader.
 -- -> Lookout! There may be issues with the LUA_PATH environment variable, so, we add an absolute path.
 -- -> Please note that we can't use "this" at this point in order to receive the application instance, because it has not been set, yet.
--- -> Lua can't deal with something like 'file:\\C:\MyApplication', so, make it to 'C:\MyApplication'.
-package.path = string.gsub(PL.GetApplication():GetApplicationContext():GetAppDirectory(), "file://", "") .. '/Data/Scripts/Lua/?.lua;' .. package.path
+package.path = PL.GetApplication():GetScriptDirectory() .. '?.lua;' .. package.path
 
 
 --[-------------------------------------------------------]

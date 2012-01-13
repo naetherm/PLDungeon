@@ -222,8 +222,9 @@ void Application::OnInit()
 	String sSceneFilename = m_cCommandLine.GetValue("Filename");
 	if (!sSceneFilename.GetLength()) {
 		// Ask the script for a scene filename
-		if (m_pScript)
-			sSceneFilename = m_pScript->GetGlobalVariable("SceneFilename");
+		Script *pScript = GetScript();
+		if (pScript)
+			sSceneFilename = pScript->GetGlobalVariable("SceneFilename");
 	}
 
 	// Is there a scene name given?
