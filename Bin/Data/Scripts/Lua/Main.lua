@@ -41,8 +41,8 @@ require "Application"	-- Application script component class
 --[-------------------------------------------------------]
 --[ Global variables                                      ]
 --[-------------------------------------------------------]
-SceneFilename	= "Data/Scenes/Dungeon.scene"	-- Filename of the scene to use, the C++ application framework will load it (this filename will be ignored if the program was started with a scene filename within the command line parameters)
-application		= nil							-- An instance of the application script component class
+application	    = nil	-- An instance of the application script component class
+InternalRelease = true	-- 'true' for internal release (we can use stuff helping us during development), else 'false' for a public release
 
 
 --[-------------------------------------------------------]
@@ -51,8 +51,22 @@ application		= nil							-- An instance of the application script component clas
 --@brief
 --  Called by C++ when the application should initialize itself
 function OnInit()
+	-- Set base directory to make it possible to find the required resources
+	-- -> This might not always be required, but in case this script was thrown into PLViewer this application has to know about the base directory
+	-- -> When provided with a relative path, the following method will use the directory this script is in
+	--    (e.g. a script filename of "C:/Programs/MyApplication/Main.lua" will result in "C:/Programs/MyApplication/")
+	this:SetBaseDirectory("../../../")	-- We're in "Data/Scripts/Lua/", so, go 3 directories up
+
+	-- Scan our project directory for compatible plugins and load them in
+	-- -> This might not always be required, but in case this script was thrown into PLViewer this application has to know about the new plugins
+	-- -> Base directory is "C:/Programs/MyApplication/", for x86 the plugins are in this case within "C:/Programs/MyApplication/x86/"
+	PL.ClassManager.ScanPlugins(this:GetBaseDirectory() .. PL.System.GetPlatformArchitecture(), false, true)
+
 	-- Create an instance of the application script component class
 	application = Application.new(this)
+
+	-- Load scene
+	this:LoadScene("Data/Scenes/Dungeon.scene")
 end
 
 --@brief

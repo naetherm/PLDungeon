@@ -78,7 +78,7 @@ Interaction = {
 		local _makingOf = MakingOf.new(cppApplication, luaApplication,
 			function()
 				-- Change into the free mode or start the movie again
-				if cppApplication:IsRepeatMode() then
+				if luaApplication.IsRepeatMode() then
 					this.OnSetMode(Interaction.Mode.MOVIE)
 				else
 					this.OnSetMode(Interaction.Mode.FREE)
@@ -238,7 +238,7 @@ Interaction = {
 				action[newMode]()
 
 				-- Show mode changed text for 5 seconds?
-				if showText and modeChangedText ~= nil and not cppApplication:IsExpertMode() then
+				if showText and modeChangedText ~= nil and not luaApplication.IsExpertMode() then
 					luaApplication.ShowText(modeChangedText, 5)
 				end
 
@@ -424,8 +424,10 @@ Interaction = {
 							-- Toggle camcorder recording
 							if camcorder:IsRecording() then
 								camcorder:StopRecord()
+								luaApplication.ShowText("Record stopped", 5)
 							else
 								camcorder:StartRecord("Test")
+								luaApplication.ShowText("Record started", 5)
 							end
 						end
 					end
@@ -442,6 +444,7 @@ Interaction = {
 							if camcorder:IsPlaying() then
 								-- Stop the playback
 								camcorder:StopPlayback()
+								luaApplication.ShowText("Record playback stopped", 5)
 
 								-- Restore previously set mode
 								this.OnSetMode(_modeBackup, false)
@@ -454,6 +457,7 @@ Interaction = {
 
 								-- Start the playback
 								camcorder:StartPlayback("Test")
+								luaApplication.ShowText("Record playback started", 5)
 							end
 						end
 					end

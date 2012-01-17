@@ -54,6 +54,34 @@ Application = {
 		--[ Public class methods                                  ]
 		--[-------------------------------------------------------]
 		--@brief
+		--  Returns whether or not the application runs within the expert mode
+		--
+		--@return
+		--  'true' if the application runs within the expert mode, else 'false' (no additional help texts)
+		function this.IsExpertMode()
+			-- The "IsExpertMode()"-method is implemented within the dungeon executable
+			if cppApplication.IsExpertMode ~= nil then
+				return cppApplication:IsExpertMode()
+			else
+				return false
+			end
+		end
+
+		--@brief
+		--  Returns whether or not the application runs within the repeat mode
+		--
+		--@return
+		--  'true' if the application runs within the repeat mode ("movie -> making of -> movie" instead of "movie -> making of -> interactive"), else 'false'
+		function this.IsRepeatMode()
+			-- The "IsRepeatMode()"-method is implemented within the dungeon executable
+			if cppApplication.IsRepeatMode ~= nil then
+				return cppApplication:IsRepeatMode()
+			else
+				return false
+			end
+		end
+
+		--@brief
 		--  Returns whether or not this is an internal release
 		--
 		--@return
@@ -63,7 +91,7 @@ Application = {
 			if cppApplication.IsInternalRelease ~= nil then
 				return cppApplication:IsInternalRelease()
 			else
-				return false
+				return InternalRelease
 			end
 		end
 
@@ -250,7 +278,7 @@ Application = {
 			AddDancingSkeleton()
 
 			-- Show an initial help text for 10 seconds
-			if not cppApplication:IsExpertMode() then
+			if not this.IsExpertMode() then
 				this.ShowText("Press ESC to open menu", 10.0)
 			end
 		end

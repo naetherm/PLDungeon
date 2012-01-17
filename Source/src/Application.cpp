@@ -74,7 +74,6 @@ Application::Application(Frontend &cFrontend) : ScriptApplication(cFrontend, "Da
 
 	// This application accepts all the standard parameters that are defined in the application
 	// base class (such as --help etc.). The last parameter however is the filename to load, so add that.
-	m_cCommandLine.AddArgument("Filename", "Scene filename", "", false);
 	m_cCommandLine.AddFlag("Expert", "-e", "--expert", "Expert mode, no additional help texts", false);
 	m_cCommandLine.AddFlag("Repeat", "-r", "--repeat", "If movie and making of is finished, start the movie again instead of switching to ínteractive mode", false);
 }
@@ -174,35 +173,11 @@ void Application::UpdateMousePickingPullAnimation()
 //[-------------------------------------------------------]
 void Application::OnInit()
 {
-	// To be on the safe-side: Make the executable directory to the current directory
-	GetApplicationContext().ChangeIntoAppDirectory();
-
 	// Call base implementation
 	ScriptApplication::OnInit();
 
-	// Scene filename given as command line parameter?
-	String sSceneFilename = m_cCommandLine.GetValue("Filename");
-	if (!sSceneFilename.GetLength()) {
-		// Ask the script for a scene filename
-		Script *pScript = GetScript();
-		if (pScript)
-			sSceneFilename = pScript->GetGlobalVariable("SceneFilename");
-	}
-
-	// Is there a scene name given?
-	if (sSceneFilename.GetLength()) {
-		// Enable/disable edit mode
-		SetEditModeEnabled(GetConfig().GetVar("DungeonConfig", "EditModeEnabled").GetBool());
-
-		// Load scene
-		if (!LoadScene(sSceneFilename)) {
-			// Set exit code to error
-			Exit(1);
-		}
-	} else {
-		// No scene given
-		Exit(1);
-	}
+	// Enable/disable edit mode
+	SetEditModeEnabled(GetConfig().GetVar("DungeonConfig", "EditModeEnabled").GetBool());
 }
 
 
