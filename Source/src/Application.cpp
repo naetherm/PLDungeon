@@ -23,15 +23,11 @@
 //[-------------------------------------------------------]
 //[ Includes                                              ]
 //[-------------------------------------------------------]
-#include <PLCore/File/Url.h>
 #include <PLCore/Base/Class.h>
 #include <PLCore/Script/Script.h>
 #include <PLCore/System/System.h>
 #include <PLCore/Tools/Timing.h>
 #include <PLCore/Tools/Localization.h>
-#include <PLCore/Tools/LoadableManager.h>
-#include <PLGui/Gui/Gui.h>
-#include <PLGui/Widgets/Widget.h>
 #include <PLRenderer/RendererContext.h>
 #include <PLRenderer/Material/MaterialManager.h>
 #include <PLRenderer/Material/ParameterManager.h>
@@ -40,8 +36,6 @@
 #include <PLScene/Scene/SceneContext.h>
 #include <PLScene/Scene/SceneContainer.h>
 #include <PLScene/Scene/SceneNodeModifier.h>
-#include <PLPhysics/Body.h>
-#include <PLPhysics/SceneNodeModifiers/SNMPhysicsBodyBox.h>
 #include <PLEngine/Compositing/Console/SNConsoleBase.h>
 #include <PLEngine/Controller/SNPhysicsMouseInteraction.h>
 #include "Application.h"
@@ -52,7 +46,6 @@
 //[-------------------------------------------------------]
 using namespace PLCore;
 using namespace PLMath;
-using namespace PLGui;
 using namespace PLRenderer;
 using namespace PLScene;
 using namespace PLEngine;
@@ -73,8 +66,6 @@ pl_implement_class(Application)
 *    Constructor
 */
 Application::Application(Frontend &cFrontend) : ScriptApplication(cFrontend, "Data/Scripts/Lua/Main.lua", "Dungeon", PLT("PixelLight dungeon demo"), System::GetInstance()->GetDataDirName("PixelLight")),
-	m_pIngameGui(nullptr),
-	m_pCamcorder(new Camcorder(*this)),
 	m_fMousePickingPullAnimation(0.0f)
 {
 	// The demo is published as a simple archive, so, put the log and configuration files in the same directory the executable is
@@ -94,12 +85,6 @@ Application::Application(Frontend &cFrontend) : ScriptApplication(cFrontend, "Da
 */
 Application::~Application()
 {
-	// Destroy the ingame GUI component
-	if (m_pIngameGui)
-		delete m_pIngameGui;
-
-	// Destroy the camcorder component
-	delete m_pCamcorder;
 }
 
 /**
@@ -133,29 +118,6 @@ bool Application::IsInternalRelease() const
 	#else
 		return false;
 	#endif
-}
-
-/**
-*  @brief
-*    Returns the ingame GUI interaction component instance
-*/
-IngameGui &Application::GetIngameGui()
-{
-	// Create the ingame GUI component right now?
-	if (!m_pIngameGui)
-		m_pIngameGui = new IngameGui(*this);
-
-	// When this method is used, the pointer is valid
-	return *m_pIngameGui;
-}
-
-/**
-*  @brief
-*    Returns the camcorder component instance
-*/
-Camcorder &Application::GetCamcorder() const
-{
-	return *m_pCamcorder;
 }
 
 
@@ -241,18 +203,6 @@ void Application::OnInit()
 		// No scene given
 		Exit(1);
 	}
-}
-
-void Application::OnDeInit()
-{
-	// Destroy the ingame GUI component
-	if (m_pIngameGui) {
-		delete m_pIngameGui;
-		m_pIngameGui = nullptr;
-	}
-
-	// Call base implementation
-	ScriptApplication::OnDeInit();
 }
 
 

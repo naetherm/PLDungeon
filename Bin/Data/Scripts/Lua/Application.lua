@@ -23,7 +23,9 @@ Application = {
 		--[-------------------------------------------------------]
 		--[ Private class attributes                              ]
 		--[-------------------------------------------------------]
-		local this = {}	-- A private class attribute -> Emulates the C++ "this"-pointer by using a Lua table
+		local this         = {}		-- A private class attribute -> Emulates the C++ "this"-pointer by using a Lua table
+		local cppCamcorder = nil	-- Camcorder instance (C++ PixelLight RTTI class)
+		local cppIngameGui = nil	-- Ingame GUI instance (C++ PixelLight RTTI class)
 
 
 		--[-------------------------------------------------------]
@@ -49,12 +51,13 @@ Application = {
 		--@return
 		--  Camcorder instance, or nil in case there's no instance
 		function this.GetCamcorder()
-			-- Get the camcorder component (method is implemented within the dungeon executable)
-			if cppApplication.GetCamcorder ~= nil then
-				return cppApplication:GetCamcorder()
-			else
-				return nil
+			-- Create the camcorder instance right now?
+			if cppCamcorder == nil then
+				cppCamcorder = PL.ClassManager.CreateByConstructor("PLEngine::Camcorder", "ParameterConstructor", "Param0=\"" .. tostring(cppApplication) .. "\"")
 			end
+
+			-- Return the camcorder instance
+			return cppCamcorder
 		end
 
 		--@brief
@@ -63,12 +66,13 @@ Application = {
 		--@return
 		--  Ingame GUI instance, or nil in case there's no instance
 		function this.GetIngameGui()
-			-- Get the ingame GUI component (method is implemented within the dungeon executable)
-			if cppApplication.GetIngameGui ~= nil then
-				return cppApplication:GetIngameGui()
-			else
-				return nil
+			-- Create the ingame GUI instance right now?
+			if cppIngameGui == nil then
+				cppIngameGui = PL.ClassManager.CreateByConstructor("IngameGui", "ParameterConstructor", "Param0=\"" .. tostring(cppApplication) .. "\"")
 			end
+
+			-- Return the Ingame GUI instance
+			return cppIngameGui
 		end
 
 

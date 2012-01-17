@@ -63,6 +63,8 @@ class IngameGui : public PLCore::Object {
 	//[ RTTI interface                                        ]
 	//[-------------------------------------------------------]
 	pl_class(pl_rtti_export, IngameGui, "", PLCore::Object, "Ingame GUI interaction component")
+		// Constructors
+		pl_constructor_1(ParameterConstructor,	Application&,	"Parameter constructor. Owner application as first parameter.",	"")
 		// Methods
 		pl_method_0(Update,			pl_ret_type(void),							"Updates the ingame GUI component",																							"")
 		pl_method_0(Hide,			pl_ret_type(void),							"Hides all GUI elements",																									"")
