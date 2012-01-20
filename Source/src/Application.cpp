@@ -280,7 +280,7 @@ bool Application::LoadScene(const String &sFilename)
 void Application::OnCreateScene(SceneContainer &cContainer)
 {
 	// Set scene container flags
-	cContainer.SetFlags(SceneNode::NoCulling | SceneNode::NoPause);
+	cContainer.SetFlags(SceneNode::NoCulling);
 
 	// Setup scene surface painter
 	SurfacePainter *pPainter = GetPainter();
