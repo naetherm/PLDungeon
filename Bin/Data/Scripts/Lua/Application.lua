@@ -91,7 +91,7 @@ Application = {
 			if cppApplication.IsInternalRelease ~= nil then
 				return cppApplication:IsInternalRelease()
 			else
-				return InternalRelease
+				return Option.Internal.Internal
 			end
 		end
 

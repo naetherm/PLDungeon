@@ -35,14 +35,14 @@ package.path = PL.GetApplication():GetScriptDirectory() .. '?.lua;' .. package.p
 --[-------------------------------------------------------]
 --[ Includes                                              ]
 --[-------------------------------------------------------]
+require "Options"		-- Options
 require "Application"	-- Application script component class
 
 
 --[-------------------------------------------------------]
 --[ Global variables                                      ]
 --[-------------------------------------------------------]
-application	    = nil	-- An instance of the application script component class
-InternalRelease = true	-- 'true' for internal release (we can use stuff helping us during development), else 'false' for a public release
+application = nil	-- An instance of the application script component class
 
 
 --[-------------------------------------------------------]
