@@ -349,7 +349,6 @@
     <ClCompile Include="src\Config.cpp" />
     <ClCompile Include="src\Main.cpp" />
     <ClCompile Include="src\SNMLightRandomAnimation.cpp" />
-    <ClCompile Include="src\SNMPositionRandomAnimation.cpp" />
     <ClCompile Include="src\Gui\IngameGui.cpp" />
     <ClCompile Include="src\Gui\WindowBase.cpp" />
     <ClCompile Include="src\Gui\WindowMenu.cpp" />
@@ -360,7 +359,6 @@
     <ClInclude Include="src\Application.h" />
     <ClInclude Include="src\Config.h" />
     <ClInclude Include="src\SNMLightRandomAnimation.h" />
-    <ClInclude Include="src\SNMPositionRandomAnimation.h" />
     <ClInclude Include="src\Gui\IngameGui.h" />
     <ClInclude Include="src\Gui\WindowBase.h" />
     <ClInclude Include="src\Gui\WindowMenu.h" />

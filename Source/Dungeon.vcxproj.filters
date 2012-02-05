@@ -40,9 +40,6 @@
     <ClCompile Include="src\SNMLightRandomAnimation.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\SNMPositionRandomAnimation.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="src\Config.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -68,9 +65,6 @@
     </ClInclude>
     <ClInclude Include="resource.h" />
     <ClInclude Include="src\SNMLightRandomAnimation.h">
-      <Filter>Source Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\SNMPositionRandomAnimation.h">
       <Filter>Source Files</Filter>
     </ClInclude>
     <ClInclude Include="src\Config.h">

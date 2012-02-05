@@ -26,7 +26,6 @@ add_sources(
     src/Application.cpp
     src/Config.cpp
     src/SNMLightRandomAnimation.cpp
-    src/SNMPositionRandomAnimation.cpp
     src/Gui/IngameGui.cpp
     src/Gui/WindowBase.cpp
     src/Gui/WindowMenu.cpp
