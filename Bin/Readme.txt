@@ -20,6 +20,7 @@ PixelLight dungeon demo 1.5
 == Attribution ==
 Models from
 - Imrod model (http://www.parkparkin.com/personal_art/imrod.htm) by Dmitry Parkin: http://www.parkparkin.com - thank's for the permission to use this really cool model
+	- Imrod skinning and animation by gavlig
 - Heavy demon model from Nick Zuccarello (http://www.sharecg.com/v/49629/browse/5/3D-Model/UDK-HeavyDemon-Static/Skeletal-Mesh-Example-Files)
 - Plant models (http://www.sharecg.com/v/7317/gallery/5/3D-Model/foliage-pack-01) by Tim Fullwood (http://irishlostboy.deviantart.com/)
 - Modern axe (http://www.sharecg.com/v/49834/view/5/3D-Model/Modern-Axe) by Hilário Martins (http://www.sharecg.com/pf/Argoon)
