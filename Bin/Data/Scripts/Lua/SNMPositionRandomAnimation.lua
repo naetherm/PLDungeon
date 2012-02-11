@@ -51,9 +51,18 @@ PublicVariables = {
 --[-------------------------------------------------------]
 --[ Global variables                                      ]
 --[-------------------------------------------------------]
-originalPosition	= {}	-- Original owner scene node position (Lua table with three entries for x, y, z)
-currentPosition		= {}	-- Current local position
-destinationPosition	= {}	-- Destination local position
+local originalPosition		= { 0, 0, 0 }	-- Original owner scene node position (Lua table with three entries for x, y, z)
+local currentPosition		= { 0, 0, 0 }	-- Current local position
+local destinationPosition	= { 0, 0, 0 }	-- Destination local position
+
+
+--[-------------------------------------------------------]
+--[ Performance optimization using fast local variables   ]
+--[-------------------------------------------------------]
+local math_random					= math.random
+local string_format					= string.format
+local PL_Timing_GetTimeDifference	= PL.Timing.GetTimeDifference
+local sceneNode						= nil	-- Owner scene node (will not change)
 
 
 --[-------------------------------------------------------]
@@ -62,8 +71,11 @@ destinationPosition	= {}	-- Destination local position
 --@brief
 --  Called by C++ when the script scene node modifier should initialize itself
 function OnInit()
+	-- Get the owner scene node (will not change)
+	sceneNode = this:GetSceneNode()
+
 	-- Backup original owner scene node position (Lua table with three entries for x, y, z)
-	originalPosition = string.split(this:GetSceneNode().Position, " ")
+	originalPosition = string.split(sceneNode.Position, " ")
 
 	-- Initialize local current and destination position
 	currentPosition = { 0, 0, 0, }
@@ -74,31 +86,39 @@ end
 --  Update function called by C++
 function OnUpdate()
 	-- Update our timer
-	local timeDifference = PL.Timing.GetTimeDifference()*PublicVariables.Speed
+	local timeDifference = PL_Timing_GetTimeDifference()*PublicVariables.Speed
 
 	-- Update the current local position
 	for i=1,3 do
-		if currentPosition[i] <= destinationPosition[i] then
-			currentPosition[i] = currentPosition[i] + timeDifference
-			if currentPosition[i] >= destinationPosition[i] then
+		-- Get current values
+		local currentValue = currentPosition[i]
+		local destinationValue = destinationPosition[i]
+
+		-- Update value
+		if currentValue <= destinationValue then
+			currentValue = currentValue + timeDifference
+			if currentValue >= destinationValue then
 				-- Clamp
-				currentPosition[i] = destinationPosition[i]
+				currentValue = destinationValue
 
 				-- New destination
-				destinationPosition[i] = (math.random()*2 - 1)*PublicVariables.Radius
+				destinationPosition[i] = (math_random()*2 - 1)*PublicVariables.Radius
 			end
 		else
-			currentPosition[i] = currentPosition[i] - timeDifference
-			if currentPosition[i] <= destinationPosition[i] then
+			currentValue = currentValue - timeDifference
+			if currentValue <= destinationValue then
 				-- Clamp
-				currentPosition[i] = destinationPosition[i]
+				currentValue = destinationValue
 
 				-- New destination
-				destinationPosition[i] = (math.random()*2 - 1)*PublicVariables.Radius
+				destinationPosition[i] = (math_random()*2 - 1)*PublicVariables.Radius
 			end
 		end
+
+		-- Update current position
+		currentPosition[i] = currentValue
 	end
 
 	-- Set current scene node position
-	this:GetSceneNode().Position = string.format("%f %f %f", originalPosition[1] + currentPosition[1], originalPosition[2] + currentPosition[2], originalPosition[3] + currentPosition[3])
+	sceneNode.Position = string_format("%f %f %f", originalPosition[1] + currentPosition[1], originalPosition[2] + currentPosition[2], originalPosition[3] + currentPosition[3])
 end
