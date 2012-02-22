@@ -192,7 +192,6 @@
             </Node>
             <Node Class="PLScene::SNMesh" Name="Imrod01" Mesh="Data\Meshes\Gavlig_Imrod.mesh" Position="-2.77 -1.23 -0.42" Rotation="180.00 48.89 180.00" Scale="0.08 0.08 0.08" Flags="CastShadow|ReceiveShadow" Skin="Data/Materials/Dungeon/Imrod.mat">
 				<Modifier Class="PLScene::SNMMeshAnimation" Name="Skeleton animation" Speed="1.0" />
-                <Modifier Class="PLPhysics::SNMPhysicsBodyBox" />
             </Node>
             <Node Class="PLScene::SNMesh" Name="Stone041" Mesh="Data\Meshes\Dungeon\kanal6_Stone.mesh" Position="-3.583994 -0.961981 -0.944705" Rotation="12.591582 -16.829498 24.204622" Scale="0.614485 1.578037 1.122399" Flags="CastShadow|ReceiveShadow">
                 <Modifier Class="PLPhysics::SNMPhysicsBodyMesh" />
@@ -855,7 +854,6 @@
             </Node>
             <Node Class="PLScene::SNMesh" Name="Imrod" Mesh="Data\Meshes\Gavlig_Imrod.mesh" Position="1.78 -0.05 5.51" Rotation="-0.000000 -175.000015 -0.000000" Scale="0.08 0.08 0.08" Flags="CastShadow|ReceiveShadow" Skin="Data/Materials/Dungeon/Imrod.mat">
 				<Modifier Class="PLScene::SNMMeshAnimation" Name="Skeleton animation" Speed="1.0" />
-                <Modifier Class="PLPhysics::SNMPhysicsBodyBox" />
             </Node>
             <Node Class="PLScene::SNMesh" Name="TimmyTheDaemonSkull" Mesh="Data\Meshes\Dungeon\kanal3_BobTheDaemonSkull.mesh" Position="-0.200962 0.064805 3.221098" Rotation="27.756357 -126.947212 9.665986" Flags="CastShadow|ReceiveShadow">
                 <Modifier Class="PLPhysics::SNMPhysicsBodyConvexHull" Mass="6" />
