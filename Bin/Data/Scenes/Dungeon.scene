@@ -1226,7 +1226,7 @@
                 <Modifier Class="PLPhysics::SNMPhysicsBodyConvexHull" Mass="5" />
             </Node>
             <Node Class="PLScene::SNCamera" Name="FreeCamera" Position="-8.256596 0.826744 -8.658177" Rotation="56.777485 176.669891 -3.896157" FOV="58.853085" ZFar="50.000000">
-                <Modifier Class="PLPhysics::SNMPhysicsBodySphere" Mass="0.01" Radius="0.1" Flags="NoRotation|NoGravity" />
+                <Modifier Class="PLPhysics::SNMPhysicsBodySphere" Mass="0.01" Radius="0.15" Flags="NoRotation|NoGravity" />
                 <Modifier Class="PLEngine::SNMEgoLookController" />
                 <Modifier Class="PLEngine::SNMPhysicsCharacterController" Flags="NoJump|YMovement" />
                 <Modifier Class="PLCompositing::SNMPostProcessDepthOfField" BlurrinessCutoff="1" FarBlurDepth="30" />
