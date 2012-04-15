@@ -1,3 +1,25 @@
+#*********************************************************#
+#*  File: WindowsMSVC.cmake                              *
+#*
+#*  Copyright (C) 2002-2012 The PixelLight Team (http://www.pixellight.org/)
+#*
+#*  This file is part of PixelLight.
+#*
+#*  PixelLight is free software: you can redistribute it and/or modify
+#*  it under the terms of the GNU Lesser General Public License as published by
+#*  the Free Software Foundation, either version 3 of the License, or
+#*  (at your option) any later version.
+#*
+#*  PixelLight is distributed in the hope that it will be useful,
+#*  but WITHOUT ANY WARRANTY; without even the implied warranty of
+#*  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+#*  GNU Lesser General Public License for more details.
+#*
+#*  You should have received a copy of the GNU Lesser General Public License
+#*  along with PixelLight. If not, see <http://www.gnu.org/licenses/>.
+#*********************************************************#
+
+
 ##################################################
 ## Windows/MSVC platform definitions
 ##
@@ -63,6 +85,7 @@ if((NOT CMAKETOOLS_TARGET_BITSIZE MATCHES 32) AND (CMAKE_SIZEOF_VOID_P MATCHES 8
 	message(STATUS "Setting x64 build preprocessor definitions")
 	set(WIN32_COMPILE_DEFS
 		${WIN32_COMPILE_DEFS}
+		WIN64							# We are building for a 64Bit architecture
 		X64_ARCHITECTURE				# We are building for a 64Bit architecture
 	)
 endif()
@@ -97,6 +120,12 @@ set(WIN32_COMPILE_FLAGS
 	/Zi									# Debug information Format: Program Database
 	/MP									# Multi-processor Compilation
 	/fp:precise							# Floating Point Model: Precise
+	/EHs-c-								# Disable exception handling
+	/Gm-								# Disable minimal rebuild
+	/Gy-								# Disable function-level linking
+	/fp:fast							# Fast floating point model
+	/fp:except-							# Disable floating point expections
+	/Gd									# Calling convention: Default setting
 )
 
 if(CMAKE_BUILD_TYPE MATCHES Debug)

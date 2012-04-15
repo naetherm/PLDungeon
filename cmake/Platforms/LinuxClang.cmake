@@ -1,8 +1,45 @@
+#*********************************************************#
+#*  File: LinuxClang.cmake                               *
+#*
+#*  Copyright (C) 2002-2012 The PixelLight Team (http://www.pixellight.org/)
+#*
+#*  This file is part of PixelLight.
+#*
+#*  PixelLight is free software: you can redistribute it and/or modify
+#*  it under the terms of the GNU Lesser General Public License as published by
+#*  the Free Software Foundation, either version 3 of the License, or
+#*  (at your option) any later version.
+#*
+#*  PixelLight is distributed in the hope that it will be useful,
+#*  but WITHOUT ANY WARRANTY; without even the implied warranty of
+#*  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+#*  GNU Lesser General Public License for more details.
+#*
+#*  You should have received a copy of the GNU Lesser General Public License
+#*  along with PixelLight. If not, see <http://www.gnu.org/licenses/>.
+#*********************************************************#
+
+
 ##################################################
-## Linux/GCC platform definitions
+## Linux/clang platform definitions
 ##
-## This file contains compiler and linker settings which are specific to the GCC compiler suit under linux
+## This file contains compiler and linker settings which are specific to the clang compiler suit under linux
 ##################################################
+
+
+##################################################
+## Libraries
+##################################################
+
+# X11 libraries
+set(LINUX_X11_LIBS
+	X11									# X-Lib
+	Xext								# X extentions library
+	Xcursor								# X cursor library
+)
+set(LINUX_X11_LIB		X11)			# X-Lib
+set(LINUX_XEXT_LIB		Xext)			# X extentions library
+set(LINUX_XCURSOR_LIB	Xcursor)		# X cursor library
 
 
 ##################################################
@@ -45,10 +82,17 @@ IF(CMAKE_GENERATOR MATCHES "Makefiles")
 	endif()
 ENDIF(CMAKE_GENERATOR MATCHES "Makefiles")
 
+# Check compiler features
+# currently clang has problems with visibility and template instances which gets exported in a library (see http://llvm.org/bugs/show_bug.cgi?id=10113)
+# and it adds references to methods to the export table which shouldn't be there (e.g. PLMesh: PLCore::ElementManager<PLRenderer::Animation>::GetByIndex(unsigned int) const)
+set(NO_VISIBILITY_CHECK 1)
+include(${CMAKETOOLS_DIR}/Modules/CheckLinuxCompiler.cmake)	# Adds e.g. visibility attribute (http://gcc.gnu.org/wiki/Visibility)
+
 
 ##################################################
 ## Compiler flags
 ##################################################
+
 
 set(LINUX_COMPILE_FLAGS
 	${LINUX_COMPILE_FLAGS}
