@@ -129,6 +129,13 @@ if(WIN32)
 	add_linker_flags(
 		${WIN32_LINKER_FLAGS}
 	)
+elseif(LINUX)
+	##################################################
+	## GCC Compiler
+	##################################################
+	add_linker_flags(
+		${LINUX_LINKER_FLAGS}
+	)
 endif()
 
 ##################################################
@@ -149,6 +156,10 @@ set_project_properties(${target})
 # Executable
 add_custom_command(TARGET ${target}
 	COMMAND ${CMAKE_COMMAND} -E copy ${CMAKE_CURRENT_BINARY_DIR}/${target}${CMAKE_EXECUTABLE_SUFFIX} "${CMAKE_SOURCE_DIR}/Bin/x86"
+)
+
+install(TARGETS ${target}
+	DESTINATION Bin/${CMAKETOOLS_TARGET_ARCHBITSIZE}	COMPONENT SDK
 )
 
 ##################################################
