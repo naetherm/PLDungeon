@@ -2,6 +2,25 @@
 ## CMake tools
 ##################################################
 
+##################################################
+## MACRO: cmaketools_debug_message
+##
+## Output a debug message (only visible if CMAKETOOLS_DEBUG is set) 
+##################################################
+macro(cmaketools_debug_message msg)
+	if(CMAKETOOLS_DEBUG)
+		message(STATUS ${msg})
+	endif()
+endmacro(cmaketools_debug_message msg)
+
+##################################################
+## MACRO: cmaketools_debug_variable
+##
+## Output the content of a variable as a debug message (only visible if CMAKETOOLS_DEBUG is set) 
+##################################################
+macro(cmaketools_debug_variable var)
+	cmaketools_debug_message("${var} = ${${var}}")
+endmacro(cmaketools_debug_variable var)
 
 ##################################################
 ## MACRO: add_to_list
@@ -223,10 +242,12 @@ macro(set_project_properties target)
 	set_target_properties(${target} PROPERTIES LINK_INTERFACE_LIBRARIES "")
 endmacro(set_project_properties target)
 
+get_filename_component(CMAKETOOLS_DIR ${CMAKE_CURRENT_LIST_FILE} PATH)
+cmaketools_debug_variable(CMAKETOOLS_DIR)
 
 # Add our modules directory
 set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} ${CMAKE_SOURCE_DIR}/cmake/Modules)
-
+message(STATUS "${CMAKE_MODULE_PATH} ${CMAKE_SOURCE_DIR}/cmake/Modules")
 # Set LINUX flag
 if(UNIX)
 	SET(LINUX "1")
