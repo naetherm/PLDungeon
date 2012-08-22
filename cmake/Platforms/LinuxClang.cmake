@@ -43,6 +43,23 @@ set(LINUX_XCURSOR_LIB	Xcursor)		# X cursor library
 
 
 ##################################################
+## Preprocessor definitions
+##################################################
+
+# Preprocessor definitions
+if(APPLE)
+	# Add a handy APPLE definition (just like WIN32, LINUX and so on)
+	set(LINUX_COMPILE_DEFS
+		${LINUX_COMPILE_DEFS}
+		APPLE							# We are building for an APPLE OS
+	)
+
+	# No visibility compiler flags for now or we get issues with several vtables
+	set(NO_VISIBILITY_CHECK 1)			# Do not add the visibility related compiler flags within "CheckLinuxCompiler.cmake" below
+endif()
+
+
+##################################################
 ## Version checks
 ##################################################
 # Do only this check when using the Makefiles cmake generator
@@ -83,16 +100,17 @@ IF(CMAKE_GENERATOR MATCHES "Makefiles")
 ENDIF(CMAKE_GENERATOR MATCHES "Makefiles")
 
 # Check compiler features
-# currently clang has problems with visibility and template instances which gets exported in a library (see http://llvm.org/bugs/show_bug.cgi?id=10113)
-# and it adds references to methods to the export table which shouldn't be there (e.g. PLMesh: PLCore::ElementManager<PLRenderer::Animation>::GetByIndex(unsigned int) const)
-set(NO_VISIBILITY_CHECK 1)
+# currently clang < 3.2 has problems with visibility and template instances which gets exported in a library (see http://llvm.org/bugs/show_bug.cgi?id=10113)
+# and it adds references to methods to the export table which shouldn't be there (e.g. PLMesh: PLCore::ElementManager<PLRenderer::Animation>::GetByIndex(unsigned int) const) see http://llvm.org/bugs/show_bug.cgi?id=12714
+IF(Clang_VERSION VERSION_LESS "3.2")
+	set(NO_VISIBILITY_CHECK 1)
+endif()
 include(${CMAKETOOLS_DIR}/Modules/CheckLinuxCompiler.cmake)	# Adds e.g. visibility attribute (http://gcc.gnu.org/wiki/Visibility)
 
 
 ##################################################
 ## Compiler flags
 ##################################################
-
 
 set(LINUX_COMPILE_FLAGS
 	${LINUX_COMPILE_FLAGS}
