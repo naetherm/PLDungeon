@@ -42,7 +42,8 @@ using namespace PLGuiXmlText;
 //[-------------------------------------------------------]
 //[ RTTI interface                                        ]
 //[-------------------------------------------------------]
-pl_implement_class(WindowText)
+pl_class_metadata(WindowText, "", WindowBase, "Window that displays a XmlText frame")
+pl_class_metadata_end(WindowText)
 
 
 //[-------------------------------------------------------]

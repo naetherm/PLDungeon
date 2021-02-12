@@ -48,7 +48,12 @@ using namespace PLEngine;
 //[-------------------------------------------------------]
 //[ RTTI interface                                        ]
 //[-------------------------------------------------------]
-pl_implement_class(WindowResolution)
+pl_class_metadata(WindowResolution, "", WindowBase, "Window that displays options for choosing the resolution")
+	// Signals
+	pl_signal_2_metadata(SignalResolutionChanged,	const PLRenderer::DisplayMode*,	bool,	"Resolution changed",	"")
+	// Slots
+	pl_slot_1_metadata(OnChangeValue,	int,	"Called when slider value has changed, current slider value as first parameter",	"")
+pl_class_metadata_end(WindowResolution)
 
 
 //[-------------------------------------------------------]

@@ -53,10 +53,10 @@ class WindowMenu : public WindowBase {
 	//[-------------------------------------------------------]
 	//[ RTTI interface                                        ]
 	//[-------------------------------------------------------]
-	pl_class(pl_rtti_export, WindowMenu, "", WindowBase, "Window that displays the main menu")
+	pl_class_def()
 		// Signals
-		pl_signal_1(SignalCommand,	int,	"Command signal",	"")
-	pl_class_end
+		pl_signal_1_def(SignalCommand,	int)
+	pl_class_def_end
 
 
 	//[-------------------------------------------------------]

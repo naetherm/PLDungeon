@@ -62,21 +62,12 @@ class IngameGui : public PLCore::Object {
 	//[-------------------------------------------------------]
 	//[ RTTI interface                                        ]
 	//[-------------------------------------------------------]
-	pl_class(pl_rtti_export, IngameGui, "", PLCore::Object, "Ingame GUI interaction component")
-		// Constructors
-		pl_constructor_1(ParameterConstructor,	Application&,	"Parameter constructor. Owner application as first parameter.",	"")
-		// Methods
-		pl_method_0(Update,			pl_ret_type(void),							"Updates the ingame GUI component",																							"")
-		pl_method_0(Hide,			pl_ret_type(void),							"Hides all GUI elements",																									"")
-		pl_method_0(IsGuiShown,		pl_ret_type(bool),							"Returns 'true' if currently at least one GUI element is shown, else 'false'",												"")
-		pl_method_0(IsMenuShown,	pl_ret_type(bool),							"Returns whether or not the menu is currently shown. Returns 'true' if the menu is currently shown, else 'false'.",			"")
-		pl_method_1(ShowMenu,		pl_ret_type(void),	bool,					"Shows/hides the menu, 'true' as first parameter to show the menu, else 'false'",											"")
-		pl_method_1(ShowHelpText,	pl_ret_type(void),	const PLCore::String&,	"Display a help text window, name of help text (\"name.xml\" is loaded, \"\" to hide the help text) as first parameter",	"")
+	pl_class_def()
 		// Slots
-		pl_slot_1(OnMenu,				int,														"Called when a menu item has been selected, selected menu item as first parameter",												"")
-		pl_slot_2(OnResolution,			const PLRenderer::DisplayMode*,	bool,						"Called when the resolution slider was changed, new display mode as first parameter, new fullscreen mode as second parameter",	"")
-		pl_slot_2(OnMouseButtonDown,	PLCore::uint32,					const PLMath::Vector2i&,	"Mouse button is pressed, mouse button and mouse position within the widget as parameters",										"")
-	pl_class_end
+		pl_slot_1_def(IngameGui, OnMenu,				int)
+		pl_slot_2_def(IngameGui, OnResolution,			const PLRenderer::DisplayMode*,	bool)
+		pl_slot_2_def(IngameGui, OnMouseButtonDown,	PLCore::uint32,					const PLMath::Vector2i&)
+	pl_class_def_end
 
 
 	//[-------------------------------------------------------]

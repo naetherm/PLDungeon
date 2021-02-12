@@ -44,17 +44,10 @@ class Application : public PLEngine::ScriptApplication {
 	//[-------------------------------------------------------]
 	//[ RTTI interface                                        ]
 	//[-------------------------------------------------------]
-	pl_class(pl_rtti_export, Application, "", PLEngine::ScriptApplication, "Application class")
-		// Constructors
-		pl_constructor_1(ParameterConstructor,	PLCore::Frontend&,	"Parameter constructor. Frontend this application instance is running in as first parameter.",	"")
-		// Methods
-		pl_method_0(IsExpertMode,						pl_ret_type(bool),	"Returns whether or not the application runs within the expert mode. Returns 'true' if the application runs within the expert mode, else 'false' (no additional help texts).",															"")
-		pl_method_0(IsRepeatMode,						pl_ret_type(bool),	"Returns whether or not the application runs within the repeat mode. Returns 'true' if the application runs within the repeat mode (\"movie -> making of -> movie\" instead of \"movie -> making of -> interactive\"), else 'false'.",	"")
-		pl_method_0(IsInternalRelease,					pl_ret_type(bool),	"Returns whether or not this is an internal release. Returns 'true' if this is an internal release, else 'false'.",																														"")
-		pl_method_0(UpdateMousePickingPullAnimation,	pl_ret_type(void),	"Updates the mouse picking pull animation",																																																"")
+	pl_class_def()
 		// Signals
-		pl_signal_2(SignalSetMode,	PLCore::uint32,	bool,	"Signal indicating that a new interaction mode has been chosen, mode index as first parameter(0 = Walk mode, 1 = Free mode, 2 = Ghost mode, 3 = Movie mode, 4 = Making of mode), 'true' as second parameter to show mode changed text",	"")
-	pl_class_end
+		pl_signal_2_def(SignalSetMode,	PLCore::uint32,	bool)
+	pl_class_def_end
 
 
 	//[-------------------------------------------------------]
@@ -107,7 +100,7 @@ class Application : public PLEngine::ScriptApplication {
 	//[-------------------------------------------------------]
 	//[ Private functions                                     ]
 	//[-------------------------------------------------------]
-	private:
+	public:
 		/**
 		*  @brief
 		*    Updates the mouse picking pull animation

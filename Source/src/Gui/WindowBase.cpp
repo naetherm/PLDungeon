@@ -36,7 +36,8 @@ using namespace PLGui;
 //[-------------------------------------------------------]
 //[ RTTI interface                                        ]
 //[-------------------------------------------------------]
-pl_implement_class(WindowBase)
+pl_class_metadata(WindowBase, "", PLGui::Widget, "Base class for windows in the Bridge Viewer")
+pl_class_metadata_end(WindowBase)
 
 
 //[-------------------------------------------------------]

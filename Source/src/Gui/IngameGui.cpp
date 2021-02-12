@@ -52,7 +52,21 @@ using namespace PLFrontendPLGui;
 //[-------------------------------------------------------]
 //[ RTTI interface                                        ]
 //[-------------------------------------------------------]
-pl_implement_class(IngameGui)
+pl_class_metadata(IngameGui, "", PLCore::Object, "Ingame GUI interaction component")
+	// Constructors
+	pl_constructor_1_metadata(ParameterConstructor,	Application&,	"Parameter constructor. Owner application as first parameter.",	"")
+	// Methods
+	pl_method_0_metadata(Update,			pl_ret_type(void),							"Updates the ingame GUI component",																							"")
+	pl_method_0_metadata(Hide,			pl_ret_type(void),							"Hides all GUI elements",																									"")
+	pl_method_0_metadata(IsGuiShown,		pl_ret_type(bool),							"Returns 'true' if currently at least one GUI element is shown, else 'false'",												"")
+	pl_method_0_metadata(IsMenuShown,	pl_ret_type(bool),							"Returns whether or not the menu is currently shown. Returns 'true' if the menu is currently shown, else 'false'.",			"")
+	pl_method_1_metadata(ShowMenu,		pl_ret_type(void),	bool,					"Shows/hides the menu, 'true' as first parameter to show the menu, else 'false'",											"")
+	pl_method_1_metadata(ShowHelpText,	pl_ret_type(void),	const PLCore::String&,	"Display a help text window, name of help text (\"name.xml\" is loaded, \"\" to hide the help text) as first parameter",	"")
+	// Slots
+	pl_slot_1_metadata(OnMenu,				int,														"Called when a menu item has been selected, selected menu item as first parameter",												"")
+	pl_slot_2_metadata(OnResolution,			const PLRenderer::DisplayMode*,	bool,						"Called when the resolution slider was changed, new display mode as first parameter, new fullscreen mode as second parameter",	"")
+	pl_slot_2_metadata(OnMouseButtonDown,	PLCore::uint32,					const PLMath::Vector2i&,	"Mouse button is pressed, mouse button and mouse position within the widget as parameters",										"")
+pl_class_metadata_end(IngameGui)
 
 
 //[-------------------------------------------------------]

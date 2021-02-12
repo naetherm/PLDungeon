@@ -29,9 +29,23 @@
 //[-------------------------------------------------------]
 //[ Class implementation                                  ]
 //[-------------------------------------------------------]
-pl_implement_class(DungeonConfigGroup)
-pl_implement_class(DungeonConfig)
+//pl_implement_class(DungeonConfigGroup)
+//pl_implement_class(DungeonConfig)
 
+	pl_class_metadata(DungeonConfigGroup, "", PLCore::ConfigGroup, "Dungeon configuration 'collection' class")
+	pl_class_metadata_end(DungeonConfigGroup)
+
+	pl_class_metadata(DungeonConfig, "", DungeonConfigGroup, "Dungeon configuration class")
+		// Attributes
+		pl_attribute_metadata(SoundAPI,			PLCore::String,	"PLSoundOpenAL::SoundManager",	ReadWrite,	"Name of the sound API to use",	"")
+	#ifdef INTERNALRELEASE
+		pl_attribute_metadata(EditModeEnabled,	bool,			true,							ReadWrite,	"Edit mode enabled?",			"")
+	#else
+		pl_attribute_metadata(EditModeEnabled,	bool,			false,							ReadWrite,	"Edit mode enabled?",			"")
+	#endif
+		// Constructors
+		pl_constructor_0_metadata(DefaultConstructor,	"Default constructor",	"")
+	pl_class_metadata_end(DungeonConfig)
 
 //[-------------------------------------------------------]
 //[ Protected DungeonConfigGroup functions                ]

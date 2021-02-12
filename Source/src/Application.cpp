@@ -55,7 +55,17 @@ using namespace PLPhysics;
 //[-------------------------------------------------------]
 //[ RTTI interface                                        ]
 //[-------------------------------------------------------]
-pl_implement_class(Application)
+	pl_class_metadata(Application, "", PLEngine::ScriptApplication, "Application class")
+		// Constructors
+		pl_constructor_1_metadata(ParameterConstructor,	PLCore::Frontend&,	"Parameter constructor. Frontend this application instance is running in as first parameter.",	"")
+		// Methods
+		pl_method_0_metadata(IsExpertMode,						pl_ret_type(bool),	"Returns whether or not the application runs within the expert mode. Returns 'true' if the application runs within the expert mode, else 'false' (no additional help texts).",															"")
+		pl_method_0_metadata(IsRepeatMode,						pl_ret_type(bool),	"Returns whether or not the application runs within the repeat mode. Returns 'true' if the application runs within the repeat mode (\"movie -> making of -> movie\" instead of \"movie -> making of -> interactive\"), else 'false'.",	"")
+		pl_method_0_metadata(IsInternalRelease,					pl_ret_type(bool),	"Returns whether or not this is an internal release. Returns 'true' if this is an internal release, else 'false'.",																														"")
+		pl_method_0_metadata(UpdateMousePickingPullAnimation,	pl_ret_type(void),	"Updates the mouse picking pull animation",																																																"")
+		// Signals
+		pl_signal_2_metadata(SignalSetMode,	PLCore::uint32,	bool,	"Signal indicating that a new interaction mode has been chosen, mode index as first parameter(0 = Walk mode, 1 = Free mode, 2 = Ghost mode, 3 = Movie mode, 4 = Making of mode), 'true' as second parameter to show mode changed text",	"")
+	pl_class_metadata_end(Application)
 
 
 //[-------------------------------------------------------]
@@ -75,7 +85,7 @@ Application::Application(Frontend &cFrontend) : ScriptApplication(cFrontend, "Da
 	// This application accepts all the standard parameters that are defined in the application
 	// base class (such as --help etc.). The last parameter however is the filename to load, so add that.
 	m_cCommandLine.AddFlag("Expert", "-e", "--expert", "Expert mode, no additional help texts", false);
-	m_cCommandLine.AddFlag("Repeat", "-r", "--repeat", "If movie and making of is finished, start the movie again instead of switching to ínteractive mode", false);
+	m_cCommandLine.AddFlag("Repeat", "-r", "--repeat", "If movie and making of is finished, start the movie again instead of switching to ï¿½nteractive mode", false);
 }
 
 /**

@@ -52,8 +52,8 @@ class WindowText : public WindowBase {
 	//[-------------------------------------------------------]
 	//[ RTTI interface                                        ]
 	//[-------------------------------------------------------]
-	pl_class(pl_rtti_export, WindowText, "", WindowBase, "Window that displays a XmlText frame")
-	pl_class_end
+	pl_class_def()
+	pl_class_def_end
 
 
 	//[-------------------------------------------------------]

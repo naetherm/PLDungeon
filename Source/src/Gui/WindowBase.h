@@ -44,8 +44,8 @@ class WindowBase : public PLGui::Widget {
 	//[-------------------------------------------------------]
 	//[ RTTI interface                                        ]
 	//[-------------------------------------------------------]
-	pl_class(pl_rtti_export, WindowBase, "", PLGui::Widget, "Base class for windows in the Bridge Viewer")
-	pl_class_end
+	pl_class_def()
+	pl_class_def_end
 
 
 	//[-------------------------------------------------------]

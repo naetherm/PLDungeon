@@ -60,12 +60,12 @@ class WindowResolution : public WindowBase {
 	//[-------------------------------------------------------]
 	//[ RTTI interface                                        ]
 	//[-------------------------------------------------------]
-	pl_class(pl_rtti_export, WindowResolution, "", WindowBase, "Window that displays options for choosing the resolution")
+	pl_class_def()
 		// Signals
-		pl_signal_2(SignalResolutionChanged,	const PLRenderer::DisplayMode*,	bool,	"Resolution changed",	"")
+		pl_signal_2_def(SignalResolutionChanged,	const PLRenderer::DisplayMode*,	bool)
 		// Slots
-		pl_slot_1(OnChangeValue,	int,	"Called when slider value has changed, current slider value as first parameter",	"")
-	pl_class_end
+		pl_slot_1_def(WindowResolution, OnChangeValue,	int)
+	pl_class_def_end
 
 
 	//[-------------------------------------------------------]

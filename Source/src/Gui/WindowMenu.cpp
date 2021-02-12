@@ -41,7 +41,10 @@ using namespace PLGui;
 //[-------------------------------------------------------]
 //[ RTTI interface                                        ]
 //[-------------------------------------------------------]
-pl_implement_class(WindowMenu)
+pl_class_metadata(WindowMenu, "", WindowBase, "Window that displays the main menu")
+	// Signals
+	pl_signal_1_metadata(SignalCommand,	int,	"Command signal",	"")
+pl_class_metadata_end(WindowMenu)
 
 
 //[-------------------------------------------------------]
